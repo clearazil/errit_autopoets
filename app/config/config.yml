@@ -90,6 +90,13 @@ assetic:
       owl_carousel:
         inputs:
           - 'js/owl.carousel.min.js'
+      site_css:
+        inputs:
+          - 'css/bootstrap.min.css'
+          - 'css/asset.css'
+          - 'css/nivo-slider.css'
+          - 'css/style.css'
+          - 'css/responsive.css'
   debug:      '%kernel.debug%'
   use_controller: '%kernel.debug%'
   filters:
