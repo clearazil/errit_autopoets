@@ -2,12 +2,405 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="description" content="">
+        {% block stylesheets %}
+            {% stylesheets 'css/*' filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}">
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+            {% javascripts '@modernizr' %}{% endjavascripts %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <!--header start-->
+        <div class="header">
+            <div class="header-midle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            <div class="logo">
+                                <a href="index.html"><h2 style="color: white;">Errit van der Heide</h2><p style="color: white;"><span style="color: #3f3f8e;"><strong>Verkoop van poets en cleaner</strong></span><br>Plasticoat/Car Star/Perloplast e.a.</p></a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 hidden-sm hidden-xs">
+                            <div class="call-us">
+                                <span><i class="fa fa-phone"></i></span> Bel mij: 06-419 427 43
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-4  hidden-xs">
+                            <div class="top-email">
+                                <span><i class="fa fa-envelope-o"></i></span> E-Mail: erritsjoerd@hotmail.com
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            <div class="header-meddle-right">
+                               <div class="login-account">
+                                    <a href="#"><i class="fa fa-user"></i></a>
+                                </div>
+                                <div class="meni-cart">
+                                    <a href="#" class="cart-icon"><i class="fa fa-shopping-bag"></i> $0.00</a>
+                                    <span>2</span>
+                                    <ul class="cart-area">
+                                        <li class="single-cart">
+                                            <div class="cart-img"><img src="img/cart/cart1.png" alt=""></div>
+                                            <div class="cart-content">
+                                                <h4><a href="#">Mountain Bike <br/> Name Here</a></h4>
+                                                <p>$122.00</p>
+                                            </div>
+                                            <div class="cart-del">
+                                                <a href="#"><i class="fa fa-times"></i></a>
+                                            </div>
+                                        </li>
+                                        <li class="single-cart">
+                                            <div class="cart-img"><img src="img/cart/cart1.png" alt=""></div>
+                                            <div class="cart-content">
+                                                <h4><a href="#">Mountain Bike <br/> Name Here</a></h4>
+                                                <p>$122.00</p>
+                                            </div>
+                                            <div class="cart-del">
+                                                <a href="#"><i class="fa fa-times"></i></a>
+                                            </div>
+                                        </li>
+                                        <li class="single-cart">
+                                            <div class="cart-img"><img src="img/cart/cart1.png" alt=""></div>
+                                            <div class="cart-content">
+                                                <h4><a href="#">Mountain Bike <br/> Name Here</a></h4>
+                                                <p>$122.00</p>
+                                            </div>
+                                            <div class="cart-del">
+                                                <a href="#"><i class="fa fa-times"></i></a>
+                                            </div>
+                                        </li>
+                                        <li class="single-cart">
+                                            <div class="cart-img"><img src="img/cart/cart1.png" alt=""></div>
+                                            <div class="cart-content">
+                                                <h4><a href="#">Mountain Bike <br/> Name Here</a></h4>
+                                                <p>$122.00</p>
+                                            </div>
+                                            <div class="cart-del">
+                                                <a href="#"><i class="fa fa-times"></i></a>
+                                            </div>
+                                        </li>
+                                        <li class="meni-cart-price">
+                                            <div class="cart-price">
+                                                <span>Total=</span>
+                                                <span class="total-price">$488.00</span>
+                                            </div>
+                                            <div class="check-out-btn text-center">
+                                                <a href="#">Check Out</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom sticky-header">
+                <div class="header-bottom-inner">
+                    <div class="container">
+                        <div class="row">
+                            <div class="mgeamenu-full-width">
+                                <div class="col-md-9 col-sm-6 col-xs-3">
+                                    <div class="main-menu hidden-sm hidden-xs">
+                                        <nav>
+                                            <ul>
+                                                <li><a class="home" href="index.html"><i class="fa fa-home"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="index.html">Producten</a>
+                                                </li>
+                                                <li>
+                                                    <a href="index.html">Agenda</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-9">
+                                    <div class="search-area">
+                                       <div class="search-box-inner">
+                                            <form action="#">
+                                               <input type="text" placeholder="Search">
+                                                <button type="submit"><i class="fa fa-search"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mobile menu start -->
+                    <div class="mobile-menu-area hidden-lg hidden-md">
+                        <div class="container">
+                            <div class="col-md-12">
+                                <nav id="dropdown">
+                                    <ul>
+                                        <li><a class="home" href="index.html"><i class="fa fa-home"></i></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mobile menu end -->
+                </div>
+            </div>
+        </div>
+        <!--header end-->
+        <!--slider-area start-->
+            <div class="slider-container overlay">
+                <!-- Slider Image -->
+                <div id="mainSlider" class="nivoSlider slider-image">
+                    <img src="img/slider/slider-1.jpg" alt="" title="#htmlcaption1"/>
+                    <img src="img/slider/slider-2.jpg" alt="" title="#htmlcaption2"/>
+                    <img src="img/slider/slider-3.jpg" alt="" title="#htmlcaption3"/>
+                </div>
+                <!-- Slider Caption 1 -->
+                <div id="htmlcaption1" class="nivo-html-caption slider-caption-1">
+                    <div class="container ">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="slide1-text">
+                                    <div class="middle-text">
+                                        <div class="title-1 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.3s">
+                                            <h1>New <br> Collection</h1>
+                                        </div>
+                                        <div class="shop-now wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
+                                            <a href="#">Shop Now</a>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+                <div id="htmlcaption2" class="nivo-html-caption slider-caption-1">
+                   <div class="container ">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="slide1-text">
+                                    <div class="middle-text">
+                                        <div class="title-1 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.3s">
+                                            <h1>New <br> Collection</h1>
+                                        </div>
+                                        <div class="shop-now wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
+                                            <a href="#">Shop Now</a>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+                <div id="htmlcaption3" class="nivo-html-caption slider-caption-1">
+                   <div class="container ">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="slide1-text">
+                                    <div class="middle-text">
+                                        <div class="title-1 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.3s">
+                                            <h1>New <br> Collection</h1>
+                                        </div>
+                                        <div class="shop-now wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
+                                            <a href="#">Shop Now</a>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        <!--slider-area end-->
+        <!--benner-area start-->
+        <div class="benner-area section-pedding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title text-center">
+                            <h2>Featured Sell</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="banner-list">
+                        <div class="col-md-6">
+                            <div class="sigle-banner">
+                               <div class="banner-desc">
+                                    <div class="price"><p>$320.00</p></div>
+                                    <div class="benner-heding">
+                                    <h3>Ride Bike</h3>
+                                    <p>Sed ut perspiciatis unde omnis iste <br/> natus error sit voluptatem accusan.</p>
+                                    </div>
+                                </div>
+                                <div class="banner-img">
+                                    <img src="img/banner/banner1.png" alt="">
+                                    <div class="view-details">
+                                        <a href="#">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="sigle-banner">
+                               <div class="banner-desc">
+                                    <div class="price"><p>$350.00</p></div>
+                                    <div class="benner-heding">
+                                    <h3>Mountain Bike</h3>
+                                    <p>Lorem ipsum dolor sit amet, conse <br/>ctetuer adipiscing elit.</p>
+                                    </div>
+                                </div>
+                                <div class="banner-img">
+                                    <img src="img/banner/banner2.png" alt="">
+                                    <div class="view-details">
+                                        <a href="#">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="sigle-banner">
+                               <div class="banner-desc">
+                                    <div class="price"><p>$320.00</p></div>
+                                    <div class="benner-heding">
+                                    <h3>Ride Bike</h3>
+                                    <p>Sed ut perspiciatis unde omnis iste <br/> natus error sit voluptatem accusan.</p>
+                                    </div>
+                                </div>
+                                <div class="banner-img">
+                                    <img src="img/banner/banner1.png" alt="">
+                                    <div class="view-details">
+                                        <a href="#">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="sigle-banner">
+                               <div class="banner-desc">
+                                    <div class="price"><p>$350.00</p></div>
+                                    <div class="benner-heding">
+                                    <h3>Mountain Bike</h3>
+                                    <p>Lorem ipsum dolor sit amet, conse <br/>ctetuer adipiscing elit.</p>
+                                    </div>
+                                </div>
+                                <div class="banner-img">
+                                    <img src="img/banner/banner2.png" alt="">
+                                    <div class="view-details">
+                                        <a href="#">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--benner-area end-->
+        <div class="content">
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+
+        <!--footer start-->
+        <div class="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-12">
+                            <div class="single-footer footer-dec">
+                                <div class="footer-logo">
+                                    <a href="#"><img src="img/logo/logo.png" alt=""></a>
+                                </div>
+                                <p class="dec">
+                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
+                                </p>
+                                <div class="social-icon">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-xs-12">
+                            <div class="single-footer">
+                                <div class="footer-title">
+                                    <h4>Pages</h4>
+                                </div>
+                                <ul class="mainmenu">
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> Home</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> About Us</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> Blog</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> FAQs</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> Delivery</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> delivery</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-xs-12">
+                            <div class="single-footer">
+                                <div class="footer-title">
+                                    <h4>My Account</h4>
+                                </div>
+                                <ul class="mainmenu">
+                                    <li><a target="_blank" href="my-account.html"><i class="fa fa-angle-right"></i> My Account</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right"></i> Wish List (3)</a></li>
+                                    <li><a target="_blank" href="cart-page.html"><i class="fa fa-angle-right"></i> Shopping Cart</a></li>
+                                    <li><a target="_blank" href="checkout.html"><i class="fa fa-angle-right"></i> Checkout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="single-footer newsletter">
+                                <div class="footer-title">
+                                    <h4>Newsletter</h4>
+                                </div>
+                                <p>Subscibe to the Shaeng mailing list to receive updates on new arrivals,offers and other discount information</p>
+                                <form action="#">
+                                    <input type="text" placeholder="Write your e-mail here">
+                                    <button>Subscribe</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-botton">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12 col-sm-12">
+                            <p>Copyright © dotbike 2017 | Design by <a target="_blank" href="http://dotthemes.com/">dotthemes.com</a> | All rights reserved</p>
+                        </div>
+                        <div class="col-md-6 col-xs-12 col-sm-12">
+                           <div class="master-card">
+                               <a href="#"><img src="img/logo/cont.png" alt=""></a>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block javascripts %}
+            {% javascripts 
+                '@jquery'
+                '@bootstrap'
+                '@nivo_slider'
+                '@owl_carousel'
+                '@plugins'
+                'js/*' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>

@@ -1,0 +1,655 @@
+/* Medium desktop :992px. */
+@media (min-width: 1200px) and (max-width: 1500px) {
+.nivoSlider::before {
+  position: absolute;
+  right: -42px;
+  top: -122px;
+  transform: skewY(21deg);
+  width: 53%;
+}
+.slide2-text {
+  margin-top: 145px;
+}
+.boxed-layout .page-wrapper {
+  width: 1180px;
+}
+.page-wrapper .title-1 h1 {
+  padding: 50px 0;
+}    
+.boxed-layout .sticky {
+  width: 1180px;
+}  
+.welcome-section {
+  height: 600px;
+}    
+    
+}
+
+/* Normal desktop :992px. */
+@media (min-width: 992px) and (max-width: 1199px) {
+.main-menu li a {
+  font-size: 13px;
+  padding: 20px 5px;
+}
+.header-meddle-right {
+  margin-top: 18px;
+}    
+.header-midle .logo {
+  margin-top: 11px;
+}    
+.main-menu li ul.mega-menu li a {
+  font-size: 12px;
+}    
+.title-1 h1 {
+  font-size: 55px;
+  line-height: 55px;
+  padding: 64px 0 30px;
+}    
+.nivoSlider::before {
+  right: -45px;
+  top: -140px;
+  width: 58%;
+}  
+.single-product {
+  padding: 15px;
+}    
+.product-details h3 a {
+  font-size: 15px;
+}    
+.section-pedding {
+  padding: 70px 0 75px;
+}  
+.accessories-area {
+  padding: 70px 0 75px;
+}
+.banner-list.owl-carousel .owl-buttons > div, .accessories-list.owl-carousel .owl-buttons > div {
+  left: -15px;
+}
+.banner-list.owl-carousel .owl-buttons .owl-next, .accessories-list.owl-carousel .owl-buttons .owl-next {
+  right: -15px;
+}    
+.footer-botton p {
+  font-size: 13px;
+}    
+.home2 .search-area {
+  margin-bottom: 0;
+  margin-top: 19px;
+}
+.home2 .call-us {
+  font-size: 13px;
+}      
+.slide2-text {
+  margin-top: 52px;
+}    
+.slide2-text-innner {
+  padding: 28px 80px 28px 90px;
+}    
+.slide2-text-innner > h1 {
+  font-size: 68px;
+}    
+.slide2-text-innner > h2 {
+  margin-bottom: 30px;
+}    
+.price-filter {
+  padding: 30px 15px;
+}  
+.producut-desc > p {
+  margin-top: 10px;
+}    
+.product-action-btn {
+  margin-top: 15px;
+}    
+.product-det-tab ul li a {
+  padding: 10px 13px;
+}
+.single-input > input {
+  width: 220px;
+}    
+.contact-area .col-md-offset-1 {
+  margin: 0;
+  width: 50%;
+}    
+.offer-coupon {
+  padding: 114px 15px;
+}    
+.offer-titel > p {
+  font-size: 13px;
+}    
+.apply-coupon > button {
+  padding: 13px 16px;
+  right: 31px;
+}    
+.update-cart-btn {
+  height: 361px;
+}    
+.cart_total.cart-pdi {
+  padding: 40px 29px 70px 35px;
+}    
+.boxed-layout .page-wrapper {
+  width: 100%;
+}    
+.boxed-layout .sticky {
+  width: 100%;
+}     
+.welcome-section {
+  height: 600px;
+}      
+  
+}
+
+/* Tablet desktop :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+.top-email {
+  font-size: 13px;
+}
+.search-area {
+  margin-bottom: 11px;
+}    
+.title-1 h1 {
+  font-size: 42px;
+  line-height: 42px;
+  padding: 50px 0 25px;
+}    
+.shop-now a {
+  font-size: 16px;
+}    
+.nivoSlider::before {
+  right: -101px;
+  top: -98px;
+  width: 64%;
+}    
+.section-pedding {
+  padding: 45px 0;
+}    
+.section-title {
+  margin-bottom: 45px;
+}    
+.section-title h2 {
+  font-size: 32px;
+}    
+.single-product {
+  padding: 15px;
+}     
+.all-product a {
+  margin-top: 10px;
+  font-size: 16px;
+}    
+.banner-list.owl-carousel .owl-buttons > div, .accessories-list.owl-carousel .owl-buttons > div {
+  left: -10px;
+}
+.banner-list.owl-carousel .owl-buttons .owl-next, .accessories-list.owl-carousel .owl-buttons .owl-next {
+  right: -10px;
+}     
+.accessories-area {
+  background: #f7f7f7 none repeat scroll 0 0;
+  padding: 45px 0;
+}
+.brand-area {
+  padding: 60px 0;
+}    
+.footer-top .col-md-2 {
+  padding-left: 15px;
+}    
+.single-footer::before {
+  height: 100%;
+}    
+.footer-botton {
+  text-align: center;
+}    
+.master-card img {
+  float: none;
+  margin-top: 15px;
+}    
+.home2 .search-area {
+  margin-bottom: 0;
+  margin-top: 13px;
+}
+.home2 .call-us {
+  margin-bottom: 13px;
+}    
+.slide2-text-innner > h1 {
+  font-size: 55px;
+  margin-bottom: 5px;
+}    
+.slide2-text-innner > h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}    
+.slide2-text-innner {
+   padding: 40px 60px;
+}    
+.slide2-text {
+  float: none;
+  margin-top: 26px;
+  text-align: center;
+}    
+.banner-img2 > img {
+  width: 100%;
+}      
+.sigle-banner2 {
+  margin-bottom: 45px;
+}    
+.featured-img {
+  left: 0;
+  text-align: center;
+}    
+.featured-bike {
+  padding: 0 0 70px;
+}    
+.featured-containet > h2 {
+  font-size: 40px;
+  margin-top: 30px;
+}    
+.featured-containet {
+  text-align: center;
+}    
+.featured-containet > p {
+  margin-bottom: 52px;
+  margin-right: 0;
+}    
+.price-filter {
+  padding: 30px 15px;
+}
+.pagination-inner ul li a {
+  font-size: 18px;
+  height: 40px;
+  line-height: 40px;
+  width: 40px;
+}    
+.showing-page {
+  display: inline-block;
+  float: none;
+  margin-top: 8px;
+}    
+.toolber-form {
+  display: block;
+  float: none;
+  margin-right: 0;
+}    
+.toolber-form.middle {
+  display: inline-block;
+  margin-top: 15px;
+}    
+.shop-tab {
+  margin-top: -3px;
+}    
+.product-list {
+  margin-bottom: 40px;
+}    
+.product-list .product-img {
+  margin-bottom: 20px;
+}    
+.single-input > input {
+  width: 345px;
+}    
+.cart_total.cart-pdi {
+  margin-top: 40px;
+}    
+table > thead > tr > th {
+  font-size: 13px;
+  padding: inherit;
+}    
+table.table-content {
+  margin-bottom: 30px;
+}    
+.cart-name h3 {
+  font-size: 15px;
+}    
+.error-area {
+  padding: 60px 0;
+}    
+.boxed-layout .page-wrapper {
+  width: 100%;
+}    
+.boxed-layout .sticky {
+  width: 100%;
+}
+.welcome-section {
+  height: 500px;
+}    
+.welcome-section .title-1 h1 {
+  font-size: 36px;
+  padding: 0;
+}
+.welcome-text > p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  margin-top: 15px;
+}    
+  
+}
+
+/* small mobile :320px. */
+@media (max-width: 767px) {
+.container {width:300px}
+.banner-list.owl-carousel .owl-buttons > div, .accessories-list.owl-carousel .owl-buttons > div {
+  left: -10px;
+}
+.banner-list.owl-carousel .owl-buttons .owl-next, .accessories-list.owl-carousel .owl-buttons .owl-next {
+  right: -10px;
+} 
+.top-bar-menu {
+  display: none;
+}    
+.header-top,.header-midle {
+  text-align: center;
+}    
+.header-meddle-right {
+  float: none;
+  margin-top: 25px;
+}    
+.search-area {
+  margin-bottom: 11px;
+  margin-top: 11px;
+}    
+ul.cart-area {
+  right: -45px;
+}    
+.shop-now a {
+  display: none !important;
+}    
+.title-1 h1 {
+  font-size: 32px;
+  line-height: 32px;
+  padding: 22px 0;
+}    
+.nivoSlider::before {
+  right: -95px;
+  top: -12px;
+  transform: skewY(10deg);
+  width: 100%;
+}    
+.nivo-controlNav {
+  bottom: 4px;
+  left: 0 !important;
+  right: 0;
+  text-align: center;
+}    
+.nivo-controlNav a {
+   height: 12px;
+   width: 12px;
+}    
+.section-title h2 {
+  font-size: 20px;
+  padding: 0 15px;
+}    
+.footer-botton {
+  text-align: center;
+}    
+.master-card img {
+  float: none;
+  margin-top: 15px;
+}     
+.section-pedding {
+  padding: 35px 0;
+}    
+.benner-heding {
+  float: none;
+  margin-top: 30px;
+  padding-left: 15px;
+  padding-right: 0;
+}
+.view-details a {
+  left: 0;
+}   
+.section-title {
+  margin-bottom: 30px;
+}    
+.all-product a {
+  font-size: 14px;
+  margin-top: 0;
+}    
+.accessories-area {
+  padding: 35px 0;
+}    
+.accessories-area .section-title {
+  margin-bottom: 30px;
+}    
+.brand-area {
+  padding: 50px 0;
+  text-align: center;
+}    
+.footer-top .col-md-2 {
+  padding-left: 15px;
+}    
+.single-footer::before {
+  height: 100%;
+}    
+.footer-botton p {
+  font-size: 13px;
+}    
+.home2 .search-area {
+  margin-top: 35px;
+}
+.home2 .call-us > span {
+  font-size: 16px;
+  height: 32px;
+  line-height: 32px;
+  margin-right: 4px;
+  width: 32px;
+}    
+.home2 .call-us {
+  float: right;
+  font-size: 13px;
+  margin-bottom: 13px;
+}    
+.slide2-text {
+  float: none;
+  margin-top: 0;
+  text-align: center;
+  visibility: visible !important;
+}    
+.slide2-text-innner {
+  padding: 18px 30px 24px 25px;
+}    
+.slide2-text-innner > h2 {
+  display: none;
+}    
+.slide2-text-innner > h1 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  line-height: 32px;
+} 
+.slide2-text-innner > a {
+  font-size: 14px;
+  font-weight: 800;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 28px;
+}    
+.home2 .nivo-controlNav {
+  bottom: 10px;
+  margin-left: 0;
+  text-align: left;
+}    
+.nivo-caption .row, .nivo-caption .container, .nivo-caption .col-xs-12 {
+    height: 100%;
+}
+.slide2-text {
+  left: 25%;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+}    
+.banner-img2 > img {
+  width: 100%;
+}      
+.sigle-banner2 {
+  margin-bottom: 45px;
+}    
+.featured-img {
+  left: 0;
+  text-align: center;
+}    
+.featured-bike {
+  padding: 0 0 70px;
+}    
+.featured-containet > h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}  
+.featured-containet {
+  text-align: center;
+}    
+.featured-containet > p {
+  margin-bottom: 52px;
+  margin-right: 0;
+}    
+.banner-cont {
+  padding-right: 0;
+  padding-top: 20px;
+  right: inherit;
+  text-align: center;
+  width: 100%;
+}   
+.banner-cont > h3 {
+  font-size: 25px;
+  margin-bottom: 6px;
+}    
+.view-det > a {
+  font-size: 15px;
+  padding: 6px 22px;
+}    
+.filter-form {
+  margin: 10px 0;
+}    
+.shop-tab {
+  display: inline-block;
+  float: none;
+  margin-top: 12px;
+}    
+.pagination-inner ul li a {
+  font-size: 15px;
+  font-weight: 400;
+  height: 30px;
+  line-height: 30px;
+  width: 30px;
+  margin-bottom: 10px;
+}    
+.pagination-inner li:last-child a {
+  width: 95px;
+}    
+.showing-page {
+  float: none;
+  display: inline-block;
+}    
+.product-list {
+  margin-bottom: 40px;
+}    
+.product-list .product-img {
+  margin-bottom: 20px;
+}    
+.product-action-btn li {
+  display: block;
+  margin-bottom: 15px;
+  margin-left: 0;
+}    
+.single-product-detels {
+  margin-top: 30px;
+}    
+.single-input > input {
+  width: 100%;
+}    
+.service-icon i {
+  font-size: 30px;
+  margin-right: 10px;
+  margin-top: 9px;
+  margin-bottom: 15px;
+}    
+table > thead > tr > th {
+  font-size: 13px;
+  padding: 0 70px;
+}  
+   
+.cart-name h3 {
+  font-size: 14px;
+} 
+.cart_total {
+  width: 100%;
+}    
+.update-cart-btn {
+  height: 230px;
+  margin: 30px 0;
+}    
+.offer-coupon {
+  margin-bottom: 40px;
+  padding: 75px 30px;
+}    
+.apply-coupon > button {
+  margin-top: 15px;
+  padding: 13px 30px;
+  position: inherit;
+}    
+.update-cart-btn-inner a {
+  margin-top: 0;
+}    
+.input-field .input-text {
+  float: left;
+  padding: 0 !important;
+  width: 100%;
+}    
+.your-order-area {
+  padding: 23px 15px 16px 25px;
+}    
+.billing-detatls-area {
+  padding-left: 0;
+}    
+.error-area {
+  padding: 40px 0;
+}    
+.error-content h2 {
+  font-size: 120px;
+}    
+.error-content > h3 {
+  font-size: 28px;
+}    
+.error-content h4 {
+  font-size: 18px;
+  line-height: 28px;
+}    
+.social-icon > a {
+  margin-right: 5px;
+}    
+.boxed-layout .page-wrapper {
+  width: 100%;
+}    
+.boxed-layout .sticky {
+  width: 100%;
+}    
+.welcome-section {
+  height: 350px;
+}    
+.welcome-text > p {
+   display: none;
+}
+.welcome-section .shop-now a {
+  display: inline-block !important;
+}    
+}
+ 
+/* Large Mobile :480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.container {width:450px}
+.shop-now a {
+  display: inline-block !important;
+}
+.nivoSlider::before {
+  right: -149px;
+  top: -68px;
+  transform: skewY(15deg);
+  width: 108%;
+}    
+.slide2-text-innner > h2 {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+.slide2-text-innner > h1 {
+  margin-bottom: 8px;
+}    
+    
+.welcome-section {
+  height: 450px;
+}    
+}

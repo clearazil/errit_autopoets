@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@DefaultBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -68,3 +69,28 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+assetic:
+  assets:
+      jquery:
+        inputs:
+          - 'js/vendor/jquery-1.12.0.min.js'
+      bootstrap:
+        inputs:
+          - 'js/bootstrap.min.js'
+      modernizr:
+        inputs:
+          - 'js/vendor/modernizr-2.8.3.min.js'
+      plugins:
+        inputs:
+          - 'js/plugins.js'
+      nivo_slider:
+        inputs:
+          - 'js/jquery.nivo.slider.pack.js'
+      owl_carousel:
+        inputs:
+          - 'js/owl.carousel.min.js'
+  debug:      '%kernel.debug%'
+  use_controller: '%kernel.debug%'
+  filters:
+    cssrewrite: ~
