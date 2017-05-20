@@ -75,9 +75,6 @@ assetic:
       jquery:
         inputs:
           - 'js/vendor/jquery-1.12.0.min.js'
-      bootstrap:
-        inputs:
-          - 'js/bootstrap.min.js'
       modernizr:
         inputs:
           - 'js/vendor/modernizr-2.8.3.min.js'
@@ -90,6 +87,14 @@ assetic:
       owl_carousel:
         inputs:
           - 'js/owl.carousel.min.js'
+      site_js:
+        inputs:
+          - 'js/bootstrap.min.js'
+          - 'js/jquery.nivo.slider.pack.js'
+          - 'js/owl.carousel.min.js'
+          - 'js/mail.js'
+          - 'js/plugins.js'
+          - 'js/active.js'
       font_awesome:
         inputs:
           - 'css/font-awesome.min.css'
@@ -102,6 +107,7 @@ assetic:
           - 'css/jquery-ui.css'
           - 'css/owl.theme.css'
           - 'css/owl.transitions.css'
+          - 'css/meanmenu.min.css'
           - 'css/nivo-slider.css'
           - 'css/style.css'
           - 'css/responsive.css'

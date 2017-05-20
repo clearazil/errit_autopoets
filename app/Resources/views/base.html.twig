@@ -7,7 +7,6 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% block stylesheets %}
-            <link rel="stylesheet" href="css/meanmenu.min.css">
             {% stylesheets '@font_awesome' '@site_css' filter='cssrewrite' %}
                 <link rel="stylesheet" href="{{ asset_url }}">
             {% endstylesheets %}
@@ -396,11 +395,7 @@
         {% block javascripts %}
             {% javascripts 
                 '@jquery'
-                '@bootstrap'
-                '@nivo_slider'
-                '@owl_carousel'
-                '@plugins'
-                'js/*' %}
+                '@site_js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
