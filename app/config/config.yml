@@ -90,10 +90,20 @@ assetic:
       owl_carousel:
         inputs:
           - 'js/owl.carousel.min.js'
+      font_awesome:
+        inputs:
+          - 'css/font-awesome.min.css'
       site_css:
         inputs:
           - 'css/bootstrap.min.css'
-          - 'css/asset.css'
+          - 'css/animate.css'
+          - 'css/jquery.mb.YTPlayer.min.css'
+          - 'css/owl.carousel.css'
+          - 'css/jquery-ui.css'
+          - 'css/owl.theme.css'
+          - 'css/owl.transitions.css'
+
+          - 'css/meanmenu.min.css'
           - 'css/nivo-slider.css'
           - 'css/style.css'
           - 'css/responsive.css'
