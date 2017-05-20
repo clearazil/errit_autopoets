@@ -102,8 +102,6 @@ assetic:
           - 'css/jquery-ui.css'
           - 'css/owl.theme.css'
           - 'css/owl.transitions.css'
-
-          - 'css/meanmenu.min.css'
           - 'css/nivo-slider.css'
           - 'css/style.css'
           - 'css/responsive.css'
