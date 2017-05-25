@@ -1,0 +1,90 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('backend') }}">Backend</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>Products</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+    
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h1>Products list</h1>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Updated_at</th>
+                                        <th>Created_at</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for product in pagination %}
+                                    <tr>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.description }}</td>
+                                        <td>{{ product.price|localizedcurrency('EUR') }}</td>
+                                        <td>{{ product.stock }}</td>
+                                        <td>{% if product.updatedat %}{{ product.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td>{% if product.createdat %}{{ product.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td>
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ path('backend_product_show', { 'id': product.id }) }}">
+                                                        <span class="glyphicon glyphicon-eye-open"></span> 
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('backend_product_edit', { 'id': product.id }) }}">
+                                                        <span class="glyphicon glyphicon-pencil"></span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    {{ form_start(deleteForms[product.id]) }}
+                                                        <button type="submit" class="btn btn-link">
+                                                            <span class="glyphicon glyphicon-trash"></span>&nbsp;
+                                                        </button>
+                                                    {{ form_end(deleteForms[product.id]) }}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <div class="navigation">
+                                {{ knp_pagination_render(pagination) }}
+                            </div>
+                        </div>
+
+                        <ul>
+                            <li>
+                                <a class="btn btn-primary" href="{{ path('backend_product_new') }}">Create a new product</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>                        
+            </div>            
+        </div>
+    </div>
+    <!--elements end--> 
+{% endblock %}

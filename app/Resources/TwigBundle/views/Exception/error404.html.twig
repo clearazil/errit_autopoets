@@ -1,0 +1,39 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="index.html">Home</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>Error page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+    
+    <!--404 page start-->
+    <div class="error-area text-center">
+       <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="error-content ">
+                        <h2>404</h2>
+                        <h3>Page not found!</h3>
+                        <h4>Oops! Looks like something has gone wrong</h4>
+                        <p>We can’t seem to find the page you’re looking for <br>
+                            make sure that you have typed the currect URL</p>
+                        <a class="go-home" href="{{ path('home') }}">Go to home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--404 page end--> 
+
+{% endblock %}

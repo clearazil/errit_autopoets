@@ -3,11 +3,13 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@DefaultBundle/Resources/config/services.yml" }
+    - { resource: "@ProductBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: nl
+    product_images_directory: '%kernel.root_dir%/../web/img/product'
 
 framework:
     #esi: ~
@@ -39,6 +41,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+      - 'bootstrap_3_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -87,6 +91,9 @@ assetic:
       owl_carousel:
         inputs:
           - 'js/owl.carousel.min.js'
+      elevate_zoom:
+        inputs:
+          - 'js/vendor/jquery.ez-plus.js'
       site_js:
         inputs:
           - 'js/bootstrap.min.js'
@@ -98,20 +105,39 @@ assetic:
       font_awesome:
         inputs:
           - 'css/font-awesome.min.css'
+      bootstrap:
+        inputs:
+           - 'css/bootstrap.min.css'
+      style:
+        inputs:
+          - 'css/style.css'
+      responsive:
+        inputs:
+          - 'css/responsive.css'
+      nivo_slider_css:
+        inputs:
+          - 'css/nivo-slider.css'
       site_css:
         inputs:
-          - 'css/bootstrap.min.css'
           - 'css/animate.css'
           - 'css/jquery.mb.YTPlayer.min.css'
           - 'css/owl.carousel.css'
-          - 'css/jquery-ui.css'
           - 'css/owl.theme.css'
           - 'css/owl.transitions.css'
           - 'css/meanmenu.min.css'
-          - 'css/nivo-slider.css'
-          - 'css/style.css'
-          - 'css/responsive.css'
+          - 'css/jquery-ui.css'
   debug:      '%kernel.debug%'
   use_controller: '%kernel.debug%'
   filters:
     cssrewrite: ~
+gregwar_image: ~
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: 'KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig'     # sliding pagination controls template
+        sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig' # sort link template

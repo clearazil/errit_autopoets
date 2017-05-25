@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% block stylesheets %}
-            {% stylesheets '@font_awesome' '@site_css' filter='cssrewrite' %}
+            {% stylesheets '@bootstrap' '@font_awesome' '@site_css' '@nivo_slider_css' '@style' '@responsive' filter='cssrewrite' %}
                 <link rel="stylesheet" href="{{ asset_url }}">
             {% endstylesheets %}
         {% endblock %}
@@ -45,7 +45,7 @@
                                     <span>2</span>
                                     <ul class="cart-area">
                                         <li class="single-cart">
-                                            <div class="cart-img"><img src="img/cart/cart1.png" alt=""></div>
+                                            <div class="cart-img"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></div>
                                             <div class="cart-content">
                                                 <h4><a href="#">Mountain Bike <br/> Name Here</a></h4>
                                                 <p>$122.00</p>
@@ -55,7 +55,7 @@
                                             </div>
                                         </li>
                                         <li class="single-cart">
-                                            <div class="cart-img"><img src="img/cart/cart1.png" alt=""></div>
+                                            <div class="cart-img"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></div>
                                             <div class="cart-content">
                                                 <h4><a href="#">Mountain Bike <br/> Name Here</a></h4>
                                                 <p>$122.00</p>
@@ -65,7 +65,7 @@
                                             </div>
                                         </li>
                                         <li class="single-cart">
-                                            <div class="cart-img"><img src="img/cart/cart1.png" alt=""></div>
+                                            <div class="cart-img"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></div>
                                             <div class="cart-content">
                                                 <h4><a href="#">Mountain Bike <br/> Name Here</a></h4>
                                                 <p>$122.00</p>
@@ -75,7 +75,7 @@
                                             </div>
                                         </li>
                                         <li class="single-cart">
-                                            <div class="cart-img"><img src="img/cart/cart1.png" alt=""></div>
+                                            <div class="cart-img"><img src="{{ asset('img/cart/cart1.png') }}" alt=""></div>
                                             <div class="cart-content">
                                                 <h4><a href="#">Mountain Bike <br/> Name Here</a></h4>
                                                 <p>$122.00</p>
@@ -107,18 +107,20 @@
                             <div class="mgeamenu-full-width">
                                 <div class="col-md-9 col-sm-6 col-xs-3">
                                     <div class="main-menu hidden-sm hidden-xs">
-                                        <nav>
-                                            <ul>
-                                                <li><a class="home" href="index.html"><i class="fa fa-home"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="index.html">Producten</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index.html">Agenda</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                        {% block menu %}
+                                            <nav>
+                                                <ul>
+                                                    <li><a class="home" href="index.html"><i class="fa fa-home"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="index.html">Producten</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="index.html">Agenda</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        {% endblock %}
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6 col-xs-9">
@@ -138,12 +140,14 @@
                     <div class="mobile-menu-area hidden-lg hidden-md">
                         <div class="container">
                             <div class="col-md-12">
-                                <nav id="dropdown">
-                                    <ul>
-                                        <li><a class="home" href="index.html"><i class="fa fa-home"></i></a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                {% block mobile_menu %}
+                                    <nav id="dropdown">
+                                        <ul>
+                                            <li><a class="home" href="index.html"><i class="fa fa-home"></i></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                {% endblock %}
                             </div>
                         </div>
                     </div>
@@ -152,161 +156,9 @@
             </div>
         </div>
         <!--header end-->
-        <!--slider-area start-->
-            <div class="slider-container overlay">
-                <!-- Slider Image -->
-                <div id="mainSlider" class="nivoSlider slider-image">
-                    <img src="img/slider/slider-1.jpg" alt="" title="#htmlcaption1"/>
-                    <img src="img/slider/slider-2.jpg" alt="" title="#htmlcaption2"/>
-                    <img src="img/slider/slider-3.jpg" alt="" title="#htmlcaption3"/>
-                </div>
-                <!-- Slider Caption 1 -->
-                <div id="htmlcaption1" class="nivo-html-caption slider-caption-1">
-                    <div class="container ">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="slide1-text">
-                                    <div class="middle-text">
-                                        <div class="title-1 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.3s">
-                                            <h1>New <br> Collection</h1>
-                                        </div>
-                                        <div class="shop-now wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
-                                            <a href="#">Shop Now</a>
-                                        </div>
-                                    </div>  
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
-                <div id="htmlcaption2" class="nivo-html-caption slider-caption-1">
-                   <div class="container ">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="slide1-text">
-                                    <div class="middle-text">
-                                        <div class="title-1 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.3s">
-                                            <h1>New <br> Collection</h1>
-                                        </div>
-                                        <div class="shop-now wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
-                                            <a href="#">Shop Now</a>
-                                        </div>
-                                    </div>  
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
-                <div id="htmlcaption3" class="nivo-html-caption slider-caption-1">
-                   <div class="container ">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="slide1-text">
-                                    <div class="middle-text">
-                                        <div class="title-1 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.3s">
-                                            <h1>New <br> Collection</h1>
-                                        </div>
-                                        <div class="shop-now wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
-                                            <a href="#">Shop Now</a>
-                                        </div>
-                                    </div>  
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
-            </div>
-        <!--slider-area end-->
-        <!--benner-area start-->
-        <div class="benner-area section-pedding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-title text-center">
-                            <h2>Featured Sell</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="banner-list">
-                        <div class="col-md-6">
-                            <div class="sigle-banner">
-                               <div class="banner-desc">
-                                    <div class="price"><p>$320.00</p></div>
-                                    <div class="benner-heding">
-                                    <h3>Ride Bike</h3>
-                                    <p>Sed ut perspiciatis unde omnis iste <br/> natus error sit voluptatem accusan.</p>
-                                    </div>
-                                </div>
-                                <div class="banner-img">
-                                    <img src="img/banner/banner1.png" alt="">
-                                    <div class="view-details">
-                                        <a href="#">View Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="sigle-banner">
-                               <div class="banner-desc">
-                                    <div class="price"><p>$350.00</p></div>
-                                    <div class="benner-heding">
-                                    <h3>Mountain Bike</h3>
-                                    <p>Lorem ipsum dolor sit amet, conse <br/>ctetuer adipiscing elit.</p>
-                                    </div>
-                                </div>
-                                <div class="banner-img">
-                                    <img src="img/banner/banner2.png" alt="">
-                                    <div class="view-details">
-                                        <a href="#">View Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="sigle-banner">
-                               <div class="banner-desc">
-                                    <div class="price"><p>$320.00</p></div>
-                                    <div class="benner-heding">
-                                    <h3>Ride Bike</h3>
-                                    <p>Sed ut perspiciatis unde omnis iste <br/> natus error sit voluptatem accusan.</p>
-                                    </div>
-                                </div>
-                                <div class="banner-img">
-                                    <img src="img/banner/banner1.png" alt="">
-                                    <div class="view-details">
-                                        <a href="#">View Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="sigle-banner">
-                               <div class="banner-desc">
-                                    <div class="price"><p>$350.00</p></div>
-                                    <div class="benner-heding">
-                                    <h3>Mountain Bike</h3>
-                                    <p>Lorem ipsum dolor sit amet, conse <br/>ctetuer adipiscing elit.</p>
-                                    </div>
-                                </div>
-                                <div class="banner-img">
-                                    <img src="img/banner/banner2.png" alt="">
-                                    <div class="view-details">
-                                        <a href="#">View Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--benner-area end-->
-        <div class="content">
-            <div class="container">
-                {% block body %}{% endblock %}
-            </div>
-        </div>
+
+        {% block body %}{% endblock %}
+
 
         <!--footer start-->
         <div class="footer">
@@ -316,7 +168,7 @@
                         <div class="col-md-5 col-sm-6 col-xs-12">
                             <div class="single-footer footer-dec">
                                 <div class="footer-logo">
-                                    <a href="#"><img src="img/logo/logo.png" alt=""></a>
+                                    <a href="#"><img src="{{ asset('img/logo/logo.png') }}" alt=""></a>
                                 </div>
                                 <p class="dec">
                                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
@@ -338,15 +190,8 @@
                                 <div class="footer-title">
                                     <h4>Pages</h4>
                                 </div>
-                                <ul class="mainmenu">
-                                    <li><a href="#"><i class="fa fa-angle-right"></i> Home</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-right"></i> About Us</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-right"></i> Blog</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-right"></i> FAQs</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-right"></i> Delivery</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-right"></i> delivery</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-right"></i> Contact</a></li>
-                                </ul>
+                                {% block footer_menu %}
+                                {% endblock %}
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-6 col-xs-12">
@@ -385,7 +230,7 @@
                         </div>
                         <div class="col-md-6 col-xs-12 col-sm-12">
                            <div class="master-card">
-                               <a href="#"><img src="img/logo/cont.png" alt=""></a>
+                               <a href="#"><img src="{{ asset('img/logo/cont.png') }}" alt=""></a>
                            </div>
                         </div>
                     </div>
@@ -395,6 +240,7 @@
         {% block javascripts %}
             {% javascripts 
                 '@jquery'
+                '@elevate_zoom'
                 '@site_js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}

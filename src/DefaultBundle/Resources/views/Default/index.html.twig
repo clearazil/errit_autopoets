@@ -1,7 +1,109 @@
-{% extends 'base.html.twig' %}
+{% extends 'frontend.html.twig' %}
 
 {% block body %}
 
-Hello World!
+{        <!--slider-area start-->
+    <div class="slider-container overlay">
+        <!-- Slider Image -->
+        <div id="mainSlider" class="nivoSlider slider-image">
+            <img src="img/slider/slider-1.jpg" alt="" title="#htmlcaption1"/>
+            <img src="img/slider/slider-2.jpg" alt="" title="#htmlcaption2"/>
+            <img src="img/slider/slider-3.jpg" alt="" title="#htmlcaption3"/>
+        </div>
+        <!-- Slider Caption 1 -->
+        <div id="htmlcaption1" class="nivo-html-caption slider-caption-1">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="slide1-text">
+                            <div class="middle-text">
+                                <div class="title-1 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.3s">
+                                    <h1>New <br> Collection</h1>
+                                </div>
+                                <div class="shop-now wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
+                                    <a href="#">Shop Now</a>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div id="htmlcaption2" class="nivo-html-caption slider-caption-1">
+           <div class="container ">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="slide1-text">
+                            <div class="middle-text">
+                                <div class="title-1 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.3s">
+                                    <h1>New <br> Collection</h1>
+                                </div>
+                                <div class="shop-now wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
+                                    <a href="#">Shop Now</a>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div id="htmlcaption3" class="nivo-html-caption slider-caption-1">
+           <div class="container ">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="slide1-text">
+                            <div class="middle-text">
+                                <div class="title-1 wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.3s">
+                                    <h1>New <br> Collection</h1>
+                                </div>
+                                <div class="shop-now wow bounceInUp" data-wow-duration="1.3s" data-wow-delay=".5s">
+                                    <a href="#">Shop Now</a>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+<!--slider-area end-->
+<!--benner-area start-->
+<div class="benner-area section-pedding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h2>Featured Sell</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="banner-list">
+                {% for product in products %}
+                    <div class="sigle-banner">
+                       <div class="banner-desc">
+                            <div class="price"><p>{{ product.price|localizedcurrency('EUR') }}</p></div>
+                            <div class="benner-heding">
+                            <h3>{{ product.name }}</h3>
+                            <p>{{ product.description }}</p>
+                            </div>
+                        </div>
+                        <div class="banner-img">
+                            {% if product.images is not empty %}
+                                <img src="{{ asset('img/product/thumbnail/' ~ product.images.first.image) }}" alt="">
+                            {% else %}
+                                <img src="{{ asset('img/banner/banner1.png') }}" alt="">
+                            {% endif %}
+                            <div class="view-details">
+                                <a href="{{ path('product_show', { 'id': product.id }) }}">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!--benner-area end-->}
 
 {% endblock %}

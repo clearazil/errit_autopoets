@@ -729,6 +729,11 @@ li.single-cart:last-child {
 .banner-img {
     position: relative;
 }
+
+.banner-img img {
+    width: auto;
+    height: 226px;
+}
 .banner-list .col-md-6 {
   width: 100%;
 }
@@ -797,6 +802,10 @@ span.price {
 }
 .product-img {
   margin-bottom: 30px;
+}
+.product-img img {
+    width: auto;
+    height: 136px;
 }
 .product-details h3 a {
   color: #1b222a;
@@ -1439,9 +1448,6 @@ span.new {
   text-align: center;
   text-transform: capitalize;
   width: 50px;
-}
-.pagination-inner li:last-child a {
-  width: 127px;
 }
 .pagination-inner ul li a:hover {
   background: #2ba8db;

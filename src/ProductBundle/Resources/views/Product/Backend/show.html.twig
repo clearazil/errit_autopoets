@@ -1,0 +1,108 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('backend') }}">Backend</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('backend_product_index') }}">Products</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>{{ product.name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+    
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h1>Product</h1>
+                            {% form_theme delete_form 'bootstrap_3_horizontal_layout.html.twig' %}
+                            {{ form_start(delete_form) }}
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <a class="btn btn-primary" href="{{ path('backend_product_edit', { 'id': product.id }) }}">Update</a>
+                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                    </div>
+                                </div>
+                            {{ form_end(delete_form) }}
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>{{ product.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{ product.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Price</th>
+                                    <td>{{ product.price|localizedcurrency('EUR') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Stock</th>
+                                    <td>{{ product.stock }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Updated_at</th>
+                                    <td>{% if product.updatedat %}{{ product.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <th>Created_at</th>
+                                    <td>{% if product.createdat %}{{ product.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <a class="btn btn-info" href="{{ path('backend_product_index') }}">Back to the list</a>
+                            <a class="btn btn-primary" href="{{ path('backend_product_image_new', { 'productId': product.id }) }}">New image</a>
+                        </p>
+                        <h2>Images</h1>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Updated_at</th>
+                                        <th>Created_at</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for image in product.images %}
+                                    <tr>
+                                        <td><img src="{{ asset('img/product/' ~ image.image) }}"></td>
+                                        <td>{% if image.updatedat %}{{ image.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td>{% if image.createdat %}{{ image.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                        <td>
+                                            <ul>
+                                                <li>
+                                                    {{ form_start(imageDeleteForms[image.id]) }}
+                                                        <button type="submit" class="btn btn-link">
+                                                            <span class="glyphicon glyphicon-trash"></span>&nbsp;
+                                                        </button>
+                                                    {{ form_end(imageDeleteForms[image.id]) }}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>                        
+            </div>            
+        </div>
+    </div>
+    <!--elements end--> 
+{% endblock %}

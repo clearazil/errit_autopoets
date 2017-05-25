@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block menu %}
+    <nav>
+        <ul>
+            <li><a class="home" href="{{ path('home') }}"><i class="fa fa-home"></i></a>
+            </li>
+            <li>
+                <a href="{{ path('product_index') }}">Producten</a>
+            </li>
+            <li>
+                <a href="index.html">Agenda</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block mobile_menu %}
+    <nav id="dropdown">
+        <ul>
+            <li><a class="home" href="{{ path('home') }}"><i class="fa fa-home"></i></a>
+            </li>
+            <li>
+                <a href="{{ path('product_index') }}">Producten</a>
+            </li>
+            <li>
+                <a href="index.html">Agenda</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block footer_menu %}
+    <ul class="mainmenu">
+        <li><a href="{{ path('home') }}"><i class="fa fa-angle-right"></i> Home</a></li>
+        <li><a href="{{ path('product_index') }}"><i class="fa fa-angle-right"></i> Producten</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> Agenda</a></li>
+    </ul>
+{% endblock %}

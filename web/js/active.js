@@ -220,12 +220,13 @@
     /*-------------------------------------------
 	elevateZoom
 	-------------------------------------------- */	
-	$("#zoom1").elevateZoom({
+	$("#zoom1").ezPlus({
 		gallery:'gallery_01', 
 		cursor: 'crosshair', 
 		galleryActiveClass: "active", 
-		imageCrossfade: true
 	});
+
+
     
     /*--------------------
        11. You tube video active
@@ -239,15 +240,17 @@
         
     });
     
-    
-   
-    
-    
-    
-    
-    
-    
-    
+    /*
+     * Delete confirm
+     */
+    $(document).on('submit', '.delete', function() {
+        event.preventDefault();
 
+      var choice = confirm(this.getAttribute('data-confirm'));
+
+      if (choice) {
+        this.submit();
+      }
+    });
 })(jQuery);
 

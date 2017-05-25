@@ -1,0 +1,40 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('backend') }}">Backend</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('backend_product_index') }}">Products</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('backend_product_show', { 'id': product.id }) }}">{{ product.name }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>New image</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+    
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-md-10">
+                        <h1>Product image creation</h1>
+
+                        {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <input class="btn btn-primary" type="submit" value="Create" />
+                            <a class="btn btn-info" href="{{ path('backend_product_show', { 'id': product.id }) }}">Back to the list</a>
+                        {{ form_end(form) }}
+                    </div>
+                </div>                        
+            </div>            
+        </div>
+    </div>
+    <!--elements end--> 
+{% endblock %}

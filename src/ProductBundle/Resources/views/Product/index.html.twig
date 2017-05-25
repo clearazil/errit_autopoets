@@ -1,0 +1,263 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+
+    <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('home') }}">Home</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('product_index') }}">Products</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+    <!--shop-area start-->
+    <div class="shop-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-12">
+                    <div class="price-slider-box">
+                        <div class="price-filter">
+                            <div class="price-slider-title">
+                                <h6>Min / Max Price</h6>
+                            </div>
+                            <form action="#" method="post">
+                                <div class="price-slider-top">
+                                    <div class="input-type">
+                                        <input type="text" id="min-price" />
+                                    </div>
+                                    <div class="input-type">
+                                        <input type="text" id="max-price" />
+                                    </div>
+                                </div>
+                                <div id="price-slider" class="price-slider"></div>
+                            </form>
+                        </div><!-- /.price-filter -->
+                    </div>
+                    <div class="categoryies-option">
+                        <h4>CATEGORIES</h4>
+                        <ul>
+                            <li>
+                                <input id="Road" type="checkbox" name="Road">
+                                <label for="Road">Road bike<span> (15)</span></label>
+                            </li>
+                            <li>
+                                <input id="moundain" type="checkbox" name="moundain">
+                                <label for="moundain">Mountain bike<span> (13)</span></label>
+                            </li>
+                            <li>
+                                <input id="folding" type="checkbox" name="folding">
+                                <label for="folding">folding bike<span> (13)</span></label>
+                            </li>
+                            <li>
+                                <input id="Children" type="checkbox" name="Children">
+                                <label for="Children">Children Bike<span> (21)</span></label>
+                            </li>
+                            <li>
+                                <input id="Fixed" type="checkbox" name="Fixed">
+                                <label for="Fixed">Fixed Gear <span> (10)</span></label>
+                            </li>
+                            <li>
+                                <input id="Tricycle" type="checkbox" name="Tricycle">
+                                <label for="Tricycle">Tricycle <span> (14)</span></label>
+                            </li>
+                            <li>
+                                <input id="Accessories" type="checkbox" name="Accessories">
+                                <label for="Accessories">Accessories <span> (35)</span></label>
+                            </li>
+                            <li>
+                                <input id="Cycling" type="checkbox" name="Cycling">
+                                <label for="Cycling">Cycling Components <span> (5)</span></label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="categoryies-option color-box">
+                        <h4>color</h4>
+                        <ul>
+                            <li>
+                                <input id="asbestos" class="asbestos" type="checkbox" name="asbestos">
+                                <label for="asbestos">Road bike<span> (15)</span></label>
+                            </li>
+                            <li>
+                                <input id="white" class="white" type="checkbox" name="white">
+                                <label for="white">White<span> (12)</span></label>
+                            </li>
+                            <li>
+                                <input id="green" class="green" type="checkbox" name="green">
+                                <label for="green">folding bike<span> (13)</span></label>
+                            </li>
+                            <li>
+                                <input id="belize" class="belize" type="checkbox" name="belize">
+                                <label for="belize">folding bike<span> (13)</span></label>
+                            </li>
+                            <li>
+                                <input id="pomegramate" class="pomegramate" type="checkbox" name="pomegramate">
+                                <label for="pomegramate">folding bike<span> (13)</span></label>
+                            </li>
+                            <li>
+                                <input id="orange" class="orange" type="checkbox" name="orange">
+                                <label for="orange">folding bike<span> (13)</span></label>
+                            </li>
+                            <li>
+                                <input id="block" class="block" type="checkbox" name="block">
+                                <label for="block">folding bike<span> (13)</span></label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="categoryies-option">
+                        <h4>size</h4>
+                        <ul>
+                            <li>
+                                <input id="s" type="checkbox" name="s">
+                                <label for="s">s<span> (32)</span></label>
+                            </li>
+                            <li>
+                                <input id="M" type="checkbox" name="M">
+                                <label for="M">M<span> (25)</span></label>
+                            </li>
+                            <li>
+                                <input id="L" type="checkbox" name="L">
+                                <label for="L">L<span> (41)</span></label>
+                            </li>
+                            <li>
+                                <input id="XL" type="checkbox" name="XL">
+                                <label for="XL">XL<span> (20)</span></label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="categoryies-option">
+                        <h4>availabilty</h4>
+                        <ul>
+                            <li>
+                                <input id="Not" type="checkbox" name="Not">
+                                <label for="Not">Not available <span> (7)</span></label>
+                            </li>
+                            <li>
+                                <input id="stock" type="checkbox" name="stock">
+                                <label for="stock">In stock <span> (30)</span></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <div class="shop-item-filter">
+                        <div class="toolber-form left">
+                           <p class="filter-title">sort by: </p>
+                            <div class="filter-form">
+                                <form action="#">
+                                    <select>
+                                        <option value="Defauld">Default</option>
+                                        <option value="Newest">Newest items</option>
+                                        <option value="Trending">Trending items</option>
+                                        <option value="Best">Best sellers</option>
+                                        <option value="Price">Price: low to high</option>
+                                        <option value="Price">Price: high to high</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="toolber-form  middle">
+                           <p class="filter-title">Show: </p>
+                            <div class="filter-form show-form">
+                                <form action="#">
+                                    <select>
+                                        <option value="">12</option>
+                                        <option value="">14</option>
+                                        <option value="">16</option>
+                                        <option value="">18</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <!--tab-list start-->
+                        <div class="shop-tab">
+                            <ul role="tablist">
+                                <li role="presentation"><a href="#grid-view" aria-controls="grid-view" role="tab" data-toggle="tab"><i class="fa fa-th"></i></a></li>
+                                <li role="presentation" class="active"><a href="#list-view" aria-controls="list-view" role="tab" data-toggle="tab"><i class="fa fa-th-list"></i></a></li>
+                            </ul>
+                        </div>
+                        <!--tab-list end-->
+                    </div>
+                    
+                    <div class="row">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane" id="grid-view">
+                                {% for product in pagination %}
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <div class="single-product text-center">
+                                            <div class="single-product-inner">
+                                                <div class="product-img">
+                                                    {% if product.images is not empty %}
+                                                        <img src="{{ asset('img/product/thumbnail/' ~ product.images.first.image) }}" alt="">
+                                                    {% else %}
+                                                        <img src="{{ asset('img/product/1.png') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="product-details">
+                                                    <h3><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.name }}</a></h3>
+                                                    <div class="price-box">
+                                                        <div class="new-price"><span>{{ product.price|localizedcurrency('EUR') }}</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-hover">
+                                                    <ul>
+                                                        <li><a href="#" class="add-to-cart">Add to cart</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div role="tabpanel" class="tab-pane active" id="list-view">
+                                {% for product in pagination %}
+                                    <div class="col-md-12 col-sm-12 col-xs-12 product-list">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="product-img">
+                                                    {% if product.images is not empty %}
+                                                        <img src="{{ asset('img/product/thumbnail/' ~ product.images.first.image) }}" alt="">
+                                                    {% else %}
+                                                        <img src="{{ asset('img/product/1.png') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="product-details">
+                                                    <h3><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.name }}</a></h3>
+                                                    <div class="product-review">
+                                                    </div>
+                                                    <div class="price-box">
+                                                        <div class="new-price"><span>{{ product.price|localizedcurrency('EUR') }}</span></div>
+                                                    </div>
+                                                    <div class="producut-desc">
+                                                        <p>{{ product.description }}</p>
+                                                    </div>
+                                                    <div class="product-action-btn">
+                                                        <ul>
+                                                            <li>
+                                                                <a class="add_cart" href="#">Add to cart</a></li>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--shop-area end-->
+{% endblock %}
