@@ -71,7 +71,7 @@
                         {% endif %}
                     </ul>
                 </div>
-                <div class="showing-page"><p>Showing {{ firstItemNumber }} to {{ lastItemNumber }} of {{ totalCount }} ({{ pageCount }} Pages)</p></div>
+                <div class="showing-page"><p>{{ 'KNP_ITEMS_PAGES_SHOWN'|trans({'%first_shown%' : firstItemNumber, '%last_shown%': lastItemNumber, '%total%': totalCount, '%page_count%': pageCount}, 'KnpPaginatorBundle') }}</p></div>
             </div>
         </div>
     </div>

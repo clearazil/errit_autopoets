@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Common -->
+            <trans-unit id="homepage_call_me">
+                <source>HOMEPAGE_CALL_ME</source>
+                <target>Bell mij</target>
+            </trans-unit>
+            <trans-unit id="homepage_headline">
+                <source>HOMEPAGE_HEADLINE</source>
+                <target>Verkoop van poets en cleaner</target>
+            </trans-unit>
+            <trans-unit id="homepage_sub_headline">
+                <source>HOMEPAGE_SUB_HEADLINE</source>
+                <target>Plasticoat/Car Star/Perloplast e.a.</target>
+            </trans-unit>
+            <trans-unit id="homepage_pages">
+                <source>HOMEPAGE_PAGES</source>
+                <target>Pagina's</target>
+            </trans-unit>
+            <trans-unit id="homepage_rights_reserved">
+                <source>HOMEPAGE_RIGHTS_RESERVED</source>
+                <target>Alle rechten voorbehouden</target>
+            </trans-unit>
+            <trans-unit id="homepage_featured">
+                <source>HOMEPAGE_FEATURED</source>
+                <target>Uitgelicht</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

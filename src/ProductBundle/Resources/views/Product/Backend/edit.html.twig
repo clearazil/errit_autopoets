@@ -1,15 +1,17 @@
 {% extends 'backend.html.twig' %}
 
 {% block body %}
+    {% trans_default_domain "product" %}
+
      <!--breadcrumbs-area start -->
     <div class="breadcrumbs-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li><a href="{{ path('backend') }}">Backend</a> <span><i class="fa fa-angle-right"></i></span></li>
-                        <li><a href="{{ path('backend_product_index') }}">Products</a> <span><i class="fa fa-angle-right"></i></span></li>
-                        <li>Edit <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('backend') }}">{{ 'COMMON_BACKEND'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('backend_product_index') }}">{{ 'PRODUCT_PRODUCTS'|trans }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>{{ 'COMMON_EDIT'|trans({}, "common") }} <span><i class="fa fa-angle-right"></i></span></li>
                         <li>{{ product.id }}</li>
                     </ul>
                 </div>
@@ -24,12 +26,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
-                        <h1>Product edit</h1>
+                        <h1>{{ 'PRODUCT_EDIT_PRODUCT'|trans }}</h1>
 
                         {{ form_start(edit_form) }}
                             {{ form_widget(edit_form) }}
-                            <input class="btn btn-primary" type="submit" value="Edit" />
-                            <a class="btn btn-info" href="{{ path('backend_product_index') }}">Back to the list</a>
+                            <input class="btn btn-primary" type="submit" value="{{ 'COMMON_EDIT'|trans({}, "common") }}" />
+                            <a class="btn btn-info" href="{{ path('backend_product_index') }}">{{ 'COMMON_BACK_TO_OVERVIEW'|trans({}, "common") }}</a>
                         {{ form_end(edit_form) }}
 
                     </div>

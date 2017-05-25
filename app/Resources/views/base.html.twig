@@ -13,6 +13,7 @@
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
             {% javascripts '@modernizr' %}{% endjavascripts %}
+        {% trans_default_domain "homepage" %}
     </head>
     <body>
         <!--header start-->
@@ -22,17 +23,17 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-12">
                             <div class="logo">
-                                <a href="index.html"><h2 style="color: white;">Errit van der Heide</h2><p style="color: white;"><span style="color: #3f3f8e;"><strong>Verkoop van poets en cleaner</strong></span><br>Plasticoat/Car Star/Perloplast e.a.</p></a>
+                                <a href="index.html"><h2 style="color: white;">Errit van der Heide</h2><p style="color: white;"><span style="color: #3f3f8e;"><strong>{{ 'HOMEPAGE_HEADLINE'|trans }}</strong></span><br>{{ 'HOMEPAGE_SUB_HEADLINE'|trans }}</p></a>
                             </div>
                         </div>
                         <div class="col-md-3 hidden-sm hidden-xs">
                             <div class="call-us">
-                                <span><i class="fa fa-phone"></i></span> Bel mij: 06-419 427 43
+                                <span><i class="fa fa-phone"></i></span> {{ 'HOMEPAGE_CALL_ME'|trans }}: 06-419 427 43
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-4  hidden-xs">
                             <div class="top-email">
-                                <span><i class="fa fa-envelope-o"></i></span> E-Mail: erritsjoerd@hotmail.com
+                                <span><i class="fa fa-envelope-o"></i></span> {{ 'COMMON_EMAIL'|trans({}, "common") }}: erritsjoerd@hotmail.com
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-4 col-xs-12">
@@ -108,18 +109,6 @@
                                 <div class="col-md-9 col-sm-6 col-xs-3">
                                     <div class="main-menu hidden-sm hidden-xs">
                                         {% block menu %}
-                                            <nav>
-                                                <ul>
-                                                    <li><a class="home" href="index.html"><i class="fa fa-home"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index.html">Producten</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index.html">Agenda</a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
                                         {% endblock %}
                                     </div>
                                 </div>
@@ -141,12 +130,6 @@
                         <div class="container">
                             <div class="col-md-12">
                                 {% block mobile_menu %}
-                                    <nav id="dropdown">
-                                        <ul>
-                                            <li><a class="home" href="index.html"><i class="fa fa-home"></i></a>
-                                            </li>
-                                        </ul>
-                                    </nav>
                                 {% endblock %}
                             </div>
                         </div>
@@ -158,7 +141,6 @@
         <!--header end-->
 
         {% block body %}{% endblock %}
-
 
         <!--footer start-->
         <div class="footer">
@@ -177,18 +159,14 @@
                                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
                                 </p>
                                 <div class="social-icon">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="https://www.facebook.com/perloplast" target="_blank"><i class="fa fa-facebook"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-6 col-xs-12">
                             <div class="single-footer">
                                 <div class="footer-title">
-                                    <h4>Pages</h4>
+                                    <h4>{{ 'HOMEPAGE_PAGES'|trans }}</h4>
                                 </div>
                                 {% block footer_menu %}
                                 {% endblock %}
@@ -226,12 +204,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-xs-12 col-sm-12">
-                            <p>Copyright © dotbike 2017 | Design by <a target="_blank" href="http://dotthemes.com/">dotthemes.com</a> | All rights reserved</p>
-                        </div>
-                        <div class="col-md-6 col-xs-12 col-sm-12">
-                           <div class="master-card">
-                               <a href="#"><img src="{{ asset('img/logo/cont.png') }}" alt=""></a>
-                           </div>
+                            <p>{{ "now"|date("Y") }} © Errit van der Heide | {{ 'HOMEPAGE_RIGHTS_RESERVED'|trans }}</p>
                         </div>
                     </div>
                 </div>

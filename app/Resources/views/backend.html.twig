@@ -7,13 +7,13 @@
                 <a class="home" href="{{ path('home') }}"><i class="fa fa-home"></i></a>
             </li>
             <li>
-                <a href="{{ path('backend_product_index') }}">Producten</a>
+                <a href="{{ path('backend_product_index') }}">{{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</a>
                 <ul class="dropdown_menu">
-                    <li><a href="{{ path('backend_product_new') }}">New product</a></li>
+                    <li><a href="{{ path('backend_product_new') }}">{{ 'PRODUCT_NEW_PRODUCT'|trans({}, "product") }}</a></li>
                 </ul>
             </li>
             <li>
-                <a href="index.html">Gebruikers</a>
+                <a href="index.html">{{ 'USER_USERS'|trans({}, "user") }}</a>
             </li>
         </ul>
     </nav>
@@ -26,13 +26,13 @@
                 <a class="home" href="{{ path('home') }}"><i class="fa fa-home"></i></a>
             </li>
             <li>
-                <a href="{{ path('backend_product_index') }}">Producten</a>
+                <a href="{{ path('backend_product_index') }}">{{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</a>
                 <ul class="dropdown_menu">
-                    <li><a href="{{ path('backend_product_new') }}">New product</a></li>
+                    <li><a href="{{ path('backend_product_new') }}">{{ 'PRODUCT_NEW_PRODUCT'|trans({}, "product") }}</a></li>
                 </ul>
             </li>
             <li>
-                <a href="index.html">Gebruikers</a>
+                <a href="index.html">{{ 'USER_USERS'|trans({}, "user") }}</a>
             </li>
         </ul>
     </nav>
@@ -41,7 +41,7 @@
 {% block footer_menu %}
     <ul class="mainmenu">
         <li><a href="{{ path('backend') }}"><i class="fa fa-angle-right"></i> Home</a></li>
-        <li><a href="{{ path('backend_product_index') }}"><i class="fa fa-angle-right"></i> Producten</a></li>
-        <li><a href="#"><i class="fa fa-angle-right"></i> Gebruikers</a></li>
+        <li><a href="{{ path('backend_product_index') }}"><i class="fa fa-angle-right"></i> {{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i> {{ 'USER_USERS'|trans({}, "user") }}</a></li>
     </ul>
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'frontend.html.twig' %}
 
 {% block body %}
+    {% trans_default_domain "product" %}
 
     <!--breadcrumbs-area start -->
     <div class="breadcrumbs-area">
@@ -8,8 +9,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li><a href="{{ path('home') }}">Home</a> <span><i class="fa fa-angle-right"></i></span></li>
-                        <li><a href="{{ path('product_index') }}">Products</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('product_index') }}">{{ 'PRODUCT_PRODUCTS'|trans }}</a> <span><i class="fa fa-angle-right"></i></span></li>
                         <li>{{ product.name }}</li>
                     </ul>
                 </div>
@@ -192,8 +193,8 @@
                                 <div class="product-det-tab">
                                     <!-- Nav tabs stat-->
                                     <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
-                                        <li role="presentation"><a href="#more-info" aria-controls="more-info" role="tab" data-toggle="tab">More Info</a></li>
+                                        <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">{{ 'PRODUCT_DESCRIPTION'|trans }}</a></li>
+                                        <li role="presentation"><a href="#more-info" aria-controls="more-info" role="tab" data-toggle="tab">{{ 'PRODUCT_MORE_INFORMATION'|trans }}</a></li>
                                     </ul>
                                     <!-- Nav tabs end-->
                                     <!-- Tab panes start -->

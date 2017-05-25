@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Knp Paginator Bundle -->
+            <trans-unit id="knp_label_previous">
+                <source>label_previous</source>
+                <target>Vorige</target>
+            </trans-unit>
+            <trans-unit id="knp_label_next">
+                <source>label_next</source>
+                <target>Volgende</target>
+            </trans-unit>
+            <trans-unit id="knp_items_pages_shown">
+                <source>KNP_ITEMS_PAGES_SHOWN</source>
+                <target>%first_shown% tot %last_shown% van %total% weergegeven (%page_count% pagina's)</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

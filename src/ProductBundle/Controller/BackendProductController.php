@@ -231,7 +231,7 @@ class BackendProductController extends Controller
      */
     private function createDeleteImageForm(Image $image)
     {
-        return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => 'Are you sure you want to delete this item?']])
+        return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
             ->setAction($this->generateUrl('backend_product_image_delete', array('id' => $image->getId())))
             ->setMethod('DELETE')
             ->getForm()
@@ -247,7 +247,7 @@ class BackendProductController extends Controller
      */
     private function createDeleteForm(Product $product)
     {
-        return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => 'Are you sure you want to delete this item?']])
+        return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
             ->setAction($this->generateUrl('backend_product_delete', array('id' => $product->getId())))
             ->setMethod('DELETE')
             ->getForm()

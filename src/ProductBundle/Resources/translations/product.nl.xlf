@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Product -->
+            <trans-unit id="product_product">
+                <source>PRODUCT_PRODUCT</source>
+                <target>Product</target>
+            </trans-unit>
+            <trans-unit id="product_products">
+                <source>PRODUCT_PRODUCTS</source>
+                <target>Producten</target>
+            </trans-unit>
+            <trans-unit id="product_name">
+                <source>PRODUCT_NAME</source>
+                <target>Naam</target>
+            </trans-unit>
+            <trans-unit id="product_description">
+                <source>PRODUCT_DESCRIPTION</source>
+                <target>Beschrijving</target>
+            </trans-unit>
+            <trans-unit id="product_more_information">
+                <source>PRODUCT_MORE_INFORMATION</source>
+                <target>Meer informatie</target>
+            </trans-unit>
+            <trans-unit id="product_price">
+                <source>PRODUCT_PRICE</source>
+                <target>Prijs</target>
+            </trans-unit>
+            <trans-unit id="product_stock">
+                <source>PRODUCT_STOCK</source>
+                <target>Voorraad</target>
+            </trans-unit>
+            <trans-unit id="product_images">
+                <source>PRODUCT_IMAGES</source>
+                <target>Afbeeldingen</target>
+            </trans-unit>
+            <trans-unit id="product_new_product">
+                <source>PRODUCT_NEW_PRODUCT</source>
+                <target>Nieuw product</target>
+            </trans-unit>
+            <trans-unit id="product_edit_product">
+                <source>PRODUCT_EDIT_PRODUCT</source>
+                <target>Bewerk product</target>
+            </trans-unit>
+            <trans-unit id="product_view_details">
+                <source>PRODUCT_VIEW_DETAILS</source>
+                <target>Bekijk details</target>
+            </trans-unit>
+            <trans-unit id="product_add_image_product">
+                <source>PRODUCT_ADD_IMAGE_PRODUCT</source>
+                <target>Afbeelding aan product toevoegen</target>
+            </trans-unit>
+            <trans-unit id="product_back_to_product">
+                <source>PRODUCT_BACK_TO_PRODUCT</source>
+                <target>Terug naar product</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

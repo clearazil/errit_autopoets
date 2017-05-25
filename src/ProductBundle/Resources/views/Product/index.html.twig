@@ -1,6 +1,7 @@
 {% extends 'frontend.html.twig' %}
 
 {% block body %}
+    {% trans_default_domain "product" %}
 
     <!--breadcrumbs-area start -->
     <div class="breadcrumbs-area">
@@ -8,8 +9,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li><a href="{{ path('home') }}">Home</a> <span><i class="fa fa-angle-right"></i></span></li>
-                        <li><a href="{{ path('product_index') }}">Products</a></li>
+                        <li><a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('product_index') }}">{{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</a></li>
                     </ul>
                 </div>
             </div>

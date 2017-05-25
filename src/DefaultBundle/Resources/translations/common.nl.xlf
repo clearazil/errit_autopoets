@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Common -->
+            <trans-unit id="common_create">
+                <source>COMMON_CREATE</source>
+                <target>Aanmaken</target>
+            </trans-unit>
+            <trans-unit id="common_update">
+                <source>COMMON_UPDATE</source>
+                <target>Bewerken</target>
+            </trans-unit>
+            <trans-unit id="common_new">
+                <source>COMMON_NEW</source>
+                <target>Nieuw</target>
+            </trans-unit>
+            <trans-unit id="common_edit">
+                <source>COMMON_EDIT</source>
+                <target>Bewerk</target>
+            </trans-unit>
+            <trans-unit id="common_delete">
+                <source>COMMON_DELETE</source>
+                <target>Verwijder</target>
+            </trans-unit>
+            <trans-unit id="common_delete_confirm">
+                <source>COMMON_DELETE_CONFIRM</source>
+                <target>Weet je zeker dat je dit item wilt verwijderen?</target>
+            </trans-unit>
+            <trans-unit id="common_created_at">
+                <source>COMMON_CREATED_AT</source>
+                <target>Aangemaakt op</target>
+            </trans-unit>
+            <trans-unit id="common_updated_at">
+                <source>COMMON_UPDATED_AT</source>
+                <target>Bijgewerkt op</target>
+            </trans-unit>
+            <trans-unit id="common_actions">
+                <source>COMMON_ACTIONS</source>
+                <target>Acties</target>
+            </trans-unit>
+            <trans-unit id="common_back_to_overview">
+                <source>COMMON_BACK_TO_OVERVIEW</source>
+                <target>Terug naar overzicht</target>
+            </trans-unit>
+            <trans-unit id="common_backend">
+                <source>COMMON_BACKEND</source>
+                <target>Backend</target>
+            </trans-unit>
+            <trans-unit id="common_home">
+                <source>COMMON_HOME</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="common_email">
+                <source>COMMON_EMAIL</source>
+                <target>E-mail</target>
+            </trans-unit>
+            <trans-unit id="common_add_image">
+                <source>COMMON_ADD_IMAGE</source>
+                <target>Afbeelding toevoegen</target>
+            </trans-unit>
+            <trans-unit id="common_image">
+                <source>COMMON_IMAGE</source>
+                <target>Afbeelding</target>
+            </trans-unit>
+            <trans-unit id="common_upload">
+                <source>COMMON_UPLOAD</source>
+                <target>Uploaden</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
