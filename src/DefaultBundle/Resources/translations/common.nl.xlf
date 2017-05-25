@@ -63,6 +63,10 @@
                 <source>COMMON_IMAGE</source>
                 <target>Afbeelding</target>
             </trans-unit>
+            <trans-unit id="common_images">
+                <source>COMMON_IMAGES</source>
+                <target>Afbeeldingen</target>
+            </trans-unit>
             <trans-unit id="common_upload">
                 <source>COMMON_UPLOAD</source>
                 <target>Uploaden</target>
