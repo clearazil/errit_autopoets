@@ -1,0 +1,122 @@
+{% extends "skeleton/crud/views/show.html.twig.twig" %}
+
+{% block extends %}
+{{ "{% extends 'backend.html.twig' %}" }}
+{% endblock extends %}
+
+{% block body %}
+{{ "{% block body %}" }}
+
+    {{ "{% trans_default_domain \"" ~ entity_singularized ~ "\" %}"}}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ "{{ path('backend') }}" }}">{{ "{{ 'COMMON_BACKEND'|trans({}, \"common\") }}" }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ "{{ path('" ~ route_name_prefix ~ "_index') }}" }}">{{ "{{ '" ~ entity_singularized|upper ~ "_" ~ entity_pluralized|upper ~ "'|trans }}" }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><li>{{ "{{ " ~ entity_singularized ~ ".id }}" }}</li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h1>{{ "{{ '" ~ entity_singularized|upper ~ "_" ~ entity_singularized|upper ~ "'|trans }}" }}</h1>
+                        <div class="row">
+                            <div class="col-sm-10">
+                            {% set hide_edit, hide_delete = false, false %}
+                            {%- if ('delete' in actions) and (not hide_delete) %}
+
+                                {{ "{% form_theme delete_form 'bootstrap_3_horizontal_layout.html.twig' %}" }}
+                                {{ '{{ form_start(delete_form) }}' }}
+
+                            {%- endif %}
+
+                            {%- if ('edit' in actions) and (not hide_edit) %}
+
+                                <a class="btn btn-primary" href="{{ "{{ path('" ~ route_name_prefix ~ "_edit', { '"~ identifier ~"': " ~ entity_singularized ~ "."~ identifier ~" }) }}" }}">{{ "{{ 'COMMON_UPDATE'|trans({}, \"common\") }}" }}</a>
+
+                            {%- endif %}
+
+                            {%- if ('delete' in actions) and (not hide_delete) %}
+                                <input type="submit" class="btn btn-danger" value="{{ "{{ 'COMMON_DELETE'|trans({}, \"common\") }}" }}">
+                            {%- endif %}
+
+                            </div>
+                        </div>
+
+                        {%- if ('delete' in actions) and (not hide_delete) %}
+
+                            {{ '{{ form_end(delete_form) }}' }}
+
+                        {%- endif %}
+
+                        <table>
+                            <tbody>
+                            {%- for field, metadata in fields %}
+
+                                <tr>
+                                    {%- if field in ['updatedAt', 'createdAt'] %}
+
+                                    <th>{{ "{{ 'COMMON_" ~ metadata.columnName|upper ~ "'|trans({}, \"common\") }}" }}</th>
+
+                                    {%- else %}
+
+                                    <th>{{ "{{ '" ~ entity_singularized|upper ~ "_" ~ field|upper ~ "'|trans }}" }}</th>
+
+                                    {%- endif %}
+
+                                {%- if metadata.type in ['datetime'] %}
+
+                                    <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}{% endif %}' }}</td>
+
+                                {%- elseif metadata.type in ['date'] %}
+
+                                    <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d\') }}{% endif %}' }}</td>
+
+                                {%- elseif metadata.type in ['time'] %}
+
+                                    <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|date(\'H:i:s\') }}{% endif %}' }}</td>
+
+                                {%- elseif metadata.type in ['array'] %}
+
+                                    <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|join(\', \') }}{% endif %}' }}</td>
+
+                                {%- elseif metadata.type in ['boolean'] %}
+
+                                    <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}Yes{% else %}No{% endif %}' }}</td>
+
+                                {%- else %}
+
+                                    <td>{{ '{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+
+                                {%- endif %}
+
+                                </tr>
+
+                            {%- endfor %}
+
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <a class="btn btn-info" href="{{ "{{ path('" ~ route_name_prefix ~ "_index') }}" }}">{{ "{{ 'COMMON_BACK_TO_OVERVIEW'|trans({}, \"common\") }}" }}</a>
+                        </p>
+                    </div>
+                </div>                        
+            </div>            
+        </div>
+    </div>
+    <!--elements end--> 
+
+{{ "{% endblock %}" }}
+{% endblock body %}

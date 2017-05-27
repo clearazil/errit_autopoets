@@ -1,0 +1,48 @@
+{% extends "skeleton/crud/views/new.html.twig.twig" %}
+
+{% block extends %}
+{{ "{% extends 'backend.html.twig' %}" }}
+{% endblock extends %}
+
+{% block body %}
+{{ "{% block body %}" }}
+
+    {{ "{% trans_default_domain \"" ~ entity_singularized ~ "\" %}"}}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ "{{ path('backend') }}" }}">{{ "{{ 'COMMON_BACKEND'|trans({}, \"common\") }}" }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ "{{ path('" ~ route_name_prefix ~ "_index') }}" }}">{{ "{{ '" ~ entity_singularized|upper ~ "_" ~ entity_pluralized|upper ~ "'|trans }}" }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>{{ "{{ 'COMMON_NEW'|trans({}, \"common\") }}" }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-md-10">
+                        <h1>{{ "{{ '" ~ entity_singularized|upper ~ "_NEW_" ~ entity_singularized|upper ~ "'|trans }}" }}</h1>
+
+                        {{ '{{ form_start(form) }}' }}
+                            {{ '{{ form_widget(form) }}' }}
+                            <input class="btn btn-primary" type="submit" value="{{ "{{ 'COMMON_CREATE'|trans({}, \"common\") }}" }}" />
+                            <a class="btn btn-info" href="{{ "{{ path('" ~ route_name_prefix ~ "_index') }}" }}">{{ "{{ 'COMMON_BACK_TO_OVERVIEW'|trans({}, \"common\") }}" }}</a>
+                        {{ '{{ form_end(form) }}' }}
+                    </div>
+                </div>                        
+            </div>            
+        </div>
+    </div>
+    <!--elements end--> 
+
+{{ "{% endblock %}" }}
+{% endblock body %}

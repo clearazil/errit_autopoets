@@ -1,0 +1,19 @@
+{% extends "skeleton/crud/actions/delete.php.twig" %}
+
+{% block form %}
+    /**
+     * Creates a form to delete a {{ entity_singularized }} entity.
+     *
+     * @param {{ entity_class }} ${{ entity_singularized }} The {{ entity_singularized }} entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm({{ entity_class }} ${{ entity_singularized }})
+    {
+        return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
+            ->setAction($this->generateUrl('{{ route_name_prefix }}_delete', ['{{ identifier }}' => ${{ entity_singularized }}->get{{ identifier|capitalize }}()]))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
+{% endblock form %}

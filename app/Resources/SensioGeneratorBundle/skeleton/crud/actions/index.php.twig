@@ -1,0 +1,31 @@
+{% extends "skeleton/crud/actions/index.php.twig" %}
+
+{% block method_definition %}
+    public function indexAction(Request $request)
+{% endblock method_definition %}
+
+{% block method_body %}
+        $em = $this->getDoctrine()->getManager();
+        $dql   = "SELECT {{ entity_singularized }} FROM {{ bundle }}:{{ entity }} {{ entity_singularized }}";
+        $query = $em->createQuery($dql);
+
+        $paginator  = $this->get('knp_paginator');
+        ${{ entity_pluralized }} = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
+
+        $deleteForms = [];
+
+        foreach (${{ entity_pluralized }} as ${{ entity_singularized }}) {
+            $deleteForms[${{ entity_singularized }}->getId()] = $this->createDeleteForm(${{ entity_singularized }})->createView();
+        }
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->render('{{ entity|lower|replace({'\\': '/'}) }}/index.html.twig', [
+            '{{ entity_pluralized }}' => ${{ entity_pluralized }},
+            'deleteForms' => $deleteForms,
+        ]);
+{% endblock method_return %}

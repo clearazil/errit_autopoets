@@ -1,0 +1,154 @@
+{% extends "skeleton/crud/views/index.html.twig.twig" %}
+
+{% block extends %}
+{{ "{% extends 'backend.html.twig' %}" }}
+{% endblock extends %}
+
+{% block body %}
+{{ "{% block body %}" }}
+
+    {{ "{% trans_default_domain \"" ~ entity_singularized ~ "\" %}"}}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ "{{ path('backend') }}" }}">{{ "{{ 'COMMON_BACKEND'|trans({}, \"common\") }}" }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ "{{ path('" ~ route_name_prefix ~ "_index') }}" }}">{{ "{{ '" ~ entity_singularized|upper ~ "_" ~ entity_pluralized|upper ~ "'|trans }}" }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h1>{{ "{{ '" ~  entity_singularized|upper ~ "_" ~ entity_pluralized|upper ~ "'|trans({}, \"" ~ entity_singularized ~ "\") }}" }}</h1>
+                        {% if 'new' in actions -%}
+                        <ul>
+                            <li>
+                                <a class="btn btn-primary" href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}">{{ "{{ '" ~ entity_singularized|upper ~ "_NEW_" ~ entity_singularized|upper ~ "'|trans({}, \"" ~ entity_singularized ~ "\") }}" }}</a>
+                            </li>
+                        </ul>
+                        {%- endif %}
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                    {%- for field, metadata in fields %}
+                                        {%- if field in ['updatedAt', 'createdAt'] %}
+
+                                        <th>{{ "{{ 'COMMON_" ~ metadata.columnName|upper ~ "'|trans({}, \"common\") }}" }}</th>
+
+                                        {%- else %}
+
+                                        <th>{{ "{{ '" ~ entity_singularized|upper ~ "_" ~ field|upper ~ "'|trans }}" }}</th>
+
+                                        {%- endif %}
+                                    {%- endfor %}
+
+                                        <th>{{ "{{ 'COMMON_ACTIONS'|trans({}, \"common\") }}" }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {{ '{% for ' ~ entity_singularized ~ ' in ' ~ entity_pluralized ~ ' %}' }}
+                                    <tr>
+
+                                {%- for field, metadata in fields %}
+                                    {%- if loop.first and ('show' in actions) %}
+
+                                        <td>
+                                            <a href="{{ "{{ path('" ~ route_name_prefix ~ "_show', { '"~ identifier ~"': " ~ entity_singularized ~ "."~ identifier ~" }) }}" }}">{{ '{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' }}' }}</a>
+                                        </td>
+
+                                    {%- elseif metadata.type in ['datetime'] %}
+
+                                        <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}{% endif %}' }}</td>
+                                    
+                                    {%- elseif metadata.type in ['date'] %}
+
+                                        <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d\') }}{% endif %}' }}</td>
+                                  
+                                    {%- elseif metadata.type in ['time'] %}
+
+                                        <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|date(\'H:i:s\') }}{% endif %}' }}</td>
+
+                                    {%- elseif metadata.type in ['array'] %}
+
+                                        <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '|join(\', \') }}{% endif %}' }}</td>
+
+                                    {%- elseif metadata.type in ['boolean'] %}
+
+                                        <td>{{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}Yes{% else %}No{% endif %}' }}</td>
+
+                                    {%- else %}
+
+                                        <td>{{ '{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+
+                                    {%- endif %}
+
+                                    {%- if loop.last %}
+
+                                        <td>
+                                            <ul>
+
+                                            {%- for action in record_actions %}
+
+                                                <li>
+                                                    <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { '"~ identifier ~"': " ~ entity_singularized ~ "."~ identifier ~" }) }}" }}">
+
+                                                        {%- if action == 'edit' %}
+
+                                                        <span class="glyphicon glyphicon-pencil"></span>
+
+                                                        {%- endif %}
+                                                        {%- if action == 'show' %}
+
+                                                        <span class="glyphicon glyphicon-eye-open"></span>
+
+                                                        {%- endif %}
+
+                                                    </a>
+                                                </li>
+
+                                            {%- endfor %}
+
+                                                <li>
+                                                    {{ "{{ form_start(deleteForms[" ~ entity_singularized ~ ".id]) }}" }}
+                                                        <button type="submit" class="btn btn-link">
+                                                            <span class="glyphicon glyphicon-trash"></span>&nbsp;
+                                                        </button>
+                                                    {{ "{{ form_end(deleteForms[" ~ entity_singularized ~ ".id]) }}" }}
+                                                </li>
+
+                                            </ul>
+                                        </td>
+
+                                    {%- endif %}
+                                {%- endfor %}
+
+                                    </tr>
+                                {{ '{% endfor %}' }}
+                                </tbody>
+                            </table>
+
+                            <div class="navigation">
+                                {{ "{{ knp_pagination_render(" ~ entity_pluralized ~ ") }}" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>                        
+            </div>            
+        </div>
+    </div>
+    <!--elements end--> 
+
+{{ "{% endblock %}" }}
+{% endblock body %}

@@ -26,8 +26,6 @@ class BackendProductController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $em    = $this->get('doctrine.orm.entity_manager');
         $dql   = "SELECT product FROM ProductBundle:Product product";
         $query = $em->createQuery($dql);
 
@@ -248,7 +246,7 @@ class BackendProductController extends Controller
     private function createDeleteForm(Product $product)
     {
         return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
-            ->setAction($this->generateUrl('backend_product_delete', array('id' => $product->getId())))
+            ->setAction($this->generateUrl('backend_product_delete', ['id' => $product->getId()]))
             ->setMethod('DELETE')
             ->getForm()
         ;
