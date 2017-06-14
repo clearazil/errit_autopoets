@@ -21,6 +21,12 @@ class Product
     private $images;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ProductCategory", inversedBy="products")
+     * @ORM\JoinColumn(name="product_category_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $category;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -28,6 +34,13 @@ class Product
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="product_category_id", type="integer", nullable=true)
+     */
+    private $productCategoryId;
 
     /**
      * @var string
@@ -276,5 +289,53 @@ class Product
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Set productCategoryId
+     *
+     * @param integer $productCategoryId
+     *
+     * @return Product
+     */
+    public function setProductCategoryId($productCategoryId)
+    {
+        $this->productCategoryId = $productCategoryId;
+
+        return $this;
+    }
+
+    /**
+     * Get productCategoryId
+     *
+     * @return integer
+     */
+    public function getProductCategoryId()
+    {
+        return $this->productCategoryId;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \ProductBundle\Entity\ProductCategory $category
+     *
+     * @return Product
+     */
+    public function setCategory(\ProductBundle\Entity\ProductCategory $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \ProductBundle\Entity\ProductCategory
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

@@ -1,8 +1,8 @@
 {% extends 'backend.html.twig' %}
 
 {% block body %}
-    {% trans_default_domain "product" %}
-        
+
+    {% trans_default_domain "product_category" %}
      <!--breadcrumbs-area start -->
     <div class="breadcrumbs-area">
         <div class="container">
@@ -11,6 +11,7 @@
                     <ul>
                         <li><a href="{{ path('backend') }}">{{ 'COMMON_BACKEND'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
                         <li><a href="{{ path('backend_product_index') }}">{{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('productcategory_index') }}">{{ 'PRODUCTCATEGORY_PRODUCTCATEGORIES'|trans }}</a> <span><i class="fa fa-angle-right"></i></span></li>
                         <li>{{ 'COMMON_NEW'|trans({}, "common") }}</li>
                     </ul>
                 </div>
@@ -18,19 +19,19 @@
         </div>
     </div>
     <!--breadcrumbs-area end -->
-    
+
     <!--elements start-->
     <div class="elements">
         <div class="typhography text-left">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 col-md-10">
-                        <h1>{{ 'PRODUCT_NEW_PRODUCT'|trans({}, "product") }}</h1>
+                        <h1>{{ 'PRODUCTCATEGORY_NEW_PRODUCTCATEGORY'|trans }}</h1>
 
-                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                        {{ form_start(form) }}
                             {{ form_widget(form) }}
                             <input class="btn btn-primary" type="submit" value="{{ 'COMMON_CREATE'|trans({}, "common") }}" />
-                            <a class="btn btn-info" href="{{ path('backend_product_index') }}">{{ 'COMMON_BACK_TO_OVERVIEW'|trans({}, "common") }}</a>
+                            <a class="btn btn-info" href="{{ path('productcategory_index') }}">{{ 'COMMON_BACK_TO_OVERVIEW'|trans({}, "common") }}</a>
                         {{ form_end(form) }}
                     </div>
                 </div>                        
@@ -38,4 +39,5 @@
         </div>
     </div>
     <!--elements end--> 
+
 {% endblock %}

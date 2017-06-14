@@ -42,6 +42,14 @@
                                     <td>{{ product.name }}</td>
                                 </tr>
                                 <tr>
+                                    <th>{{ 'PRODUCTCATEGORY_PRODUCTCATEGORY'|trans({}, "product_category") }}</th>
+                                    {% if product.category is null %}
+                                        <td>{{ 'PRODUCTCATEGORY_OTHER'|trans({}, "product_category") }}</td>
+                                    {% else %}
+                                        <td>{{ product.category.name }}</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
                                     <th>{{ 'PRODUCT_PRICE'|trans }}</th>
                                     <td>{{ product.price|localizedcurrency('EUR') }}</td>
                                 </tr>

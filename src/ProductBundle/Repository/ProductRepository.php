@@ -10,4 +10,39 @@ namespace ProductBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function productsWithoutCategoryCount()
+    {
+        $query = $this->createQueryBuilder('product')
+            ->select('count(product.id)')
+            ->where('product.category is NULL')
+            ->getQuery();
+
+        return (int) $query->getSingleScalarResult();
+    }
+
+    public function productsQuery()
+    {
+        $query = $this->createQueryBuilder('product')
+            ->getQuery();
+
+        return $query;
+    }
+
+    public function categoriesWithProducts($categories, $other = false)
+    {
+        $query = $this->createQueryBuilder('product')->leftJoin('product.category', 'category');
+
+        $count = 1;
+        foreach ($categories as $category) {
+            $query->orWhere('category.slug = :slug' . $count)
+                ->setParameter('slug' . $count, $category->getSlug());
+            $count++;
+        }
+
+        if ($other) {
+            $query->orWhere('product.category IS NULL');
+        }
+
+        return $query->getQuery();
+    }
 }

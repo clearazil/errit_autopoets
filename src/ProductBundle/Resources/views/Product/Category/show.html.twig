@@ -1,0 +1,66 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+
+    {% trans_default_domain "product_category" %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('backend') }}">{{ 'COMMON_BACKEND'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('backend_product_index') }}">{{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('productcategory_index') }}">{{ 'PRODUCTCATEGORY_PRODUCTCATEGORIES'|trans }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><li>{{ productCategory.id }}</li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h1>{{ 'PRODUCTCATEGORY_PRODUCTCATEGORY'|trans }}</h1>
+                        <div class="row">
+                            <div class="col-sm-10">
+                            
+                                {% form_theme delete_form 'bootstrap_3_horizontal_layout.html.twig' %}
+                                {{ form_start(delete_form) }}
+                                <a class="btn btn-primary" href="{{ path('productcategory_edit', { 'id': productCategory.id }) }}">{{ 'COMMON_UPDATE'|trans({}, "common") }}</a>                                <input type="submit" class="btn btn-danger" value="{{ 'COMMON_DELETE'|trans({}, "common") }}">
+                            </div>
+                        </div>
+                            {{ form_end(delete_form) }}
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>{{ 'PRODUCTCATEGORY_NAME'|trans }}</th>
+                                    <td>{{ productCategory.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'COMMON_UPDATED_AT'|trans({}, "common") }}</th>
+                                    <td>{% if productCategory.updatedAt %}{{ productCategory.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'COMMON_CREATED_AT'|trans({}, "common") }}</th>
+                                    <td>{% if productCategory.createdAt %}{{ productCategory.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <a class="btn btn-info" href="{{ path('productcategory_index') }}">{{ 'COMMON_BACK_TO_OVERVIEW'|trans({}, "common") }}</a>
+                        </p>
+                    </div>
+                </div>                        
+            </div>            
+        </div>
+    </div>
+    <!--elements end--> 
+
+{% endblock %}

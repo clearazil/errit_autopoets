@@ -254,3 +254,18 @@
     });
 })(jQuery);
 
+    /*
+     * A change event on the categories checkboxes with a timeout. 
+     * After 800 miliseconds the form is submitted, unless the form
+     * changes again.
+     */
+    var submitForm;
+
+    $(document).on('change', '.categories-select', function() {
+        clearTimeout(submitForm);
+
+        submitForm = setTimeout(function() {
+            $('.categories-form').submit();
+        }, 800);
+    });
+

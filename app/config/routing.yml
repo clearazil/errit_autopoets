@@ -1,5 +1,15 @@
+product_category:
+    resource: "@ProductBundle/Controller/ProductCategoryController.php"
+    type:     annotation
+    prefix:   /
+
 product:
-    resource: "@ProductBundle/Controller/"
+    resource: "@ProductBundle/Controller/BackendProductController.php"
+    type:     annotation
+    prefix:   /
+
+product_frontend:
+    resource: "@ProductBundle/Controller/ProductController.php"
     type:     annotation
     prefix:   /
 

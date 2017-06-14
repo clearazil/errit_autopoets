@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProductType extends AbstractType
 {
@@ -30,6 +31,13 @@ class ProductType extends AbstractType
                 new NotBlank(),
                 new Length(['max' => 2000]),
             ],
+        ])
+        ->add('category', EntityType::class, [
+            'class' => 'ProductBundle:ProductCategory',
+            'choice_label' => 'name',
+            'label' => 'PRODUCTCATEGORY_PRODUCTCATEGORY',
+            'placeholder' => 'PRODUCTCATEGORY_OTHER',
+            'translation_domain' => 'product_category',
         ])
         ->add('price', TextType::class, ['label' => 'PRODUCT_PRICE',
             'constraints' => [

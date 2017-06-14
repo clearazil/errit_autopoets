@@ -1,5 +1,14 @@
 {% extends 'frontend.html.twig' %}
 
+
+{%- block checkbox_widget -%}
+    <li>
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        <label for="{{ id }}">{{ label }}</label>
+    </li>
+{%- endblock checkbox_widget -%}
+
+
 {% block body %}
     {% trans_default_domain "product" %}
 
@@ -22,126 +31,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-4 col-xs-12">
-                    <div class="price-slider-box">
-                        <div class="price-filter">
-                            <div class="price-slider-title">
-                                <h6>Min / Max Price</h6>
-                            </div>
-                            <form action="#" method="post">
-                                <div class="price-slider-top">
-                                    <div class="input-type">
-                                        <input type="text" id="min-price" />
-                                    </div>
-                                    <div class="input-type">
-                                        <input type="text" id="max-price" />
-                                    </div>
-                                </div>
-                                <div id="price-slider" class="price-slider"></div>
-                            </form>
-                        </div><!-- /.price-filter -->
-                    </div>
                     <div class="categoryies-option">
-                        <h4>CATEGORIES</h4>
+                        {% form_theme form _self %}
+
+                        <h4>{{ 'PRODUCTCATEGORY_PRODUCTCATEGORIES'|trans({}, "product_category")|upper }}</h4>
                         <ul>
-                            <li>
-                                <input id="Road" type="checkbox" name="Road">
-                                <label for="Road">Road bike<span> (15)</span></label>
-                            </li>
-                            <li>
-                                <input id="moundain" type="checkbox" name="moundain">
-                                <label for="moundain">Mountain bike<span> (13)</span></label>
-                            </li>
-                            <li>
-                                <input id="folding" type="checkbox" name="folding">
-                                <label for="folding">folding bike<span> (13)</span></label>
-                            </li>
-                            <li>
-                                <input id="Children" type="checkbox" name="Children">
-                                <label for="Children">Children Bike<span> (21)</span></label>
-                            </li>
-                            <li>
-                                <input id="Fixed" type="checkbox" name="Fixed">
-                                <label for="Fixed">Fixed Gear <span> (10)</span></label>
-                            </li>
-                            <li>
-                                <input id="Tricycle" type="checkbox" name="Tricycle">
-                                <label for="Tricycle">Tricycle <span> (14)</span></label>
-                            </li>
-                            <li>
-                                <input id="Accessories" type="checkbox" name="Accessories">
-                                <label for="Accessories">Accessories <span> (35)</span></label>
-                            </li>
-                            <li>
-                                <input id="Cycling" type="checkbox" name="Cycling">
-                                <label for="Cycling">Cycling Components <span> (5)</span></label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="categoryies-option color-box">
-                        <h4>color</h4>
-                        <ul>
-                            <li>
-                                <input id="asbestos" class="asbestos" type="checkbox" name="asbestos">
-                                <label for="asbestos">Road bike<span> (15)</span></label>
-                            </li>
-                            <li>
-                                <input id="white" class="white" type="checkbox" name="white">
-                                <label for="white">White<span> (12)</span></label>
-                            </li>
-                            <li>
-                                <input id="green" class="green" type="checkbox" name="green">
-                                <label for="green">folding bike<span> (13)</span></label>
-                            </li>
-                            <li>
-                                <input id="belize" class="belize" type="checkbox" name="belize">
-                                <label for="belize">folding bike<span> (13)</span></label>
-                            </li>
-                            <li>
-                                <input id="pomegramate" class="pomegramate" type="checkbox" name="pomegramate">
-                                <label for="pomegramate">folding bike<span> (13)</span></label>
-                            </li>
-                            <li>
-                                <input id="orange" class="orange" type="checkbox" name="orange">
-                                <label for="orange">folding bike<span> (13)</span></label>
-                            </li>
-                            <li>
-                                <input id="block" class="block" type="checkbox" name="block">
-                                <label for="block">folding bike<span> (13)</span></label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="categoryies-option">
-                        <h4>size</h4>
-                        <ul>
-                            <li>
-                                <input id="s" type="checkbox" name="s">
-                                <label for="s">s<span> (32)</span></label>
-                            </li>
-                            <li>
-                                <input id="M" type="checkbox" name="M">
-                                <label for="M">M<span> (25)</span></label>
-                            </li>
-                            <li>
-                                <input id="L" type="checkbox" name="L">
-                                <label for="L">L<span> (41)</span></label>
-                            </li>
-                            <li>
-                                <input id="XL" type="checkbox" name="XL">
-                                <label for="XL">XL<span> (20)</span></label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="categoryies-option">
-                        <h4>availabilty</h4>
-                        <ul>
-                            <li>
-                                <input id="Not" type="checkbox" name="Not">
-                                <label for="Not">Not available <span> (7)</span></label>
-                            </li>
-                            <li>
-                                <input id="stock" type="checkbox" name="stock">
-                                <label for="stock">In stock <span> (30)</span></label>
-                            </li>
+                            {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'categories-form'}}) }}
+                            {{ form_end(form) }}
                         </ul>
                     </div>
                 </div>

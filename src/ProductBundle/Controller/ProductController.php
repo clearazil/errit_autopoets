@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Product controller.
@@ -23,9 +24,27 @@ class ProductController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT product FROM ProductBundle:Product product";
-        $query = $em->createQuery($dql);
+        $em    = $this->getDoctrine()->getManager();
+
+        $productNoCategoryCount = $em->getRepository('ProductBundle:Product')
+            ->productsWithoutCategoryCount();
+
+        $form = $this->createForm('ProductBundle\Form\SelectCategoriesType', null, ['products_count_without_categories' => $productNoCategoryCount, 'other_label' => $this->get('translator')->trans('PRODUCTCATEGORY_OTHER', [], 'product_category')]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $productsWithoutCategory = false;
+
+            if ($form->has('other') && $form->get('other')->getData()) {
+                $productsWithoutCategory = true;
+            }
+
+            $query = $em->getRepository('ProductBundle:Product')
+                ->categoriesWithProducts($form->get('categories')->getData(), $productsWithoutCategory);
+        } else {
+            $query = $em->getRepository('ProductBundle:Product')
+                ->productsQuery();
+        }
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -33,11 +52,11 @@ class ProductController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             9/*limit per page*/
         );
-
         $pagination->setTemplate('pagination.html.twig');
 
         return $this->render('ProductBundle:Product:index.html.twig', array(
             'pagination' => $pagination,
+            'form' => $form->createView(),
         ));
     }
 
