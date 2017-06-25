@@ -1,0 +1,89 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+
+    {% trans_default_domain "user" %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('backend') }}">{{ 'COMMON_BACKEND'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('backend_user_index') }}">{{ 'USER_USERS'|trans }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><li>{{ user.id }}</li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h1>{{ 'USER_USER'|trans }}</h1>
+                        <div class="row">
+                            <div class="col-sm-10">
+                            
+                                {% form_theme delete_form 'bootstrap_3_horizontal_layout.html.twig' %}
+                                {{ form_start(delete_form) }}
+                                <a class="btn btn-primary" href="{{ path('backend_user_edit', { 'id': user.id }) }}">{{ 'COMMON_UPDATE'|trans({}, "common") }}</a>                                <input type="submit" class="btn btn-danger" value="{{ 'COMMON_DELETE'|trans({}, "common") }}">
+                            </div>
+                        </div>
+                            {{ form_end(delete_form) }}
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>{{ 'USER_USERNAME'|trans }}</th>
+                                    <td>{{ user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'USER_EMAIL'|trans }}</th>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'USER_IS_ACTIVE'|trans }}</th>
+                                    <td>{% if user.isActive %}{{ 'COMMON_YES'|trans({}, 'common') }}{% else %}{{ 'COMMON_NO'|trans({}, 'common') }}{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'USER_NAME'|trans }}</th>
+                                    <td>{{ user.address.firstName }} {{ user.address.lastName }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'ADDRESS_ADDRESS'|trans({}, 'address') }}</th>
+                                    <td>{{ user.address.address }} {{ user.address.houseNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'ADDRESS_ZIP_CODE'|trans({}, 'address') }}</th>
+                                    <td>{{ user.address.zipCode }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'ADDRESS_PHONE_NUMBER'|trans({}, 'address') }}</th>
+                                    <td>{{ user.address.phoneNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'COMMON_UPDATED_AT'|trans({}, 'common') }}</th>
+                                    <td>{% if user.updatedat %}{{ user.updatedat|date('d-m-Y H:i:s') }}{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'COMMON_CREATED_AT'|trans({}, 'common') }}</th>
+                                    <td>{% if user.createdat %}{{ user.createdat|date('d-m-Y H:i:s') }}{% endif %}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <a class="btn btn-info" href="{{ path('backend_user_index') }}">{{ 'COMMON_BACK_TO_OVERVIEW'|trans({}, "common") }}</a>
+                        </p>
+                    </div>
+                </div>                        
+            </div>            
+        </div>
+    </div>
+    <!--elements end--> 
+
+{% endblock %}

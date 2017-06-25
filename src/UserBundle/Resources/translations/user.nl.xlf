@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- User -->
+            <trans-unit id="user_user">
+                <source>USER_USER</source>
+                <target>Gebruiker</target>
+            </trans-unit>
+            <trans-unit id="user_users">
+                <source>USER_USERS</source>
+                <target>Gebruikers</target>
+            </trans-unit>
+            <trans-unit id="user_new_user">
+                <source>USER_NEW_USER</source>
+                <target>Nieuwe gebruiker</target>
+            </trans-unit>
+            <trans-unit id="user_edit_user">
+                <source>USER_EDIT_USER</source>
+                <target>Bewerk gebruiker</target>
+            </trans-unit>
+            <trans-unit id="user_username_or_email">
+                <source>USER_USERNAME_OR_EMAIL</source>
+                <target>Gebruikersnaam of emailadres</target>
+            </trans-unit>
+            <trans-unit id="user_username">
+                <source>USER_USERNAME</source>
+                <target>Gebruikersnaam</target>
+            </trans-unit>
+            <trans-unit id="user_name">
+                <source>USER_NAME</source>
+                <target>Naam</target>
+            </trans-unit>
+            <trans-unit id="user_email">
+                <source>USER_EMAIL</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="user_password">
+                <source>USER_PASSWORD</source>
+                <target>Wachtwoord</target>
+            </trans-unit>
+            <trans-unit id="user_is_active">
+                <source>USER_IS_ACTIVE</source>
+                <target>Is actief</target>
+            </trans-unit>
+            <trans-unit id="user_password_repeat">
+                <source>USER_PASSWORD_REPEAT</source>
+                <target>Wachtwoord herhalen</target>
+            </trans-unit>
+            <trans-unit id="user_remember_me">
+                <source>USER_REMEMBER_ME</source>
+                <target>Blijf ingelogd</target>
+            </trans-unit>
+            <trans-unit id="user_login">
+                <source>USER_LOGIN</source>
+                <target>Inloggen</target>
+            </trans-unit>
+            <trans-unit id="user_logout">
+                <source>USER_LOGOUT</source>
+                <target>Uitloggen</target>
+            </trans-unit>
+            <trans-unit id="user_register">
+                <source>USER_REGISTER</source>
+                <target>Registreren</target>
+            </trans-unit>
+            <trans-unit id="user_lost_password">
+                <source>USER_LOST_PASSWORD</source>
+                <target>Wacthwoord vergeten?</target>
+            </trans-unit>
+            <trans-unit id="user_no_account_yet">
+                <source>USER_NO_ACCOUNT_YET</source>
+                <target>Nog geen account?</target>
+            </trans-unit>
+            <trans-unit id="user_thanks_for_registering_email_sent">
+                <source>USER_THANKS_FOR_REGISTERING_EMAIL_SENT</source>
+                <target>Bedankt voor het registreren. Er is een email verstuurd met een link om je account te activeren.</target>
+            </trans-unit>
+            <trans-unit id="user_thanks_for_registering">
+                <source>USER_THANKS_FOR_REGISTERING</source>
+                <target>Bedankt voor het registreren</target>
+            </trans-unit>
+            <trans-unit id="user_hello_name_thanks_for_registering">
+                <source>USER_HELLO_NAME_THANKS_FOR_REGISTERING</source>
+                <target>Hallo %name%, bedankt voor het registreren</target>
+            </trans-unit>
+            <trans-unit id="user_click_here_to_activate_account">
+                <source>USER_CLICK_HERE_TO_ACTIVATE_ACCOUNT</source>
+                <target>Klik %here% om uw account te activeren.</target>
+            </trans-unit>
+            <trans-unit id="user_activate_success">
+                <source>USER_ACTIVATE_SUCCESS</source>
+                <target>Uw account is succesvol geactiveerd.</target>
+            </trans-unit>
+            <trans-unit id="user_forgot_password">
+                <source>USER_FORGOT_PASSWORD</source>
+                <target>Wachtwoord vergeten</target>
+            </trans-unit>
+            <trans-unit id="user_fill_in_email_for_password">
+                <source>USER_FILL_IN_EMAIL_FOR_PASSWORD</source>
+                <target>Vul je email adres hieronder in om een nieuw wachtwoord aan te vragen.</target>
+            </trans-unit>
+            <trans-unit id="user_recover_password_email_sent">
+                <source>USER_RECOVER_PASSWORD_EMAIL_SENT</source>
+                <target>Er is een email verstuurd met een link om je wachtwoord opnieuw in te stellen</target>
+            </trans-unit>
+            <trans-unit id="user_recover_password_email_unknown">
+                <source>USER_RECOVER_PASSWORD_EMAIL_UNKNOWN</source>
+                <target>Er is geen account gevonden met dit email adres</target>
+            </trans-unit>
+            <trans-unit id="user_new_password_requested">
+                <source>USER_NEW_PASSWORD_REQUESTED</source>
+                <target>Nieuw wachtwoord aangevraagd</target>
+            </trans-unit>
+            <trans-unit id="user_new_password_request_received">
+                <source>USER_NEW_PASSWORD_REQUEST_RECEIVED</source>
+                <target>Hallo %name%, we hebben uw aanvraag voor een nieuw wachtwoord ontvangen.</target>
+            </trans-unit>
+            <trans-unit id="user_click_here_for_new_password">
+                <source>USER_CLICK_HERE_FOR_NEW_PASSWORD</source>
+                <target>Klik %here% om uw wachtwoord opnieuw in te stellen.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,45 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>{{ 'USER_REGISTER'|trans({}, "user") }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <div class="elements">
+        <div class="container">
+            <div class="page-header">
+                <h1>{{ 'USER_REGISTER'|trans({}, "user") }}</h1>
+            </div>
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'autocomplete': 'off'}}) }}
+                {{ form_row(form.email, {'attr': {'autocomplete': 'new-username'}}) }}
+                {{ form_row(form.password, {'attr': {'autocomplete': 'new-password'}}) }}
+
+                <br><br>
+                {% for address in form.addresses %}
+                    {{ form_row(address.firstName) }}
+                    {{ form_row(address.lastName) }}
+                    {{ form_row(address.companyName) }}
+                    {{ form_row(address.city) }}
+                    {{ form_row(address.address) }}
+                    {{ form_row(address.houseNumber) }}
+                    {{ form_row(address.zipCode) }}
+                    {{ form_row(address.phoneNumber) }}
+                {% endfor %}
+                <div class="actions-log">
+                    <input class="button" type="submit" value="{{ 'USER_REGISTER'|trans({}, "user") }}" />
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

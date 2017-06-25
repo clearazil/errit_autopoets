@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Account -->
+            <trans-unit id="account_account">
+                <source>ACCOUNT_ACCOUNT</source>
+                <target>Account</target>
+            </trans-unit>
+            <trans-unit id="account_edit_account">
+                <source>ACCOUNT_EDIT_ACCOUNT</source>
+                <target>Gegevens wijzigen</target>
+            </trans-unit>
+            <trans-unit id="account_modify_data">
+                <source>ACCOUNT_MODIFY_DATA</source>
+                <target>Gegevens wijzigen</target>
+            </trans-unit>
+            <trans-unit id="account_orders">
+                <source>ACCOUNT_ORDERS</source>
+                <target>Bestellingen</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

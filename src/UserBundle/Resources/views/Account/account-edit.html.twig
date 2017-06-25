@@ -1,0 +1,61 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('account') }}">{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>{{ 'ACCOUNT_MODIFY_DATA'|trans({}, "account") }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <div class="elements">
+        <div class="container">
+            {% for flashMessage in app.session.flashbag.get('activate_success') %}
+
+                 <div class="alert alert-success" role="alert">{{ flashMessage }}</div>
+
+            {% endfor %}
+            <div class="page-header">
+                <h1>{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }} <small>{{ 'ACCOUNT_MODIFY_DATA'|trans({}, "account") }}</small></h1>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a href="{{ path('account') }}">{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</a></li>
+                        <li><a href="">{{ 'ACCOUNT_ORDERS'|trans({}, "account") }}</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-8">
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'autocomplete': 'off'}}) }}
+                        {{ form_row(form.email, {'attr': {'autocomplete': 'new-username'}}) }}
+                        {{ form_row(form.password, {'attr': {'autocomplete': 'new-password'}}) }}
+
+                        <br><br>
+                        {% for address in form.addresses %}
+                            {{ form_row(address.firstName) }}
+                            {{ form_row(address.lastName) }}
+                            {{ form_row(address.companyName) }}
+                            {{ form_row(address.city) }}
+                            {{ form_row(address.address) }}
+                            {{ form_row(address.houseNumber) }}
+                            {{ form_row(address.zipCode) }}
+                            {{ form_row(address.phoneNumber) }}
+                        {% endfor %}
+                        <div class="actions-log">
+                            <input class="button" type="submit" value="{{ 'COMMON_MODIFY'|trans({}, "common") }}" />
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

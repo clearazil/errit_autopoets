@@ -14,7 +14,7 @@
                 </ul>
             </li>
             <li>
-                <a href="index.html">{{ 'USER_USERS'|trans({}, "user") }}</a>
+                <a href="{{ path('backend_user_index') }}">{{ 'USER_USERS'|trans({}, "user") }}</a>
             </li>
         </ul>
     </nav>
@@ -34,8 +34,17 @@
                 </ul>
             </li>
             <li>
-                <a href="index.html">{{ 'USER_USERS'|trans({}, "user") }}</a>
+                <a href="{{ path('backend_user_index') }}">{{ 'USER_USERS'|trans({}, "user") }}</a>
             </li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li>
+                    <a href="{{ path('logout') }}">{{ 'USER_LOGOUT'|trans({}, "user") }}</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path('login') }}">{{ 'USER_LOGIN'|trans({}, "user") }}</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 {% endblock %}
@@ -44,6 +53,6 @@
     <ul class="mainmenu">
         <li><a href="{{ path('backend') }}"><i class="fa fa-angle-right"></i> Home</a></li>
         <li><a href="{{ path('backend_product_index') }}"><i class="fa fa-angle-right"></i> {{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</a></li>
-        <li><a href="#"><i class="fa fa-angle-right"></i> {{ 'USER_USERS'|trans({}, "user") }}</a></li>
+        <li><a href="{{ path('backend_user_index') }}"><i class="fa fa-angle-right"></i> {{ 'USER_USERS'|trans({}, "user") }}</a></li>
     </ul>
 {% endblock %}

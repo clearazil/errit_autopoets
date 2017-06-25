@@ -1,0 +1,58 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+
+    {% trans_default_domain "user" %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('backend') }}">{{ 'COMMON_BACKEND'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('backend_user_index') }}">{{ 'USER_USERS'|trans }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>{{ 'COMMON_NEW'|trans({}, "common") }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-md-10">
+                        <h1>{{ 'USER_NEW_USER'|trans }}</h1>
+
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                            {{ form_row(form.username) }}
+                            {{ form_row(form.email) }}
+                            {{ form_row(form.password) }}
+                            {{ form_row(form.isActive) }}
+                            {{ form_row(form.userRoles) }}
+
+                            <br><br>
+                            {% for address in form.addresses %}
+                                {{ form_row(address.firstName) }}
+                                {{ form_row(address.lastName) }}
+                                {{ form_row(address.companyName) }}
+                                {{ form_row(address.city) }}
+                                {{ form_row(address.address) }}
+                                {{ form_row(address.houseNumber) }}
+                                {{ form_row(address.zipCode) }}
+                                {{ form_row(address.phoneNumber) }}
+                            {% endfor %}
+                            <input class="btn btn-primary" type="submit" value="{{ 'COMMON_CREATE'|trans({}, "common") }}" />
+                            <a class="btn btn-info" href="{{ path('backend_user_index') }}">{{ 'COMMON_BACK_TO_OVERVIEW'|trans({}, "common") }}</a>
+                        {{ form_end(form) }}
+                    </div>
+                </div>                        
+            </div>            
+        </div>
+    </div>
+    <!--elements end--> 
+
+{% endblock %}

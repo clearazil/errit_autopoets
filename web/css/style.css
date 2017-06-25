@@ -367,6 +367,13 @@ li.single-cart:last-child {
   padding-left: 0;
   padding-top: 17px;
 }
+
+.sub-menu {
+    border-right: 0px;
+    border-left: 1px solid #464646;
+    padding-left: 20px;
+}
+
 .search-area {
   margin-top: 11px;
 }
@@ -2591,7 +2598,7 @@ table tbody tr td {
     float: right;
     font-weight: normal;
     line-height: 20px;
-    margin: 10px 20px 0 0;
+    margin: 0 20px 0 0;
 }
 input#rememberme {
     margin-right: 3px;
@@ -2629,4 +2636,12 @@ input#rememberme {
 }
 .account-page .mandatory-menu {
   margin-bottom: 20px;
+}
+
+.page-header {
+    margin-top: 0px;
+}
+
+.nav-pills {
+    margin-bottom: 30px;
 }

@@ -59,11 +59,11 @@
                                 </tr>
                                 <tr>
                                     <th>{{ 'COMMON_UPDATED_AT'|trans({}, "common") }}</th>
-                                    <td>{% if product.updatedat %}{{ product.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>{% if product.updatedat %}{{ product.updatedat|date('d-m-Y H:i:s') }}{% endif %}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ 'COMMON_CREATED_AT'|trans({}, "common") }}</th>
-                                    <td>{% if product.createdat %}{{ product.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>{% if product.createdat %}{{ product.createdat|date('d-m-Y H:i:s') }}{% endif %}</td>
                                 </tr>
                             </tbody>
                         </table>

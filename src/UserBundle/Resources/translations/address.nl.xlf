@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Address -->
+            <trans-unit id="address_first_name">
+                <source>ADDRESS_FIRST_NAME</source>
+                <target>Voornaam</target>
+            </trans-unit>
+            <trans-unit id="address_last_name">
+                <source>ADDRESS_LAST_NAME</source>
+                <target>Achternaam</target>
+            </trans-unit>
+            <trans-unit id="address_company_name">
+                <source>ADDRESS_COMPANY_NAME</source>
+                <target>Bedrijfsnaam</target>
+            </trans-unit>
+            <trans-unit id="address_city">
+                <source>ADDRESS_CITY</source>
+                <target>Woonplaats</target>
+            </trans-unit>
+            <trans-unit id="address_address">
+                <source>ADDRESS_ADDRESS</source>
+                <target>Adres</target>
+            </trans-unit>
+            <trans-unit id="address_house_number">
+                <source>ADDRESS_HOUSE_NUMBER</source>
+                <target>Huisnummer</target>
+            </trans-unit>
+            <trans-unit id="address_zip_code">
+                <source>ADDRESS_ZIP_CODE</source>
+                <target>Postcode</target>
+            </trans-unit>
+            <trans-unit id="address_phone_number">
+                <source>ADDRESS_PHONE_NUMBER</source>
+                <target>Telefoonnummer</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

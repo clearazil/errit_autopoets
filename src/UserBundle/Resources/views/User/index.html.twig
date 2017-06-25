@@ -1,8 +1,8 @@
 {% extends 'backend.html.twig' %}
 
 {% block body %}
-    {% trans_default_domain "product" %}
-        
+
+    {% trans_default_domain "user" %}
      <!--breadcrumbs-area start -->
     <div class="breadcrumbs-area">
         <div class="container">
@@ -10,73 +10,66 @@
                 <div class="col-md-12">
                     <ul>
                         <li><a href="{{ path('backend') }}">{{ 'COMMON_BACKEND'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
-                        <li>{{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</li>
+                        <li><a href="{{ path('backend_user_index') }}">{{ 'USER_USERS'|trans }}</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
     <!--breadcrumbs-area end -->
-    
+
     <!--elements start-->
     <div class="elements">
         <div class="typhography text-left">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
-                        <h1>{{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</h1>
+                        <h1>{{ 'USER_USERS'|trans({}, "user") }}</h1>
                         <ul>
                             <li>
-                                <a class="btn btn-primary" href="{{ path('backend_product_new') }}">{{ 'PRODUCT_NEW_PRODUCT'|trans({}, "product") }}</a>
+                                <a class="btn btn-primary" href="{{ path('backend_user_new') }}">{{ 'USER_NEW_USER'|trans({}, "user") }}</a>
                             </li>
                         </ul>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>{{ 'PRODUCT_NAME'|trans({}, "product") }}</th>
-                                        <th>{{ 'PRODUCT_DESCRIPTION'|trans({}, "product") }}</th>
-                                        <th>{{ 'PRODUCTCATEGORY_PRODUCTCATEGORY'|trans({}, "product_category") }}</th>
-                                        <th>{{ 'PRODUCT_PRICE'|trans({}, "product") }}</th>
-                                        <th>{{ 'PRODUCT_STOCK'|trans({}, "product") }}</th>
-                                        <th>{{ 'COMMON_UPDATED_AT'|trans({}, "common") }}</th>
-                                        <th>{{ 'COMMON_CREATED_AT'|trans({}, "common") }}</th>
+                                        <th>{{ 'USER_USERNAME'|trans }}</th>
+                                        <th>{{ 'USER_EMAIL'|trans }}</th>
+                                        <th>{{ 'USER_IS_ACTIVE'|trans }}</th>
+                                        <th>{{ 'COMMON_UPDATED_AT'|trans({}, 'common') }}</th>
+                                        <th>{{ 'COMMON_CREATED_AT'|trans({}, 'common') }}</th>
                                         <th>{{ 'COMMON_ACTIONS'|trans({}, "common") }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for product in pagination %}
+                                {% for user in users %}
                                     <tr>
-                                        <td>{{ product.name }}</td>
-                                        <td>{{ product.description }}</td>
-                                        {% if product.category is null %}
-                                            <td>{{ 'PRODUCTCATEGORY_OTHER'|trans({}, "product_category") }}</td>
-                                        {% else %}
-                                            <td>{{ product.category.name }}</td>
-                                        {% endif %}
-                                        <td>{{ product.price|localizedcurrency('EUR') }}</td>
-                                        <td>{{ product.stock }}</td>
-                                        <td>{% if product.updatedat %}{{ product.updatedat|date('d-m-Y H:i:s') }}{% endif %}</td>
-                                        <td>{% if product.createdat %}{{ product.createdat|date('d-m-Y H:i:s') }}{% endif %}</td>
+                                        <td>{{ user.username }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{% if user.isActive %}{{ 'COMMON_YES'|trans({}, 'common') }}{% else %}{{ 'COMMON_NO'|trans({}, 'common') }}{% endif %}</td>
+                                        <td>{% if user.updatedat %}{{ user.updatedat|date('d-m-Y H:i:s') }}{% endif %}</td>
+                                        <td>{% if user.createdat %}{{ user.createdat|date('d-m-Y H:i:s') }}{% endif %}</td>
                                         <td>
                                             <ul>
                                                 <li>
-                                                    <a href="{{ path('backend_product_show', { 'id': product.id }) }}">
-                                                        <span class="glyphicon glyphicon-eye-open"></span> 
+                                                    <a href="{{ path('backend_user_show', { 'id': user.id }) }}">
+                                                        <span class="glyphicon glyphicon-eye-open"></span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ path('backend_product_edit', { 'id': product.id }) }}">
+                                                    <a href="{{ path('backend_user_edit', { 'id': user.id }) }}">
                                                         <span class="glyphicon glyphicon-pencil"></span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    {{ form_start(deleteForms[product.id]) }}
+                                                    {{ form_start(deleteForms[user.id]) }}
                                                         <button type="submit" class="btn btn-link">
                                                             <span class="glyphicon glyphicon-trash"></span>&nbsp;
                                                         </button>
-                                                    {{ form_end(deleteForms[product.id]) }}
+                                                    {{ form_end(deleteForms[user.id]) }}
                                                 </li>
+
                                             </ul>
                                         </td>
                                     </tr>
@@ -85,7 +78,7 @@
                             </table>
 
                             <div class="navigation">
-                                {{ knp_pagination_render(pagination) }}
+                                {{ knp_pagination_render(users) }}
                             </div>
                         </div>
                     </div>
@@ -94,4 +87,5 @@
         </div>
     </div>
     <!--elements end--> 
+
 {% endblock %}

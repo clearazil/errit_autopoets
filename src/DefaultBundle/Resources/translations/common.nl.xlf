@@ -11,6 +11,14 @@
                 <source>COMMON_UPDATE</source>
                 <target>Bewerken</target>
             </trans-unit>
+            <trans-unit id="common_submit">
+                <source>COMMON_SUBMIT</source>
+                <target>Verzenden</target>
+            </trans-unit>
+            <trans-unit id="common_modify">
+                <source>COMMON_MODIFY</source>
+                <target>Aanpassen</target>
+            </trans-unit>
             <trans-unit id="common_new">
                 <source>COMMON_NEW</source>
                 <target>Nieuw</target>
@@ -70,6 +78,22 @@
             <trans-unit id="common_upload">
                 <source>COMMON_UPLOAD</source>
                 <target>Uploaden</target>
+            </trans-unit>
+            <trans-unit id="common_yes">
+                <source>COMMON_YES</source>
+                <target>Ja</target>
+            </trans-unit>
+            <trans-unit id="common_no">
+                <source>COMMON_NO</source>
+                <target>Nee</target>
+            </trans-unit>
+            <trans-unit id="common_here">
+                <source>COMMON_HERE</source>
+                <target>hier</target>
+            </trans-unit>
+            <trans-unit id="common_sincerely">
+                <source>COMMON_SINCERELY</source>
+                <target>Met vriendelijke groet</target>
             </trans-unit>
         </body>
     </file>

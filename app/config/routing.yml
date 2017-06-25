@@ -1,3 +1,8 @@
+user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 product_category:
     resource: "@ProductBundle/Controller/ProductCategoryController.php"
     type:     annotation
@@ -17,3 +22,6 @@ default:
     resource: "@DefaultBundle/Controller/"
     type:     annotation
     prefix:   /
+
+logout:
+    path: /logout

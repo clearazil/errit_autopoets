@@ -1,0 +1,25 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>{{ 'USER_REGISTER'|trans({}, "user") }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <div class="elements">
+        <div class="container">
+            <h1>{{ 'USER_REGISTER'|trans({}, "user") }}</h1>
+            <p>{{ 'USER_THANKS_FOR_REGISTERING_EMAIL_SENT'|trans({}, "user") }}</p>
+        </div>
+    </div>
+{% endblock %}

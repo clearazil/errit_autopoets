@@ -11,6 +11,11 @@
             <li>
                 <a href="index.html">Agenda</a>
             </li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li>
+                    <a href="{{ path('account') }}">{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 {% endblock %}
@@ -26,6 +31,18 @@
             <li>
                 <a href="index.html">Agenda</a>
             </li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li>
+                    <a href="{{ path('account') }}">{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</a>
+                </li>
+                <li>
+                    <a href="{{ path('logout') }}">{{ 'USER_LOGOUT'|trans({}, "user") }}</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path('login') }}">{{ 'USER_LOGIN'|trans({}, "user") }}</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 {% endblock %}
@@ -35,5 +52,8 @@
         <li><a href="{{ path('home') }}"><i class="fa fa-angle-right"></i> Home</a></li>
         <li><a href="{{ path('product_index') }}"><i class="fa fa-angle-right"></i> {{ 'PRODUCT_PRODUCTS'|trans({}, "product") }}</a></li>
         <li><a href="#"><i class="fa fa-angle-right"></i> Agenda</a></li>
+        <li>
+            <a href="{{ path('account') }}"><i class="fa fa-angle-right"></i> {{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</a>
+        </li>
     </ul>
 {% endblock %}

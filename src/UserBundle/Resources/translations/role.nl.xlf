@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Role -->
+            <trans-unit id="role_roles">
+                <source>ROLE_ROLES</source>
+                <target>Rechten</target>
+            </trans-unit>
+            <trans-unit id="role_admin">
+                <source>ROLE_ADMIN</source>
+                <target>Administrator</target>
+            </trans-unit>
+            <trans-unit id="role_user">
+                <source>ROLE_USER</source>
+                <target>Gebruiker</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

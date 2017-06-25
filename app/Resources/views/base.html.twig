@@ -39,7 +39,7 @@
                         <div class="col-md-3 col-sm-4 col-xs-12">
                             <div class="header-meddle-right">
                                <div class="login-account">
-                                    <a href="#"><i class="fa fa-user"></i></a>
+                                    <a href="{{ path('account') }}"><i class="fa fa-user"></i></a>
                                 </div>
                                 <div class="meni-cart">
                                     <a href="#" class="cart-icon"><i class="fa fa-shopping-bag"></i> $0.00</a>
@@ -106,7 +106,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="mgeamenu-full-width">
-                                <div class="col-md-9 col-sm-6 col-xs-3">
+                                <div class="col-md-7 col-sm-6 col-xs-3">
                                     <div class="main-menu hidden-sm hidden-xs">
                                         {% block menu %}
                                         {% endblock %}
@@ -120,6 +120,23 @@
                                                 <button type="submit"><i class="fa fa-search"></i></button>
                                             </form>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-3">
+                                    <div class="main-menu sub-menu hidden-sm hidden-xs">
+                                        <nav>
+                                            <ul>
+                                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                                    <li>
+                                                        <a href="{{ path('logout') }}">{{ 'USER_LOGOUT'|trans({}, "user") }}</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li>
+                                                        <a href="{{ path('login') }}">{{ 'USER_LOGIN'|trans({}, "user") }}</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>

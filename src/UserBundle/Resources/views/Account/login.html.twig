@@ -1,0 +1,57 @@
+{% extends 'frontend.html.twig' %}
+
+{% block _login_login_widget %}
+    <input type="submit" {{ block('button_attributes') }} value="{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}">
+{% endblock %}
+
+{% block body %}
+     <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>{{ 'USER_LOGIN'|trans({}, "user") }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+    
+    <!-- account-details Area Start -->
+        <div class="customer-login-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-xs-12">
+                        <div class="customer-login my-account">
+                            <p style="margin-bottom: 10px;" class="lost_password"><a href="{{ path('register') }}">{{ 'USER_NO_ACCOUNT_YET'|trans({}, "user") }}</a></p>
+                            <div class="clearfix"></div>
+                            {% for flashMessage in app.session.flashbag.get('recover_password_status') %}
+                                 <div class="alert {{ flashMessage.status }}" role="alert">{{ flashMessage.message }}</div>
+                            {% endfor %}
+                            
+                            {% form_theme form _self %}
+                            {{ form_errors(form) }}
+                            {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'login'}}) }}
+                                <div class="form-fields">
+                                    <h2>Login</h2>
+                                    {{ form_row(form.username) }}
+                                    {{ form_row(form.password) }}
+                                </div>
+                                <div class="form-action">
+                                    <p class="lost_password"> <a href="{{ path('recover_password') }}">{{ 'USER_LOST_PASSWORD'|trans({}, "user") }}</a></p>
+                                    <div class="actions-log">
+                                        {{ form_widget(form.login, {'attr': {'class': 'button'}}) }}
+                                    </div>
+                                    {{ form_widget(form.remember_me, {'label_attr': {'class': 'inline'}, 'id': 'rememberme'}) }}
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- account-details Area end -->
+{% endblock %}
