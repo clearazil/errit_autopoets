@@ -7,7 +7,19 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
- twig.extension.text:
-     class: Twig_Extensions_Extension_Intl
-     tags:
-         - { name: twig.extension }
+    twig.extension.text:
+       class: Twig_Extensions_Extension_Intl
+       tags:
+           - { name: twig.extension }
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # makes classes in src/ShoppingBundle available to be used as services
+    ShoppingBundle\:
+        resource: '../../src/ShoppingBundle/*'
+        # you can exclude directories or files
+        # but if a service is unused, it's removed anyway
+        exclude: '../../src/ShoppingBundle/{Entity,Repository,Tests}'

@@ -214,7 +214,7 @@ a.cart-icon {
   position: relative;
 }
 .header-meddle-right {
-  float: right;
+
   margin-top: 10px;
 }
 a.cart-icon:before {
@@ -259,6 +259,9 @@ li.single-cart {
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
+.single-cart-animated {
+    max-height: 100px;
+}
 .meni-cart-price:hover{-webkit-transition: all 0.3s ease 0s;transition: all 0.3s ease 0s;}
 li.single-cart:hover,.meni-cart-price:hover {
   background: #f4f4f4 none repeat scroll 0 0;
@@ -269,7 +272,9 @@ li.single-cart:last-child {
 .cart-img {
   float: left;
   text-align: center;
-  width: 50%;
+  width: 40%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 .cart-content {
   float: left;
@@ -860,9 +865,7 @@ span.price {
     margin-left: 5px;
 }
 .product-hover ul li a {
-    background: #2ba8db none repeat scroll 0 0;
     border-radius: 5px;
-    color: #ffffff;
     display: block;
     font-weight: bold;
     height: 35px;
@@ -871,13 +874,31 @@ span.price {
     text-transform: uppercase;
 }
 .product-hover ul li a.add-to-cart {
+    background: #2ba8db none repeat scroll 0 0;
+    color: #ffffff;
+    padding: 0 14px;
+    border: 2px solid #2ba8db;
+}
+
+.product-hover ul li a.added-to-cart {
+    cursor: default;
+    background: #fff none repeat scroll 0 0;
+    color: #000000;
+    border: 2px solid #008dc7;
     padding: 0 14px;
 }
+
+.product-hover ul li a.added-to-cart:hover {
+    background: #fff none repeat scroll 0 0;
+    border-color: #000000;
+}
+
 .product-hover ul li:first-child {
     margin-left: 0;
 }
 .product-hover ul li a:hover {
     background: #000000 none repeat scroll 0 0;
+    border: 2px solid #000000;
 }
 .product-details {
     padding-bottom: 30px;
@@ -1561,7 +1582,36 @@ span.new {
 .quantity {
   margin-bottom: 39px;
 }
-.single-product-btn > a, .product-action-btn li .add_cart {
+.single-product-btn > a {
+  background: #008dc7 none repeat scroll 0 0;
+  border-radius: 25px;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 5px;
+  padding: 6px 28px;
+  border: 2px solid #008dc7;
+}
+
+.single-product-btn > .added-to-cart {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 25px;
+  color: #000000;
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 5px;
+  padding: 6px 28px;
+  border: 2px solid #008dc7;
+  cursor: default;
+}
+
+.single-product-btn > .added-to-cart:hover {
+  background: #fff none repeat scroll 0 0;
+  color: #000000;
+  border: 2px solid #008dc7;
+}
+
+.product-action-btn li .add_cart {
   background: #008dc7 none repeat scroll 0 0;
   border-radius: 25px;
   color: #ffffff;
@@ -1569,9 +1619,25 @@ span.new {
   font-weight: 600;
   margin-left: 5px;
   padding: 8px 28px;
+  border: 2px solid #008dc7;
 }
 .single-product-btn > a:hover,.product-action-btn li .add_cart:hover {
   background: #000;
+  border: 2px solid #000;
+}
+.product-action-btn li .added-to-cart {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 25px;
+  color: #000000;
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 5px;
+  padding: 8px 28px;
+  border: 2px solid #008dc7;
+  cursor: default;
+}
+.single-product-btn > a .glyphicon, .add_cart .glyphicon, .added-to-cart .glyphicon, .add-to-cart .glyphicon {
+    font-size: .8em;
 }
 .product-det-tab {
   border: 1px solid #ddd;
@@ -1767,6 +1833,10 @@ table tbody tr td {
   border: 1px solid #ddd;
   display: block;
   padding: 12px 0;
+}
+
+.cart-product > a img {
+    width: 138px;
 }
 .cart-name h3 {
     font-size: 17px;
@@ -2644,4 +2714,67 @@ input#rememberme {
 
 .nav-pills {
     margin-bottom: 30px;
+}
+
+.btn-primary {
+    background-color: #008dc7;
+}
+
+/** Modal */
+.modal {
+    top: 5em;
+}
+.modal-title {
+    font-size: 16px;
+    color: #16556e;
+}
+.modal-header {
+    background-color: #2ba8db;
+}
+
+.modal-body {
+    background-color: #f7f7f7;
+}
+.modal-header {
+
+   border-radius: .5em .5em 0 0;
+}
+
+.modal-content {
+    border: 0px;
+    background-color: transparent;
+}
+
+.modal-footer {
+    border-top: 0px;
+    border-radius: 0 0 .5em .5em;
+    background-color: #f7f7f7;
+}
+
+@media (min-width: 768px) {
+    .modal-sm {
+        width: 350px;
+    }
+
+    .menu-cart {
+        float: right;
+        right: 20%;
+    }
+}
+
+.btn-black {
+    background-color: #1b222a;
+    color: white;
+}
+
+.btn-black:hover {
+    color: white;
+}
+
+.cart-area .animate {
+    max-height: 0px;
+    padding: 0%;
+    border: 0%;
+    -webkit-transition: all 1s ease 0s;
+    transition: all 1s ease 0s;
 }

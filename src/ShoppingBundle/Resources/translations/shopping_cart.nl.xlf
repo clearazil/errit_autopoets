@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Shopping Cart -->
+            <trans-unit id="shopping_cart_add_to_cart">
+                <source>SHOPPING_CART_ADD_TO_CART</source>
+                <target>In winkelwagen</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_shopping_cart">
+                <source>SHOPPING_CART_SHOPPING_CART</source>
+                <target>Winkelwagen</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_article">
+                <source>SHOPPING_CART_ARTICLE</source>
+                <target>Artikel</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_quantity">
+                <source>SHOPPING_CART_QUANTITY</source>
+                <target>Aantal</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_price">
+                <source>SHOPPING_CART_PRICE</source>
+                <target>Prijs</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_total">
+                <source>SHOPPING_CART_TOTAL</source>
+                <target>Totaal</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_total_price">
+                <source>SHOPPING_CART_TOTAL_PRICE</source>
+                <target>Totaalprijs</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_shipping_cost">
+                <source>SHOPPING_CART_SHIPPING_COST</source>
+                <target>Verzendkosten</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_subtotal">
+                <source>SHOPPING_CART_SUBTOTAL</source>
+                <target>Subtotaal</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_vat">
+                <source>SHOPPING_CART_VAT</source>
+                <target>BTW</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_proceed_to_checkout">
+                <source>SHOPPING_CART_PROCEED_TO_CHECKOUT</source>
+                <target>Naar bestellen</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_checkout">
+                <source>SHOPPING_CART_CHECKOUT</source>
+                <target>Bestellen</target>
+            </trans-unit>
+            <trans-unit id="shopping_cart_shopping_cart_is_empty">
+                <source>SHOPPING_CART_SHOPPING_CART_IS_EMPTY</source>
+                <target>Winkelwagen is leeg</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

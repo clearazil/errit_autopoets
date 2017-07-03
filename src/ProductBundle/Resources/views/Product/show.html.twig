@@ -184,10 +184,17 @@
                                 </div>
                                 <form action="#">
                                     <div class="quantity">
-                                        <span>QTY <input type="number" value="1"></span>
-                                        <span class="single-product-btn">
-                                            <a href="#">Add to cart</a>
-                                        </span>
+                                        {% if shopping_cart.isProductInCart(product) %}
+                                            <span>{{ 'PRODUCT_AMOUNT'|trans({}, "product") }} <input type="number" value="{{ shopping_cart.getProductFromCart(product).amount }}" disabled></span>
+                                            <span class="single-product-btn">
+                                                <a href="#" class="added-to-cart in-cart-product-{{ product.id }}" data-target="#already-in-cart-modal" data-product-id="{{ product.id }}" href="{{ path('cart_add', {'id': product.id, 'amount': 1}) }}"  data-target="#added-to-cart-modal" data-product="{{ product.name }}" data-description="{{ product.description }}"><span class="glyphicon glyphicon-ok"></span> {{ 'PRODUCT_ADD_TO_CART'|trans({}, "product") }}</a>
+                                            </span>
+                                        {% else %}
+                                            <span>QTY <input id="product-quantity" type="number" value="1"></span>
+                                            <span class="single-product-btn">
+                                                <a href="#" class="add-to-cart product-{{ product.id }}" data-product-id="{{ product.id }}" href="{{ path('cart_add', {'id': product.id, 'amount': 1}) }}"  data-target="#added-to-cart-modal" data-product="{{ product.name }}" data-description="{{ product.description }}"><span class="glyphicon glyphicon-plus"></span> {{ 'PRODUCT_ADD_TO_CART'|trans({}, "product") }}</a>
+                                            </span>
+                                        {% endif %}
                                     </div>
                                 </form>
                                 <div class="product-det-tab">
@@ -212,7 +219,7 @@
                        <div class="related-product-area">
                            <div class="row">
                                 <div class="col-md-12">
-                                    <h4 class="related-title">RELATED PRODUCTS</h4>
+                                    <h4 class="related-title">{{ 'PRODUCT_RELATED_PRODUCTS'|trans({}, "product") }}</h4>
                                 </div>
                            </div>
                            <div class="row">
@@ -774,4 +781,5 @@
     </div>
     <!--single-product-area end-->
 
+    {{ include('ProductBundle:Product:_modals.html.twig') }}
 {% endblock %}

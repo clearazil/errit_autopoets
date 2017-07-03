@@ -8,19 +8,21 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = [
+            new DefaultBundle\DefaultBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Gregwar\ImageBundle\GregwarImageBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new ProductBundle\ProductBundle(),
+            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new ShoppingBundle\ShoppingBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
+            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Gregwar\ImageBundle\GregwarImageBundle(),
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            new DefaultBundle\DefaultBundle(),
-            new ProductBundle\ProductBundle(),
+            new Symfony\Bundle\TwigBundle\TwigBundle(),
             new UserBundle\UserBundle(),
         ];
 

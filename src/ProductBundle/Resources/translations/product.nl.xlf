@@ -55,6 +55,42 @@
                 <source>PRODUCT_BACK_TO_PRODUCT</source>
                 <target>Terug naar product</target>
             </trans-unit>
+            <trans-unit id="product_related_products">
+                <source>PRODUCT_RELATED_PRODUCTS</source>
+                <target>Gerelateerde producten</target>
+            </trans-unit>
+            <trans-unit id="product_amount">
+                <source>PRODUCT_AMOUNT</source>
+                <target>Aantal</target>
+            </trans-unit>
+            <trans-unit id="product_add_to_cart">
+                <source>PRODUCT_ADD_TO_CART</source>
+                <target>In winkelwagen</target>
+            </trans-unit>
+            <trans-unit id="product_product_added_to_cart">
+                <source>PRODUCT_PRODUCT_ADDED_TO_CART</source>
+                <target>Je hebt het artikel aan de winkelwagen toegevoegd</target>
+            </trans-unit>
+            <trans-unit id="product_product_already_in_cart">
+                <source>PRODUCT_PRODUCT_ALREADY_IN_CART</source>
+                <target>Dit product zit al in de winkelwagen</target>
+            </trans-unit>
+            <trans-unit id="product_go_to_shopping_cart_to_adjust_quantity">
+                <source>PRODUCT_GO_TO_SHOPPING_CART_TO_ADJUST_QUANTITY</source>
+                <target>Ga naar de winkelwagen als u de hoeveelheid wilt aanpassen.</target>
+            </trans-unit>
+            <trans-unit id="product_continue_shopping">
+                <source>PRODUCT_CONTINUE_SHOPPING</source>
+                <target>Verder winkelen</target>
+            </trans-unit>
+            <trans-unit id="product_to_checkout">
+                <source>PRODUCT_TO_CHECKOUT</source>
+                <target>Naar bestellen</target>
+            </trans-unit>
+            <trans-unit id="product_to_shopping_cart">
+                <source>PRODUCT_TO_SHOPPING_CART</source>
+                <target>Naar de winkelwagen</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

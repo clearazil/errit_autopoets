@@ -35,13 +35,14 @@
     /*---------------------------
         02. Active hover function
     ----------------------------*/
-        $('.currency li, .language li, .meni-cart').on("mouseenter", function() {
-            $(this).find(".currency-menu, .language-menu, .cart-area").stop(true).slideDown();
-        });
-        $('.currency li, .language li, .meni-cart').on("mouseleave", function() {
-            $(this).find(".currency-menu, .language-menu, .cart-area").stop(true).slideUp();
-        });
-    
+    $('body').on('mouseenter', '.currency li, .language li, .meni-cart', function() {
+        $(this).find(".currency-menu, .language-menu, .cart-area").stop(true).slideDown();
+    });
+
+    $('body').on('mouseleave', '.currency li, .language li, .meni-cart', function() {
+        $(this).find(".currency-menu, .language-menu, .cart-area").stop(true).slideUp();
+    });
+
 	/*----------------------------
        03. stickey menu
     ----------------------------*/
@@ -268,4 +269,105 @@
             $('.categories-form').submit();
         }, 800);
     });
+
+    /*
+     * Change the shopping cart dropdown and the button that was clicked on if a product 
+     * is added to the cart. Then show the modal.
+     */
+    $('body').on('click', '.add_cart, .added-to-cart, .add-to-cart', function () {
+        event.preventDefault();
+
+        var target = $(this).attr('data-target');
+
+        // check if the product hasn't been added to the cart yet
+        if (target === '#added-to-cart-modal') {
+            var productId = $(this).attr('data-product-id');
+            var quantity = $('#product-quantity').val();
+
+            if (typeof quantity === 'undefined') {
+                quantity = 1;
+            }
+            var url = Routing.generate('cart_add', {'id': productId, 'amount': quantity});
+
+            // add the product to the cart and update the cart dropdown
+            $.ajax({
+                url: url,
+                dataType: 'html',
+            }).success(function (data) {
+                $('.shopping-cart').replaceWith(data);
+            });
+
+            var button = $('.product-' + productId);
+
+            // change the button's look to show the product is in the cart
+            button.attr('class', 'added-to-cart in-cart-product-' + productId);
+
+            // change the buttons target modal
+            button.attr('data-target', '#already-in-cart-modal');
+        
+            // change the product name and description inside the modal
+            var productName = $(this).attr('data-product');
+            var productDescription = $(this).attr('data-description');
+
+            $('#modal-product-name').text(productName);
+            $('#modal-product-description').text(productDescription);
+
+            // change the glyphicon into a plus sign
+            button.find('span').attr('class', 'glyphicon glyphicon-ok');
+
+            $('#product-quantity').prop('disabled', true);
+        }
+
+        $(target).modal();
+    });
+
+
+    // User clicks delete button in the dropdown menu
+    $('body').on('click', '.cart-del', function() {
+        var $this = $(this);
+        var productId = $(this).attr('data-product-id');
+
+        var url = Routing.generate('cart_remove', {'id': productId});
+
+        $.ajax({
+            url: url,
+            dataType: 'json',
+        }).success(function (data) {
+            if (data.cart_empty) {
+                // if removing the product results in an empty cart, slide the dropdown up
+                $('.meni-cart').find(".currency-menu, .language-menu, .cart-area").stop(true).slideUp();
+                
+                // display an empty cart after sliding animation has finished
+                setTimeout(function() {
+                    $('.shopping-cart').replaceWith(data.cart_dropdown);
+                }, 500);
+            } else {
+                // add the animate class to start animating this li element up and away
+                $this.parent().addClass('animate');
+
+                // the slide down sets a fixed height. Setting it back to auto to prevent 
+                // leaving a gap when deleting this product's li element
+                $('.cart-area').css({height: 'auto'});
+
+                // update the product count and price total
+                $('.cart-product-amount').text(data.cart_product_count);
+                $('.cart-total-price').text(data.cart_total_price);
+            }
+
+            // change all buttons for this product to show that this product is not in the cart
+            var button = $('.in-cart-product-' + productId);
+            button.attr('class', 'add-to-cart add_cart product-' + productId);
+            button.find('span').attr('class', 'glyphicon glyphicon-plus');
+            button.attr('data-target', '#added-to-cart-modal');
+
+            // enable the quantity input on the single product page
+            $('#product-quantity').prop('disabled', false);
+        });
+    });
+
+    // remove the product's li element when the animation has finished
+    $('body').on('transitionend', '.animate', function(event) {
+        $(event.target).remove();
+    });
+
 

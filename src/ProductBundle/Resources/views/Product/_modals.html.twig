@@ -1,0 +1,35 @@
+<div class="modal fade" id="already-in-cart-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><strong>{{ 'PRODUCT_PRODUCT_ALREADY_IN_CART'|trans({}, "product") }}</strong></h4>
+            </div>
+            <div class="modal-body">
+                {{ 'PRODUCT_GO_TO_SHOPPING_CART_TO_ADJUST_QUANTITY'|trans({}, "product") }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">{{ 'PRODUCT_CONTINUE_SHOPPING'|trans({}, "product") }}</button>
+                <a href="{{ path('cart_index') }}" class="btn btn-black" role="button">{{ 'PRODUCT_TO_SHOPPING_CART'|trans({}, "product") }}</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="added-to-cart-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><strong>{{ 'PRODUCT_PRODUCT_ADDED_TO_CART'|trans({}, "product") }}</strong></h4>
+            </div>
+            <div class="modal-body">
+                <strong id="modal-product-name"></strong>
+                <p id="modal-product-description"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">{{ 'PRODUCT_CONTINUE_SHOPPING'|trans({}, "product") }}</button>
+                <a href="{{ path('cart_index') }}" class="btn btn-black" role="button">{{ 'PRODUCT_TO_CHECKOUT'|trans({}, "product") }}</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

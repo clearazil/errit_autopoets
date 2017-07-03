@@ -1,3 +1,8 @@
+shopping:
+    resource: "@ShoppingBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 user:
     resource: "@UserBundle/Controller/"
     type:     annotation
@@ -25,3 +30,5 @@ default:
 
 logout:
     path: /logout
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

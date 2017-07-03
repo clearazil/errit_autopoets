@@ -103,7 +103,11 @@
                                                 </div>
                                                 <div class="product-hover">
                                                     <ul>
-                                                        <li><a href="#" class="add-to-cart">Add to cart</a></li>
+                                                        {% if shopping_cart.isProductInCart(product) %}
+                                                            <li><a href="#" class="added-to-cart in-cart-product-{{ product.id }}" data-product-id="{{ product.id }}" data-target="#added-to-cart-modal" data-product="{{ product.name }}" data-description="{{ product.description }}" data-target="#already-in-cart-modal"><span class="glyphicon glyphicon-ok"></span> {{ 'PRODUCT_ADD_TO_CART'|trans({}, "product") }}</a></li>
+                                                        {% else %}
+                                                            <li><a href="#" class="add-to-cart product-{{ product.id }}" data-product-id="{{ product.id }}" data-target="#added-to-cart-modal" data-product="{{ product.name }}" data-description="{{ product.description }}"><span class="glyphicon glyphicon-plus"></span> {{ 'PRODUCT_ADD_TO_CART'|trans({}, "product") }}</a></li>
+                                                        {% endif %}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -138,7 +142,11 @@
                                                     <div class="product-action-btn">
                                                         <ul>
                                                             <li>
-                                                                <a class="add_cart" href="#">Add to cart</a></li>
+                                                                {% if shopping_cart.isProductInCart(product) %}
+                                                                    <a class="added-to-cart in-cart-product-{{ product.id }}" href="{{ path('cart_add', {'id': product.id, 'amount': 1}) }}" data-product-id="{{ product.id }}" data-target="#already-in-cart-modal" data-product="{{ product.name }}" data-description="{{ product.description }}" data-target="#already-in-cart-modal" data-target="#already-in-cart-modal"><span class="glyphicon glyphicon-ok"></span> {{ 'PRODUCT_ADD_TO_CART'|trans({}, "product") }}</a>
+                                                                {% else %}
+                                                                    <a class="add_cart product-{{ product.id }}" data-product-id="{{ product.id }}" href="{{ path('cart_add', {'id': product.id, 'amount': 1}) }}"  data-target="#added-to-cart-modal" data-product="{{ product.name }}" data-description="{{ product.description }}"><span class="glyphicon glyphicon-plus"></span> {{ 'PRODUCT_ADD_TO_CART'|trans({}, "product") }}</a>
+                                                                {% endif %}
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -146,6 +154,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 {% endfor %}
                             </div>
                         </div>
@@ -157,4 +166,6 @@
         </div>
     </div>
     <!--shop-area end-->
+
+    {{ include('ProductBundle:Product:_modals.html.twig') }}
 {% endblock %}

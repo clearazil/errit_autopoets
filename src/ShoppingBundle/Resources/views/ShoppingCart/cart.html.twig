@@ -1,0 +1,97 @@
+{% extends 'frontend.html.twig' %}
+
+{% block title %}ShoppingBundle:ShoppingCart:cart{% endblock %}
+
+{% block body %}
+    <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="index.html">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>{{ 'SHOPPING_CART_SHOPPING_CART'|trans({}, "shopping_cart") }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+    
+    <!--cart-page-area start-->
+    <div class="cart-page-area page-bg page-ptb">
+        <div class="container">
+            {% if shoppingCart.products is not empty %}
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table-content">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>{{ 'SHOPPING_CART_ARTICLE'|trans({}, "shopping_cart") }}</th>
+                                        <th>{{ 'SHOPPING_CART_QUANTITY'|trans({}, "shopping_cart") }}</th>
+                                        <th>{{ 'SHOPPING_CART_PRICE'|trans({}, "shopping_cart") }}</th>
+                                        <th>{{ 'SHOPPING_CART_TOTAL_PRICE'|trans({}, "shopping_cart") }}</th>
+                                        <th style="min-width: 120px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for product in shoppingCart.products %}
+                                        <tr>
+                                           <td class="cart-product"><a href="{{ path('product_show', { 'id': product.productId }) }}"><img src="{{ asset(product.image) }}" alt=""></a></td>
+                                           <td class="cart-name">
+                                               <h3><a href="{{ path('product_show', { 'id': product.productId }) }}">{{ product.name }}</a></h3>
+                                            </td>
+                                           <td>
+                                                <div class="cart-quantity">
+                                                    <form action="#" method="POST">
+                                                        <div class="product-quantity">
+                                                            <div class="cart-quantity">
+                                                                <div class="cart-plus-minus">
+                                                                     <a href="{{ path('cart_decrease', { 'id': product.productId, 'amount': 1 }) }}"><div class="deco qtybutton">-</div></a>
+                                                                    <input type="text" value="{{ product.amount }}" name="qtybutton" class="cart-plus-minus-box">
+                                                                    <a href="{{ path('cart_add', { 'id': product.productId, 'amount': 1 }) }}"><div class="inco qtybutton">+</div></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                           <td class="price-cart">{{ product.price|localizedcurrency('EUR') }}</td>
+                                           <td class="total-cart-price">{{ product.total|localizedcurrency('EUR') }}</td>
+                                           <td class="cart-remove"><a href="{{ path('cart_remove', { 'id': product.productId }) }}"><i class="fa fa-times"></i></a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-8 col-md-4 col-sm-6 col-xs-12">
+                        <div class="cart_total cart-pdi">
+                            <div class="cart-inner" style="border-bottom: 0px">
+                                <ul>
+                                    <li>{{ 'SHOPPING_CART_SHIPPING_COST'|trans({}, "shopping_cart") }} <span>{{ shoppingCart.shippingCost|localizedcurrency('EUR') }}</span></li>
+                                </ul>
+                            </div>
+                            <div class="cart-inner">
+                                <ul>
+                                    <li>{{ 'SHOPPING_CART_SUBTOTAL'|trans({}, "shopping_cart") }} <span>{{ shoppingCart.totalExcludingVat|localizedcurrency('EUR') }}</span></li>
+                                    <li>{{ 'SHOPPING_CART_VAT'|trans({}, "shopping_cart") }} <span>{{ shoppingCart.vat|localizedcurrency('EUR') }}</span></li>
+                                </ul>
+                            </div>
+                            <p>{{ 'SHOPPING_CART_TOTAL'|trans({}, "shopping_cart") }} <span>{{ shoppingCart.totalPrice|localizedcurrency('EUR') }}</span></p>
+                            <div class="proceed-out">
+                                <a href="#">{{ 'SHOPPING_CART_PROCEED_TO_CHECKOUT'|trans({}, "shopping_cart") }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!--cart-page-area end-->
+
+{% endblock %}
