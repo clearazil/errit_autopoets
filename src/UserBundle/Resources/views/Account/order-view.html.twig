@@ -1,0 +1,135 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+    <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li>
+                            <a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a>
+                            <span>
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                        </li>
+                        <li>
+                            <a href="{{ path('account') }}">{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</a>
+                            <span>
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                        </li>
+                        <li>
+                            <a href="{{ path('account_orders') }}">{{ 'ACCOUNT_ORDERS'|trans({}, "account") }}</a>
+                            <span>
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                        </li>
+                        <li>{{ purchaseOrder.id }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <div class="elements">
+        <div class="container">
+            <div class="page-header">
+                <h1>{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }} <small>{{ 'ACCOUNT_ORDER_WITH_ORDER_NUMBER'|trans({'%orderNumber%': purchaseOrder.id}, "account") }}</small></h1>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="{{ path('account') }}">{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</a></li>
+                        <li class="active"><a
+                                    href="{{ path('account_orders') }}">{{ 'ACCOUNT_ORDERS'|trans({}, "account") }}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>{{ 'PURCHASE_ORDER_PRODUCT_NAME'|trans({}, 'purchase_order') }}</th>
+                                    <th>{{ 'PURCHASE_ORDER_PRICE'|trans({}, 'purchase_order') }}</th>
+                                    <th>{{ 'PURCHASE_ORDER_AMOUNT'|trans({}, 'purchase_order') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for purchaseOrderLine in purchaseOrder.purchaseOrderLines %}
+                                    <tr>
+                                        <td>{{ purchaseOrderLine.name }}</td>
+                                        <td>{{ purchaseOrderLine.price|localizedcurrency('EUR') }}</td>
+                                        <td>{{ purchaseOrderLine.amount }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <strong>{{ 'PURCHASE_ORDER_SHIPPING_COSTS'|trans({}, "purchase_order") }}</strong>
+                                    <p>{{ purchaseOrder.shippingCosts|localizedcurrency('EUR') }}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <strong>{{ 'PURCHASE_ORDER_TOTAL'|trans({}, "purchase_order") }}</strong>
+                                    <p>{{ purchaseOrder.totalPrice|localizedcurrency('EUR') }}</p>
+                                </div>
+                            </div>
+                            <h2>{{ 'ACCOUNT_ORDER_DATA'|trans({}, "account") }}</h2>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p><strong>{{ 'ACCOUNT_INVOICE_ADDRESS'|trans({}, "account") }}</strong></p>
+                                    <address>
+                                        {{ purchaseOrder.address.firstName }} {{ purchaseOrder.address.lastName }}<br>
+
+                                        {% if (purchaseOrder.address.companyName) %}
+                                            {{ purchaseOrder.address.companyName }}<br>
+                                        {% endif %}
+
+                                        {{ purchaseOrder.address.address }} {{ purchaseOrder.address.houseNumber }}<br>
+                                        {{ purchaseOrder.address.zipCode }} {{ purchaseOrder.address.city }}<br>
+
+                                        {% if (purchaseOrder.address.phoneNumber) %}
+                                            <abbr title="Telefoon">T:</abbr> {{ purchaseOrder.address.phoneNumber }}
+                                        {% endif %}
+                                    </address>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p><strong>{{ 'ACCOUNT_SHIPPING_ADDRESS'|trans({}, "account") }}</strong></p>
+                                    {{ purchaseOrder.address.firstName }} {{ purchaseOrder.address.lastName }}<br>
+
+                                    {% if (purchaseOrder.address.companyName) %}
+                                        {{ purchaseOrder.address.companyName }}<br>
+                                    {% endif %}
+
+                                    {{ purchaseOrder.address.address }} {{ purchaseOrder.address.houseNumber }}<br>
+                                    {{ purchaseOrder.address.zipCode }} {{ purchaseOrder.address.city }}<br>
+
+                                    {% if (purchaseOrder.address.phoneNumber) %}
+                                        <abbr title="{{ 'ADDRESS_PHONE_NUMBER'|trans({}, 'address') }}">T:</abbr> {{ purchaseOrder.address.phoneNumber }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <strong>{{ 'PURCHASE_ORDER_PAYMENT_METHOD'|trans({}, "purchase_order") }}</strong>
+                                    <p>{{ purchaseOrder.paymentMethodString|trans({}, 'purchase_order') }}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <strong>{{ 'PURCHASE_ORDER_STATUS'|trans({}, "purchase_order") }}</strong>
+                                    <p>{{ purchaseOrder.statusString|trans({}, 'purchase_order') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

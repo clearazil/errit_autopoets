@@ -15,16 +15,16 @@ class ShoppingCart implements \Serializable
     /**
      * @var float
      */
-    private $subtotal;
+    private $total;
+
     /**
      * @var float
      */
-    
-    private $totalPrice;
+    private $subtotal;
+
     /**
      * @var integer|float
      */
-    
     private $shippingCost;
 
     /**
@@ -45,7 +45,7 @@ class ShoppingCart implements \Serializable
     }
 
     /**
-     * @return array
+     * @return ArrayCollection $products
      */
     public function getProducts()
     {
@@ -53,7 +53,8 @@ class ShoppingCart implements \Serializable
     }
 
     /**
-     * @param array $products
+     * @param ArrayCollection $products
+     * @return $this
      */
     public function setProducts($products)
     {
@@ -95,7 +96,8 @@ class ShoppingCart implements \Serializable
     }
 
     /**
-     * @param float $totalExcludingVat
+     * @param $totalExcludingVat
+     * @return $this
      */
     public function setTotalExcludingVat($totalExcludingVat)
     {
@@ -113,7 +115,8 @@ class ShoppingCart implements \Serializable
     }
 
     /**
-     * @param float $totalVat
+     * @param $totalVat
+     * @return $this
      */
     public function setTotalVat($totalVat)
     {
@@ -131,7 +134,8 @@ class ShoppingCart implements \Serializable
     }
 
     /**
-     * @param float $subtotal
+     * @param $subtotal
+     * @return $this
      */
     public function setSubtotal($subtotal)
     {
@@ -141,7 +145,7 @@ class ShoppingCart implements \Serializable
     }
 
     /**
-     * @return float
+     * @return mixed
      */
     public function getTotal()
     {
@@ -149,7 +153,8 @@ class ShoppingCart implements \Serializable
     }
 
     /**
-     * @param float $total
+     * @param $total
+     * @return $this
      */
     public function setTotal($total)
     {
@@ -171,7 +176,8 @@ class ShoppingCart implements \Serializable
     }
 
     /**
-     * @param float|integer $shippingCost
+     * @param $shippingCost
+     * @return $this
      */
     public function setShippingCost($shippingCost)
     {
@@ -208,6 +214,6 @@ class ShoppingCart implements \Serializable
             $this->totalExcludingVat,
             $this->total,
             $this->shippingCost,
-        ) = unserialize($serialized);
+            ) = unserialize($serialized);
     }
 }

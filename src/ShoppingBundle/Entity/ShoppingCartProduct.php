@@ -22,11 +22,6 @@ class ShoppingCartProduct
     /**
      * @var float
      */
-    private $subtotal;
-
-    /**
-     * @var float
-     */
     private $price;
 
     /**
@@ -43,7 +38,8 @@ class ShoppingCartProduct
     }
 
     /**
-     * @param string $name
+     * @param $name
+     * @return $this
      */
     public function setName($name)
     {
@@ -61,7 +57,8 @@ class ShoppingCartProduct
     }
 
     /**
-     * @param integer $productId
+     * @param $productId
+     * @return $this
      */
     public function setProductId($productId)
     {
@@ -79,7 +76,8 @@ class ShoppingCartProduct
     }
 
     /**
-     * @param string $image
+     * @param $image
+     * @return $this
      */
     public function setImage($image)
     {
@@ -97,7 +95,8 @@ class ShoppingCartProduct
     }
 
     /**
-     * @param float $price
+     * @param $price
+     * @return $this
      */
     public function setPrice($price)
     {
@@ -123,7 +122,8 @@ class ShoppingCartProduct
     }
 
     /**
-     * @param integer $amount
+     * @param $amount
+     * @return $this
      */
     public function setAmount($amount)
     {
@@ -133,7 +133,8 @@ class ShoppingCartProduct
     }
 
     /**
-     * @param integer $amount
+     * @param $amount
+     * @return $this
      */
     public function addAmount($amount)
     {
@@ -143,7 +144,8 @@ class ShoppingCartProduct
     }
 
     /**
-     * @param integer $amount
+     * @param $amount
+     * @return $this
      */
     public function decreaseAmount($amount)
     {
@@ -178,6 +180,6 @@ class ShoppingCartProduct
             $this->image,
             $this->price,
             $this->amount,
-        ) = unserialize($serialized);
+            ) = unserialize($serialized);
     }
 }

@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use UserBundle\Entity\Address;
 use UserBundle\Entity\User;
+use ShoppingBundle\Entity\PurchaseOrder;
 
 class AccountController extends Controller
 {
@@ -113,6 +114,13 @@ class AccountController extends Controller
      */
     public function editAccountAction(Request $request, UserInterface $user)
     {
+        if ($user->getAddress() === null) {
+            $address = new Address;
+            $address->setIsBilling(false);
+
+            $user->getAddresses()->add($address);
+        }
+
         $form = $this->createForm('UserBundle\Form\AccountType', $user);
 
         $originalPassword = $user->getPassword();
@@ -137,6 +145,31 @@ class AccountController extends Controller
         return $this->render('UserBundle::Account/account-edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/account/orders", name="account_orders")
+     *
+     * @param UserInterface $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function accountOrdersAction(UserInterface $user)
+    {
+        return $this->render('UserBundle::Account/orders.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/account/orders/view/{id}", name="account_orders_view")
+     *
+     * @ParamConverter("purchaseOrder", options={"mapping": {"id" : "id"}})
+     */
+    public function viewAccountOrderAction(PurchaseOrder $purchaseOrder)
+    {
+        return $this->render('UserBundle::Account/order-view.html.twig', [
+            'purchaseOrder' => $purchaseOrder,
         ]);
     }
 

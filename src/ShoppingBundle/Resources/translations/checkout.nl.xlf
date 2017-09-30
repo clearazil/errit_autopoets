@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Checkout -->
+            <trans-unit id="checkout_order">
+                <source>CHECKOUT_ORDER</source>
+                <target>Bestellen</target>
+            </trans-unit>
+            <trans-unit id="checkout_existing_customer">
+                <source>CHECKOUT_EXISTING_CUSTOMER</source>
+                <target>Bestaande klant</target>
+            </trans-unit>
+            <trans-unit id="checkout_new_customer">
+                <source>CHECKOUT_NEW_CUSTOMER</source>
+                <target>Nieuwe klant</target>
+            </trans-unit>
+            <trans-unit id="checkout_payment">
+                <source>CHECKOUT_PAYMENT</source>
+                <target>Betaling</target>
+            </trans-unit>
+            <trans-unit id="checkout_bank_transfer">
+                <source>CHECKOUT_BANK_TRANSFER</source>
+                <target>Overmaken op rekening</target>
+            </trans-unit>
+            <trans-unit id="checkout_ideal">
+                <source>CHECKOUT_IDEAL</source>
+                <target>Ideal</target>
+            </trans-unit>
+            <trans-unit id="checkout_address_data">
+                <source>CHECKOUT_ADDRESS_DATA</source>
+                <target>Adresgegevens</target>
+            </trans-unit>
+            <trans-unit id="checkout_continue">
+                <source>CHECKOUT_CONTINUE</source>
+                <target>Verder</target>
+            </trans-unit>
+            <trans-unit id="checkout_your_order">
+                <source>CHECKOUT_YOUR_ORDER</source>
+                <target>Jouw bestelling</target>
+            </trans-unit>
+            <trans-unit id="checkout_check_your_input">
+                <source>CHECKOUT_CHECK_YOUR_INPUT</source>
+                <target>Controleer uw gegevens</target>
+            </trans-unit>
+            <trans-unit id="checkout_register">
+                <source>CHECKOUT_REGISTER</source>
+                <target>Registreren</target>
+            </trans-unit>
+            <trans-unit id="checkout_overview">
+                <source>CHECKOUT_OVERVIEW</source>
+                <target>Overzicht</target>
+            </trans-unit>
+            <trans-unit id="checkout_success">
+                <source>CHECKOUT_SUCCESS</source>
+                <target>Succes</target>
+            </trans-unit>
+            <trans-unit id="checkout_back">
+                <source>CHECKOUT_BACK</source>
+                <target>Terug</target>
+            </trans-unit>
+            <trans-unit id="checkout_place_order">
+                <source>CHECKOUT_PLACE_ORDER</source>
+                <target>Plaats bestelling</target>
+            </trans-unit>
+            <trans-unit id="checkout_thanks_for_order">
+                <source>CHECKOUT_THANKS_FOR_ORDER</source>
+                <target>Bedankt voor uw bestelling</target>
+            </trans-unit>
+            <trans-unit id="checkout_order_received_email_sent">
+                <source>CHECKOUT_ORDER_RECEIVED_EMAIL_SENT</source>
+                <target>Wij hebben uw bestelling succesvol ontvangen, een email is verstuurd ter bevestiging.</target>
+            </trans-unit>
+            <trans-unit id="checkout_ideal_payment_received">
+                <source>CHECKOUT_IDEAL_PAYMENT_RECEIVED</source>
+                <target>U hebt gekozen om online te betalen via Ideal. De betaling is met succes ontvangen.</target>
+            </trans-unit>
+            <trans-unit id="checkout_bank_transfer_make_payment">
+                <source>CHECKOUT_BANK_TRANSFER_MAKE_PAYMENT</source>
+                <target>U hebt gekozen voor overmaken op bankrekening. Maak het bedrag over op bankrekening %bankAccount% onder vermelding van ordernummer %orderNumber%.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

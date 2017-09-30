@@ -2,6 +2,7 @@
 
 namespace ShoppingBundle\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use ShoppingBundle\Entity\ShoppingCart as CartEntity;
 use ShoppingBundle\Entity\ShoppingCartProduct;
 use ProductBundle\Entity\Product;
@@ -9,6 +10,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class ShoppingCart
 {
+    /**
+     * @var null|CartEntity
+     */
     private $shoppingCart = null;
 
     public function __construct()
@@ -33,16 +37,9 @@ class ShoppingCart
      */
     public function updateCart()
     {
-        $totalVat = 0;
-        $totalExcludingVat = 0;
-        $total = 0;
         $subtotal = 0;
 
         foreach ($this->shoppingCart->getProducts() as $product) {
-            $totalExcludingVat = $product->getTotal() / (100 + $this->shoppingCart->getVat()) * 100;
-            $totalVat = $product->getTotal() - $totalExcludingVat;
-
-            $totalVat += $totalVat;
             $subtotal += $product->getTotal();
         }
 
@@ -64,9 +61,10 @@ class ShoppingCart
     }
 
     /**
-     * Add a product to the cart or increase its amount
-     * @param ProductBundle\Entity\Product $product
-     * @param integer $amount
+     * dd a product to the cart or increase its amount
+     *
+     * @param Product $product
+     * @param int $amount
      */
     public function add(Product $product, $amount = 1)
     {
@@ -81,12 +79,12 @@ class ShoppingCart
             if ($product->getImages()->first()) {
                 $image = 'img/product/thumbnail/' . $product->getImages()->first()->getImage();
             }
-            
+
             $shoppingCartProduct->setName($product->getName())
-             ->setProductId($product->getId())
-             ->setImage($image)
-             ->setPrice($product->getPrice())
-             ->setAmount($amount);
+                ->setProductId($product->getId())
+                ->setImage($image)
+                ->setPrice($product->getPrice())
+                ->setAmount($amount);
 
             $this->shoppingCart->addProduct($shoppingCartProduct);
         }
@@ -95,8 +93,9 @@ class ShoppingCart
     /**
      * Decrease the amount of the product in the cart
      * Remove the product if the amount gets to zero or less
-     * @param  ProductBundle\Entity\Product $product
-     * @param  integer $amount
+     *
+     * @param Product $product
+     * @param int $amount
      */
     public function decrease(Product $product, $amount = 1)
     {
@@ -113,7 +112,8 @@ class ShoppingCart
 
     /**
      * Remove a product from the cart
-     * @param  ProductBundle\Entity\Product $product
+     *
+     * @param Product $product
      */
     public function remove(Product $product)
     {
@@ -126,7 +126,8 @@ class ShoppingCart
 
     /**
      * Check if a Product is in the cart
-     * @param  ProductBundle\Entity\Product $product
+     *
+     * @param Product $product
      * @return boolean
      */
     public function isProductInCart(Product $product)
@@ -137,9 +138,10 @@ class ShoppingCart
     }
 
     /**
-     * Get a Product entity from the cart
-     * @param  ProductBundle\Entity\Product $product
-     * @return ShoppingBundle\Entity\ShoppingCartProduct
+     *Get a Product entity from the cart
+     *
+     * @param Product $product
+     * @return ShoppingCartProduct
      */
     public function getProductFromCart(Product $product)
     {
@@ -150,7 +152,7 @@ class ShoppingCart
 
     /**
      * Get all products in the cart
-     * @return array
+     * @return ArrayCollection
      */
     public function getProducts()
     {

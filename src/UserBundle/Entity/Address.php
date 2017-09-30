@@ -23,12 +23,6 @@ class Address
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="addresses")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    private $user;
-
-    /**
      * @var bool
      *
      * @ORM\Column(name="is_billing", type="boolean")

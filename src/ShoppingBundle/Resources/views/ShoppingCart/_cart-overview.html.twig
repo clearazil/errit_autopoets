@@ -1,0 +1,16 @@
+<div class="cart_total">
+    <div class="cart-inner" style="border-bottom: 0">
+        <ul>
+            {% for product in shopping_cart.products %}
+                <li>
+                    {{ product.name }}
+                    {% if product.amount > 1 %}
+                        <span class="cart-product-amount">(x{{ product.amount }})</span>
+                    {% endif %}
+                    <span>{{ product.total|localizedcurrency('EUR') }}</span>
+                </li>
+            {%  endfor %}
+        </ul>
+    </div>
+    {{ include('ShoppingBundle:ShoppingCart:_cart-totals.html.twig') }}
+</div>

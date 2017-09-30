@@ -1,0 +1,12 @@
+<div class="cart-inner" style="border-bottom: 0">
+    <ul>
+        <li>{{ 'SHOPPING_CART_SHIPPING_COST'|trans({}, "shopping_cart") }} <span>{{ shopping_cart.shippingCost|localizedcurrency('EUR') }}</span></li>
+    </ul>
+</div>
+<div class="cart-inner">
+    <ul>
+        <li>{{ 'SHOPPING_CART_SUBTOTAL'|trans({}, "shopping_cart") }} <span>{{ shopping_cart.totalExcludingVat|localizedcurrency('EUR') }}</span></li>
+        <li>{{ 'SHOPPING_CART_VAT'|trans({}, "shopping_cart") }} <span>{{ shopping_cart.vat|localizedcurrency('EUR') }}</span></li>
+    </ul>
+</div>
+<p>{{ 'SHOPPING_CART_TOTAL'|trans({}, "shopping_cart") }} <span>{{ shopping_cart.totalPrice|localizedcurrency('EUR') }}</span></p>

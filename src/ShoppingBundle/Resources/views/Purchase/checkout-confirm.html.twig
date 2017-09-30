@@ -1,0 +1,134 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+    <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li>
+                            <a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a>
+                            <span><i class="fa fa-angle-right"></i></span>
+                        </li>
+                        <li>
+                            <a href="{{ path('purchase_checkout') }}">{{ 'CHECKOUT_ORDER'|trans({}, "checkout") }}</a>
+                            <span><i class="fa fa-angle-right"></i></span>
+                        </li>
+                        <li>
+                            <a href="{{ path('purchase_checkout_confirm') }}">{{ 'CHECKOUT_OVERVIEW'|trans({}, "checkout") }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <!-- checkout-area start -->
+    <div class="checkout-area page-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="billing-detatls-area">
+                        <h4 class="checkout-titel">{{ 'CHECKOUT_ADDRESS_DATA'|trans({}, "checkout") }}</h4>
+                        <p>{{ 'CHECKOUT_CHECK_YOUR_INPUT'|trans({}, "checkout") }}</p>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{ 'USER_NAME'|trans({}, "user") }}</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{ userData.firstName }} {{ userData.lastName }}</p>
+                                </div>
+                            </div>
+                            {% if (userData.companyName) %}
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">{{ 'ADDRESS_COMPANY_NAME'|trans({}, "address") }}</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static">{{ userData.companyName }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{ 'ADDRESS_ADDRESS'|trans({}, "address") }}</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{ userData.address }} {{ userData.houseNumber }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{ 'ADDRESS_ZIP_CODE'|trans({}, "address") }}</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{ userData.zipCode }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{ 'ADDRESS_CITY'|trans({}, "address") }}</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{ userData.city }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{ 'ADDRESS_PHONE_NUMBER'|trans({}, "address") }}</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{ userData.phoneNumber }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{ 'USER_EMAIL'|trans({}, "user") }}</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{ userData.email }}</p>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="billing-submit">
+                            <div class="continue-btn">
+                                <button class="btn">{{ 'CHECKOUT_BACK'|trans({}, "checkout") }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="your-order-area">
+                        <h4 class="checkout-titel">{{ 'CHECKOUT_YOUR_ORDER'|trans({}, "checkout") }}</h4>
+                        {{ include('ShoppingBundle:ShoppingCart:_cart-overview.html.twig') }}
+                        <div class="payment-method">
+                            {{ form_start(paymentForm, {'attr': {'novalidate': 'novalidate'} }) }}
+
+
+                            {% if not paymentForm.vars.valid %}
+                                <div class="alert alert-danger has-error">
+                                    <ul class="list-unstyled">
+                                        <li>{{ form_errors(paymentForm.payment) }}</li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            {% for paymentOption in paymentForm.payment %}
+                                {{ form_row(paymentOption) }}
+
+                                {% if paymentOption.vars.value == constant('\\ShoppingBundle\\Entity\\PurchaseOrder::PAYMENT_METHOD_BANK_TRANSFER') %}
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati expedita id
+                                        debitis, animi, mollitia saepe asperiores distinctio maiores soluta enim
+                                        blanditiis quis, earum molestias minima libero velit. Corporis, sapiente
+                                        dolores.</p>
+                                {% endif %}
+
+                                {% if paymentOption.vars.value == constant('\\ShoppingBundle\\Entity\\PurchaseOrder::PAYMENT_METHOD_IDEAL') %}
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati expedita id
+                                        debitis, animi, mollitia saepe asperiores distinctio maiores soluta enim
+                                        blanditiis quis, earum molestias minima libero velit. Corporis, sapiente
+                                        dolores.</p>
+                                {% endif %}
+                            {% endfor %}
+
+                            <div class="place-order">
+                                <button class="btn">{{ 'CHECKOUT_PLACE_ORDER'|trans({}, "checkout") }}</button>
+                            </div>
+                            {{ form_end(paymentForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- checkout-area end -->
+{% endblock %}

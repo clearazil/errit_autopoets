@@ -1,0 +1,128 @@
+{% extends 'backend.html.twig' %}
+
+{% block body %}
+
+    {% trans_default_domain "purchase_order" %}
+    <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li><a href="{{ path('backend') }}">{{ 'COMMON_BACKEND'|trans({}, "common") }}</a> <span><i
+                                        class="fa fa-angle-right"></i></span></li>
+                        <li><a href="{{ path('order_index') }}">{{ 'PURCHASE_ORDER_ORDERS'|trans }}</a> <span><i
+                                        class="fa fa-angle-right"></i></span></li>
+                        <li>
+                        <li>{{ purchaseOrder.id }}</li>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <!--elements start-->
+    <div class="elements">
+        <div class="typhography text-left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h1>{{ 'PURCHASE_ORDER_ORDER'|trans }}</h1>
+                        <div class="row">
+                            <div class="col-sm-10">
+
+                                {% form_theme delete_form 'bootstrap_3_horizontal_layout.html.twig' %}
+                                {{ form_start(delete_form) }}
+                                <a class="btn btn-primary"
+                                   href="{{ path('order_edit', { 'id': purchaseOrder.id }) }}">{{ 'COMMON_UPDATE'|trans({}, "common") }}</a>
+                                <input type="submit" class="btn btn-danger"
+                                       value="{{ 'COMMON_DELETE'|trans({}, "common") }}">
+                            </div>
+                        </div>
+                        {{ form_end(delete_form) }}
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th>{{ 'PURCHASE_ORDER_ORDER_NUMBER'|trans }}</th>
+                                <td>{{ purchaseOrder.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'PURCHASE_ORDER_EMAIL'|trans }}</th>
+                                <td>{{ purchaseOrder.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'PURCHASE_ORDER_STATUS'|trans }}</th>
+                                <td>{{ purchaseOrder.statusString|trans }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'PURCHASE_ORDER_PAYMENT_METHOD'|trans }}</th>
+                                <td>{{ purchaseOrder.paymentMethodString|trans }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'USER_NAME'|trans({}, 'user') }}</th>
+                                <td>{{ purchaseOrder.address.firstName }} {{ purchaseOrder.address.lastName }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'ADDRESS_COMPANY_NAME'|trans({}, "address") }}</th>
+                                <td>{{ purchaseOrder.address.companyName }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'ADDRESS_ADDRESS'|trans({}, "address") }}</th>
+                                <td>{{ purchaseOrder.address.address }} {{ purchaseOrder.address.houseNumber }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'ADDRESS_ZIP_CODE'|trans({}, "address") }}</th>
+                                <td>{{ purchaseOrder.address.zipCode }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'ADDRESS_CITY'|trans({}, "address") }}</th>
+                                <td>{{ purchaseOrder.address.city }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'ADDRESS_PHONE_NUMBER'|trans({}, "address") }}</th>
+                                <td>{{ purchaseOrder.address.phoneNumber }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'PURCHASE_ORDER_SHIPPING_COSTS'|trans }}</th>
+                                <td>{{ purchaseOrder.shippingCosts|localizedcurrency('EUR') }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>{{ 'PURCHASE_ORDER_PRODUCT_NAME'|trans }}</th>
+                                <th>{{ 'PURCHASE_ORDER_SUBTOTAL'|trans }}</th>
+                                <th>{{ 'PURCHASE_ORDER_PRICE'|trans }}</th>
+                                <th>{{ 'PURCHASE_ORDER_VAT'|trans }}</th>
+                                <th>{{ 'PURCHASE_ORDER_AMOUNT'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for purchaseOrderLine in purchaseOrder.purchaseOrderLines %}
+                                <tr>
+                                    <td>{{ purchaseOrderLine.name }}</td>
+                                    <td>{{ purchaseOrderLine.subtotal|localizedcurrency('EUR') }}</td>
+                                    <td>{{ purchaseOrderLine.price|localizedcurrency('EUR') }}</td>
+                                    <td>{{ purchaseOrderLine.vat }}</td>
+                                    <td>{{ purchaseOrderLine.amount }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <p>
+                            <a class="btn btn-info"
+                               href="{{ path('order_index') }}">{{ 'COMMON_BACK_TO_OVERVIEW'|trans({}, "common") }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--elements end-->
+
+{% endblock %}

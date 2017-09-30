@@ -27,6 +27,10 @@
                 <source>ADDRESS_HOUSE_NUMBER</source>
                 <target>Huisnummer</target>
             </trans-unit>
+            <trans-unit id="address_house_nbr">
+                <source>ADDRESS_HOUSE_NBR</source>
+                <target>Huisnr.</target>
+            </trans-unit>
             <trans-unit id="address_zip_code">
                 <source>ADDRESS_ZIP_CODE</source>
                 <target>Postcode</target>

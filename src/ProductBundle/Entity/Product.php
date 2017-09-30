@@ -3,6 +3,7 @@
 namespace ProductBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ShoppingBundle\Entity\PurchaseOrderLine;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -25,6 +26,11 @@ class Product
      * @ORM\JoinColumn(name="product_category_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ShoppingBundle\Entity\PurchaseOrderLine", mappedBy="product")
+     */
+    private $purchaseOrderLines;
 
     /**
      * @var int
@@ -292,6 +298,20 @@ class Product
     }
 
     /**
+     * @return string
+     */
+    public function getFirstImageLink()
+    {
+       $image = $this->getImages()->first();
+
+        if (empty($image)) {
+            return ProductImage::PLACEHOLDER_IMAGE;
+        }
+
+        return 'img/product/' . $image->getImage();
+    }
+
+    /**
      * Set productCategoryId
      *
      * @param integer $productCategoryId
@@ -337,5 +357,39 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Add purchaseOrderLine
+     *
+     * @param PurchaseOrderLine $purchaseOrderLine
+     *
+     * @return Product
+     */
+    public function addPurchaseOrderLine(PurchaseOrderLine $purchaseOrderLine)
+    {
+        $this->purchaseOrderLines[] = $purchaseOrderLine;
+
+        return $this;
+    }
+
+    /**
+     * Remove purchaseOrderLine
+     *
+     * @param PurchaseOrderLine $purchaseOrderLine
+     */
+    public function removePurchaseOrderLine(PurchaseOrderLine $purchaseOrderLine)
+    {
+        $this->purchaseOrderLines->removeElement($purchaseOrderLine);
+    }
+
+    /**
+     * Get purchaseOrderLines
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPurchaseOrderLines()
+    {
+        return $this->purchaseOrderLines;
     }
 }

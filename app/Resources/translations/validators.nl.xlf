@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Knp Paginator Bundle -->
+            <trans-unit id="unique_email_not_unique">
+                <source>UNIQUE_EMAIL_NOT_UNIQUE</source>
+                <target>Dit emailadres is al in gebruik.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

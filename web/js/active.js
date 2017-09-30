@@ -371,3 +371,41 @@
     });
 
 
+    // dynamically add new purchaseOrderLine forms inside the PurchaseOrder form
+    var $collectionHolder;
+
+    $(document).ready(function() {
+        var $addPurchaseOrderLineLink = $('.add-purchase-order-line-link');
+
+        $collectionHolder = $('tbody.purchase-order-lines');
+
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+        $addPurchaseOrderLineLink.on('click', function (event) {
+            event.preventDefault();
+
+            addPurchaseOrderLineForm($collectionHolder);
+        });
+
+        $('body').on('click', '.remove-purchase-order-line', function(event) {
+            event.preventDefault();
+
+            $(this).closest('tr').remove();
+        });
+    });
+
+    function addPurchaseOrderLineForm($collectionHolder) {
+        var prototype = $collectionHolder.data('prototype');
+
+        var index = $collectionHolder.data('index');
+
+        var newForm = prototype.replace(/__name__/g, index);
+
+        $collectionHolder.data('index', index + 1);
+
+        var $newFormLi = $('<tr></tr>').append(newForm);
+
+        $('tbody.purchase-order-lines').append($newFormLi);
+    }
+
+

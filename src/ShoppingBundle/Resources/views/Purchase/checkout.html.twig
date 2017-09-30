@@ -1,0 +1,97 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+<!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li>
+                            <a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a>
+                            <span><i class="fa fa-angle-right"></i></span>
+                        </li>
+                        <li>
+                            <a href="{{ path('purchase_checkout') }}">{{ 'CHECKOUT_ORDER'|trans({}, "checkout") }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+    
+    
+    <!-- checkout-area start -->
+    <div class="checkout-area page-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="billing-detatls-area">
+                        <h4 class="checkout-titel">{{ 'CHECKOUT_ADDRESS_DATA'|trans({}, "checkout") }}</h4>
+                        {% form_theme addressForm _self %}
+                        {% if not addressForm.vars.valid %}
+                        <div class="alert alert-danger">
+                            <ul class="list-unstyled">
+                                {# Loop through every form item #}
+                                {% for child in addressForm.children %}
+                                    {# Display the errors of the form item #}
+                                    {%for error in child.vars.errors%}
+                                        <li><strong>{{ child.vars.attr.placeholder|trans({}, child.vars.translation_domain) }}:</strong> {{error.message}}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {{ form_start(addressForm, {'attr': {'novalidate': 'novalidate'} }) }}
+                            <div class="billing-input">
+                                <div class="input-field">
+                                    <div class="input-text {{ addressForm.firstName.vars.errors|length ? 'has-error' : '' }}">{{ form_widget(addressForm.firstName) }}</div>
+                                    <div class="input-text {{ addressForm.lastName.vars.errors|length ? 'has-error' : '' }}">{{ form_widget(addressForm.lastName) }}</div>
+                                </div>
+                                <div class="input-field">
+                                    <div class="input-text {{ addressForm.companyName.vars.errors|length ? 'has-error' : '' }}">{{ form_widget(addressForm.companyName) }}</div>
+                                    <div class="input-text">
+                                        <div class="row">
+                                            <div class="col-md-8 input-text-no-width {{ addressForm.address.vars.errors|length ? 'has-error' : '' }}">
+                                                {{ form_widget(addressForm.address) }} 
+                                            </div>
+                                            <div class="col-md-4 input-text-no-width {{ addressForm.houseNumber.vars.errors|length ? 'has-error' : '' }}">
+                                                {{ form_widget(addressForm.houseNumber) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="input-field">
+                                    <div class="input-text {{ addressForm.city.vars.errors|length ? 'has-error' : '' }}">
+                                        {{ form_widget(addressForm.city) }}
+                                    </div>
+                                    <div class="input-text {{ addressForm.email.vars.errors|length ? 'has-error' : '' }}">
+                                        {{ form_widget(addressForm.email) }}
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <div class="input-text {{ addressForm.phoneNumber.vars.errors|length ? 'has-error' : '' }}">{{ form_widget(addressForm.phoneNumber) }}</div>
+                                    <div class="input-text {{ addressForm.zipCode.vars.errors|length ? 'has-error' : '' }}">{{ form_widget(addressForm.zipCode) }}</div>
+                                </div>
+                            </div>
+                            <div class="billing-submit">
+                                <div class="continue-btn">
+                                    <button class="btn">{{ 'CHECKOUT_CONTINUE'|trans({}, "checkout") }}</button>
+                                </div>
+                            </div>
+                        {{ form_end(addressForm) }}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="your-order-area">
+                        <h4 class="checkout-titel">{{ 'CHECKOUT_YOUR_ORDER'|trans({}, "checkout") }}</h4>
+                        {{ include('ShoppingBundle:ShoppingCart:_cart-overview.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- checkout-area end -->
+{% endblock %}

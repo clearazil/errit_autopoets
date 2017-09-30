@@ -16,6 +16,9 @@
             <li>
                 <a href="{{ path('backend_user_index') }}">{{ 'USER_USERS'|trans({}, "user") }}</a>
             </li>
+            <li>
+                <a href="{{ path('order_index') }}">{{ 'PURCHASE_ORDER_ORDERS'|trans({}, "purchase_order") }}</a>
+            </li>
         </ul>
     </nav>
 {% endblock %}
@@ -35,6 +38,9 @@
             </li>
             <li>
                 <a href="{{ path('backend_user_index') }}">{{ 'USER_USERS'|trans({}, "user") }}</a>
+            </li>
+            <li>
+                <a href="{{ path('order_index') }}">{{ 'PURCHASE_ORDER_ORDERS'|trans({}, "purchase_order") }}</a>
             </li>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <li>

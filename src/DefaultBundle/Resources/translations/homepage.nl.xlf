@@ -5,7 +5,7 @@
             <!-- Common -->
             <trans-unit id="homepage_call_me">
                 <source>HOMEPAGE_CALL_ME</source>
-                <target>Bell mij</target>
+                <target>Bel mij</target>
             </trans-unit>
             <trans-unit id="homepage_headline">
                 <source>HOMEPAGE_HEADLINE</source>

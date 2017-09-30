@@ -55,6 +55,10 @@
                 <source>SHOPPING_CART_SHOPPING_CART_IS_EMPTY</source>
                 <target>Winkelwagen is leeg</target>
             </trans-unit>
+            <trans-unit id="shopping_cart_the_shopping_cart_is_empty">
+                <source>SHOPPING_CART_THE_SHOPPING_CART_IS_EMPTY</source>
+                <target>De winkelwagen is leeg.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

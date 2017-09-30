@@ -131,7 +131,7 @@ assetic:
           - 'css/meanmenu.min.css'
           - 'css/jquery-ui.css'
   debug:      '%kernel.debug%'
-  use_controller: '%kernel.debug%'
+  use_controller: false
   filters:
     cssrewrite: ~
 gregwar_image: ~

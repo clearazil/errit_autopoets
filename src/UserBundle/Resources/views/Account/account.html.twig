@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <ul>
                         <li><a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
-                        <li>{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</li>
+                        <li><a href="{{ path('account') }}">{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,13 +24,13 @@
 
             {% endfor %}
             <div class="page-header">
-                <h1>{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</h1>
+                <h1>{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }} <small>{{ 'ACCOUNT_DATA'|trans({}, "account") }}</small></h1>
             </div>
             <div class="row">
                 <div class="col-sm-4">
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="{{ path('account') }}">{{ 'ACCOUNT_ACCOUNT'|trans({}, "account") }}</a></li>
-                        <li><a href="">{{ 'ACCOUNT_ORDERS'|trans({}, "account") }}</a></li>
+                        <li><a href="{{ path('account_orders') }}">{{ 'ACCOUNT_ORDERS'|trans({}, "account") }}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-8">
@@ -42,40 +42,41 @@
                                 <p class="form-control-static">{{ user.email }}</p>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label">{{ 'USER_NAME'|trans({}, "user") }}</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">{{ user.address.firstName }} {{ user.address.lastName }}</p>
+                                <p class="form-control-static">{{ user.address ? user.address.firstName : '' }} {{ user.address ? user.address.lastName : '' }}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">{{ 'ADDRESS_COMPANY_NAME'|trans({}, "address") }}</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">{{ user.address.companyName }}</p>
+                                <p class="form-control-static">{{ user.address ? user.address.companyName : '' }}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">{{ 'ADDRESS_ADDRESS'|trans({}, "address") }}</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">{{ user.address.address }} {{ user.address.houseNumber }}</p>
+                                <p class="form-control-static">{{ user.address ? user.address.address : '' }} {{ user.address ? user.address.houseNumber : '' }}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">{{ 'ADDRESS_ZIP_CODE'|trans({}, "address") }}</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">{{ user.address.zipCode }}</p>
+                                <p class="form-control-static">{{ user.address ? user.address.zipCode : '' }}</p>
                             </div>
                         </div>                        
                         <div class="form-group">
                             <label class="col-sm-2 control-label">{{ 'ADDRESS_CITY'|trans({}, "address") }}</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">{{ user.address.city }}</p>
+                                <p class="form-control-static">{{ user.address ? user.address.city : '' }}</p>
                             </div>
                         </div>                        
                         <div class="form-group">
                             <label class="col-sm-2 control-label">{{ 'ADDRESS_PHONE_NUMBER'|trans({}, "address") }}</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">{{ user.address.phoneNumber }}</p>
+                                <p class="form-control-static">{{ user.address ? user.address.phoneNumber : '' }}</p>
                             </div>
                         </div>                        
                     </form>

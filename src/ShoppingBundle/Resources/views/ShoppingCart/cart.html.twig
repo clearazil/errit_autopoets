@@ -9,8 +9,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li><a href="index.html">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
-                        <li>{{ 'SHOPPING_CART_SHOPPING_CART'|trans({}, "shopping_cart") }}</li>
+                        <li><a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a> <span><i class="fa fa-angle-right"></i></span></li>
+                        <li>
+                            <a href="{{ path('cart_index') }}">{{ 'SHOPPING_CART_SHOPPING_CART'|trans({}, "shopping_cart") }}</a>
+
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -71,24 +74,15 @@
                 <div class="row">
                     <div class="col-sm-offset-8 col-md-4 col-sm-6 col-xs-12">
                         <div class="cart_total cart-pdi">
-                            <div class="cart-inner" style="border-bottom: 0px">
-                                <ul>
-                                    <li>{{ 'SHOPPING_CART_SHIPPING_COST'|trans({}, "shopping_cart") }} <span>{{ shoppingCart.shippingCost|localizedcurrency('EUR') }}</span></li>
-                                </ul>
-                            </div>
-                            <div class="cart-inner">
-                                <ul>
-                                    <li>{{ 'SHOPPING_CART_SUBTOTAL'|trans({}, "shopping_cart") }} <span>{{ shoppingCart.totalExcludingVat|localizedcurrency('EUR') }}</span></li>
-                                    <li>{{ 'SHOPPING_CART_VAT'|trans({}, "shopping_cart") }} <span>{{ shoppingCart.vat|localizedcurrency('EUR') }}</span></li>
-                                </ul>
-                            </div>
-                            <p>{{ 'SHOPPING_CART_TOTAL'|trans({}, "shopping_cart") }} <span>{{ shoppingCart.totalPrice|localizedcurrency('EUR') }}</span></p>
+                            {{ include('ShoppingBundle:ShoppingCart:_cart-totals.html.twig') }}
                             <div class="proceed-out">
-                                <a href="#">{{ 'SHOPPING_CART_PROCEED_TO_CHECKOUT'|trans({}, "shopping_cart") }}</a>
+                                <a href="{{ path('purchase_checkout') }}">{{ 'SHOPPING_CART_PROCEED_TO_CHECKOUT'|trans({}, "shopping_cart") }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
+            {% else %}
+                {{ 'SHOPPING_CART_THE_SHOPPING_CART_IS_EMPTY'|trans({}, "shopping_cart") }}
             {% endif %}
         </div>
     </div>

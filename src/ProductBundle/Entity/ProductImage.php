@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ProductImage
 {
+    const PLACEHOLDER_IMAGE = 'img/product/1.png';
+
     /**
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="images")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="CASCADE")

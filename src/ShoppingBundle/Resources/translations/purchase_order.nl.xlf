@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Purchase Order -->
+            <trans-unit id="purchase_order_order">
+                <source>PURCHASE_ORDER_ORDER</source>
+                <target>Bestelling</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_orders">
+                <source>PURCHASE_ORDER_ORDERS</source>
+                <target>Bestellingen</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_new_order">
+                <source>PURCHASE_ORDER_NEW_ORDER</source>
+                <target>Nieuwe bestelling</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_edit_order">
+                <source>PURCHASE_ORDER_EDIT_ORDER</source>
+                <target>Bewerk bestelling</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_email">
+                <source>PURCHASE_ORDER_EMAIL</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_add_order_line">
+                <source>PURCHASE_ORDER_ADD_ORDER_LINE</source>
+                <target>Bestelregel toevoegen</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_order_lines">
+                <source>PURCHASE_ORDER_ORDER_LINES</source>
+                <target>Bestelregels</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_product_name">
+                <source>PURCHASE_ORDER_PRODUCT_NAME</source>
+                <target>Productnaam</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_subtotal">
+                <source>PURCHASE_ORDER_SUBTOTAL</source>
+                <target>Subtotaal</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_price">
+                <source>PURCHASE_ORDER_PRICE</source>
+                <target>Prijs</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_vat">
+                <source>PURCHASE_ORDER_VAT</source>
+                <target>BTW</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_amount">
+                <source>PURCHASE_ORDER_AMOUNT</source>
+                <target>Aantal</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_order_number">
+                <source>PURCHASE_ORDER_ORDER_NUMBER</source>
+                <target>Bestelnummer</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_status">
+                <source>PURCHASE_ORDER_STATUS</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_shipping_costs">
+                <source>PURCHASE_ORDER_SHIPPING_COSTS</source>
+                <target>Verzendkosten</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_customer">
+                <source>PURCHASE_ORDER_CUSTOMER</source>
+                <target>Klant</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_payment_method">
+                <source>PURCHASE_ORDER_PAYMENT_METHOD</source>
+                <target>Betaalmethode</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_payment_ideal">
+                <source>PURCHASE_ORDER_PAYMENT_IDEAL</source>
+                <target>Ideal</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_payment_bank_transfer">
+                <source>PURCHASE_ORDER_PAYMENT_BANK_TRANSFER</source>
+                <target>Overmaken op bankrekening</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_payment_not_received">
+                <source>PURCHASE_ORDER_PAYMENT_NOT_RECEIVED</source>
+                <target>Wacht op betaling</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_payment_received">
+                <source>PURCHASE_ORDER_PAYMENT_RECEIVED</source>
+                <target>Betaling ontvangen</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_shipped">
+                <source>PURCHASE_ORDER_SHIPPED</source>
+                <target>Verzonden</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_article">
+                <source>PURCHASE_ORDER_ARTICLE</source>
+                <target>Artikel</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_articles">
+                <source>PURCHASE_ORDER_ARTICLES</source>
+                <target>Artikelen</target>
+            </trans-unit>
+            <trans-unit id="purchase_order_total">
+                <source>PURCHASE_ORDER_TOTAL</source>
+                <target>Totaal</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

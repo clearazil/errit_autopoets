@@ -2,13 +2,15 @@
 
 namespace ShoppingBundle\Controller;
 
+use NumberFormatter;
 use ProductBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ShoppingBundle\Service\ShoppingCart;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use NumberFormatter;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("cart")
@@ -17,6 +19,9 @@ class ShoppingCartController extends Controller
 {
     /**
      * @Route("/", name="cart_index")
+     *
+     * @param ShoppingCart $shoppingCart
+     * @return Response
      */
     public function cartAction(ShoppingCart $shoppingCart)
     {
@@ -27,6 +32,12 @@ class ShoppingCartController extends Controller
 
     /**
      * @Route("/add/{id}/{amount}", name="cart_add")
+     *
+     * @param Product $product
+     * @param Request $request
+     * @param $amount
+     * @param ShoppingCart $shoppingCart
+     * @return RedirectResponse|Response
      */
     public function addAction(Product $product, Request $request, $amount, ShoppingCart $shoppingCart)
     {
@@ -34,8 +45,8 @@ class ShoppingCartController extends Controller
 
         if ($request->isXmlHttpRequest()) {
             $shoppingCart->updateCart();
-            
-             return $this->render('ShoppingBundle:ShoppingCart:_cart-dropdown.html.twig');
+
+            return $this->render('ShoppingBundle:ShoppingCart:_cart-dropdown.html.twig');
         }
 
         return $this->redirectToRoute('cart_index');
@@ -43,6 +54,11 @@ class ShoppingCartController extends Controller
 
     /**
      * @Route("/decrease/{id}/{amount}", name="cart_decrease")
+     *
+     * @param Product $product
+     * @param $amount
+     * @param ShoppingCart $shoppingCart
+     * @return RedirectResponse
      */
     public function decreaseAction(Product $product, $amount, ShoppingCart $shoppingCart)
     {
@@ -53,6 +69,11 @@ class ShoppingCartController extends Controller
 
     /**
      * @Route("/remove/{id}", name="cart_remove")
+     *
+     * @param Product $product
+     * @param Request $request
+     * @param ShoppingCart $shoppingCart
+     * @return JsonResponse|RedirectResponse
      */
     public function removeAction(Product $product, Request $request, ShoppingCart $shoppingCart)
     {
@@ -60,7 +81,7 @@ class ShoppingCartController extends Controller
 
         if ($request->isXmlHttpRequest()) {
             $shoppingCart->updateCart();
-            
+
             $numberFormatter = new NumberFormatter($request->getLocale(), NumberFormatter::CURRENCY);
 
             return new JsonResponse([
@@ -72,16 +93,5 @@ class ShoppingCartController extends Controller
         }
 
         return $this->redirectToRoute('cart_index');
-    }
-
-    private function entityToJson($entity)
-    {
-        $encoders = [new JsonEncoder];
-        $normalizers = [new ObjectNormalizer];
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonContent = $serializer->serialize($entity, 'json');
-
-        return $jsonContent;
     }
 }

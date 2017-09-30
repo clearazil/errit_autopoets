@@ -119,6 +119,18 @@
                 <source>USER_CLICK_HERE_FOR_NEW_PASSWORD</source>
                 <target>Klik %here% om uw wachtwoord opnieuw in te stellen.</target>
             </trans-unit>
+            <trans-unit id="user_none">
+                <source>USER_NONE</source>
+                <target>Geen</target>
+            </trans-unit>
+            <trans-unit id="user_create_account">
+                <source>USER_CREATE_ACCOUNT</source>
+                <target>Maak een account aan</target>
+            </trans-unit>
+            <trans-unit id="user_continue">
+                <source>USER_CONTINUE</source>
+                <target>Ga verder</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -19,6 +19,30 @@
                 <source>ACCOUNT_ORDERS</source>
                 <target>Bestellingen</target>
             </trans-unit>
+            <trans-unit id="account_view_order">
+                <source>ACCOUNT_VIEW_ORDER</source>
+                <target>Bestelling bekijken</target>
+            </trans-unit>
+            <trans-unit id="account_order_with_order_number">
+                <source>ACCOUNT_ORDER_WITH_ORDER_NUMBER</source>
+                <target>Bestelling met bestelnummer %orderNumber%</target>
+            </trans-unit>
+            <trans-unit id="account_order_data">
+                <source>ACCOUNT_ORDER_DATA</source>
+                <target>Bestelgegevens</target>
+            </trans-unit>
+            <trans-unit id="account_shipping_address">
+                <source>ACCOUNT_SHIPPING_ADDRESS</source>
+                <target>Bezorgadres</target>
+            </trans-unit>
+            <trans-unit id="account_invoice_address">
+                <source>ACCOUNT_INVOICE_ADDRESS</source>
+                <target>Factuuradres</target>
+            </trans-unit>
+            <trans-unit id="account_data">
+                <source>ACCOUNT_DATA</source>
+                <target>Gegevens</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

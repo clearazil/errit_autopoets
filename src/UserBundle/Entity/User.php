@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use RandomLib\Factory as RandomLibFactory;
 /**
  * User.
  *
@@ -29,9 +29,18 @@ class User implements AdvancedUserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="user")
+     * @ORM\ManyToMany(targetEntity="Address")
+     * @ORM\JoinTable(name="addresses_users",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="address_id", referencedColumnName="id", unique=true)}
+     *     )
      */
     private $addresses;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ShoppingBundle\Entity\PurchaseOrder", mappedBy="user")
+     */
+    private $purchaseOrders;
 
     /**
      * @ORM\OneToMany(targetEntity="UserRole", mappedBy="user", orphanRemoval=true)
@@ -65,6 +74,10 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @var string
+     */
+    private $generatedPassword;
     /**
      * @ORM\Column(name="confirm_user_token", type="string", nullable=true)
      *
@@ -214,6 +227,30 @@ class User implements AdvancedUserInterface, \Serializable
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setGeneratedPassword()
+    {
+        $factory = new RandomLibFactory();
+        $generator = $factory->getMediumStrengthGenerator();
+
+        $password = $generator->generateString(10);
+
+        $this->setPassword($password);
+        $this->generatedPassword = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGeneratedPassword()
+    {
+        return $this->generatedPassword;
     }
 
     public function getRoles()
@@ -374,6 +411,9 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->addresses;
     }
 
+    /**
+     * @return Address|null
+     */
     public function getAddress()
     {
         if ($this->getAddresses() === null) {
@@ -386,12 +426,7 @@ class User implements AdvancedUserInterface, \Serializable
             });
 
         if (empty($address[0])) {
-            $address = new Address();
-            $address->setIsBilling(false);
-
-            $this->getAddresses()->add($address);
-
-            return $address;
+            return null;
         }
 
         return $address[0];
@@ -532,5 +567,39 @@ class User implements AdvancedUserInterface, \Serializable
         asort($roles);
 
         return $roles;
+    }
+
+    /**
+     * Add purchaseOrder
+     *
+     * @param \ShoppingBundle\Entity\PurchaseOrder $purchaseOrder
+     *
+     * @return User
+     */
+    public function addPurchaseOrder(\ShoppingBundle\Entity\PurchaseOrder $purchaseOrder)
+    {
+        $this->purchaseOrders[] = $purchaseOrder;
+
+        return $this;
+    }
+
+    /**
+     * Remove purchaseOrder
+     *
+     * @param \ShoppingBundle\Entity\PurchaseOrder $purchaseOrder
+     */
+    public function removePurchaseOrder(\ShoppingBundle\Entity\PurchaseOrder $purchaseOrder)
+    {
+        $this->purchaseOrders->removeElement($purchaseOrder);
+    }
+
+    /**
+     * Get purchaseOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPurchaseOrders()
+    {
+        return $this->purchaseOrders;
     }
 }

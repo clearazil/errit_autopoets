@@ -1,0 +1,57 @@
+{% extends 'frontend.html.twig' %}
+
+{% block body %}
+    <!--breadcrumbs-area start -->
+    <div class="breadcrumbs-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li>
+                            <a href="{{ path('home') }}">{{ 'COMMON_HOME'|trans({}, "common") }}</a>
+                            <span><i class="fa fa-angle-right"></i></span>
+                        </li>
+                        <li>
+                            <a href="{{ path('purchase_checkout') }}">{{ 'CHECKOUT_ORDER'|trans({}, "checkout") }}</a>
+                            <span><i class="fa fa-angle-right"></i></span>
+                        </li>
+                        <li>
+                            <a href="{{ path('purchase_checkout_success') }}">{{ 'CHECKOUT_SUCCESS'|trans({}, "checkout") }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs-area end -->
+
+    <!-- checkout-area start -->
+    <div class="elements">
+        <div class="container">
+            <div class="row">
+                <div class="page-header">
+                    <h1>{{ 'CHECKOUT_THANKS_FOR_ORDER'|trans({}, "checkout") }}</h1>
+                </div>
+                <p>{{ 'CHECKOUT_ORDER_RECEIVED_EMAIL_SENT'|trans({}, "checkout") }}</p>
+
+                <h2>{{ 'CHECKOUT_PAYMENT'|trans({}, "checkout") }}
+                    {% if (purchaseOrder.paymentMethod == constant('\\ShoppingBundle\\Entity\\PurchaseOrder::PAYMENT_METHOD_IDEAL')) %}
+                        <small>{{ 'CHECKOUT_IDEAL'|trans({}, "checkout") }}</small>
+                    {% endif %}
+
+                    {% if (purchaseOrder.paymentMethod == constant('\\ShoppingBundle\\Entity\\PurchaseOrder::PAYMENT_METHOD_BANK_TRANSFER')) %}
+                        <small>{{ 'CHECKOUT_BANK_TRANSFER'|trans({}, "checkout") }}</small>
+                    {% endif %}
+                </h2>
+                {% if (purchaseOrder.paymentMethod == constant('\\ShoppingBundle\\Entity\\PurchaseOrder::PAYMENT_METHOD_IDEAL')) %}
+                    <p>{{ 'CHECKOUT_IDEAL_PAYMENT_RECEIVED'|trans({}, "checkout") }}</p>
+                {% endif %}
+
+                {% if (purchaseOrder.paymentMethod == constant('\\ShoppingBundle\\Entity\\PurchaseOrder::PAYMENT_METHOD_BANK_TRANSFER')) %}
+                    <p>{{ 'CHECKOUT_BANK_TRANSFER_MAKE_PAYMENT'|trans({'%bankAccount%': '<accountNumber>', '%orderNumber%': purchaseOrder.id}, "checkout") }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- checkout-area end -->
+{% endblock %}
