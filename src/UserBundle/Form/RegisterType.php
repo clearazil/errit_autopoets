@@ -17,24 +17,28 @@ use UserBundle\Entity\User;
 
 class RegisterType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('email', EmailType::class, [
-            'label' => 'USER_EMAIL',
-        ])
-        ->add('password', RepeatedType::class, [
-            'type' => PasswordType::class,
-            'invalid_message' => 'VALIDATORS_PASSWORD_MUST_MATCH',
-            'first_options' => ['label' => 'USER_PASSWORD'],
-            'second_options' => ['label' => 'USER_PASSWORD_REPEAT'],
-            'constraints' => [
-                new NotBlank(),
-            ],
-        ])
-        ->add('addresses', CollectionType::class, [
-            'entry_type' => AddressType::class,
-            'constraints' => [new Valid()],
-        ]);
+        $builder
+            ->add('email', EmailType::class, [
+                'label' => 'USER_EMAIL',
+            ])
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'VALIDATORS_PASSWORD_MUST_MATCH',
+                'first_options' => ['label' => 'USER_PASSWORD'],
+                'second_options' => ['label' => 'USER_PASSWORD_REPEAT'],
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ])
+            ->add('addresses', CollectionType::class, [
+                'entry_type' => AddressType::class,
+                'constraints' => [new Valid()],
+            ]);
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $user = $event->getData();
@@ -45,6 +49,9 @@ class RegisterType extends AbstractType
         });
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

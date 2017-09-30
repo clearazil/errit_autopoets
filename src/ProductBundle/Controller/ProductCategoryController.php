@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Productcategory controller.
@@ -20,6 +22,9 @@ class ProductCategoryController extends Controller
      *
      * @Route("/", name="productcategory_index")
      * @Method("GET")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -51,6 +56,9 @@ class ProductCategoryController extends Controller
      *
      * @Route("/new", name="productcategory_new")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function newAction(Request $request)
     {
@@ -77,6 +85,9 @@ class ProductCategoryController extends Controller
      *
      * @Route("/{id}", name="productcategory_show")
      * @Method("GET")
+     *
+     * @param ProductCategory $productCategory
+     * @return Response
      */
     public function showAction(ProductCategory $productCategory)
     {
@@ -93,6 +104,10 @@ class ProductCategoryController extends Controller
      *
      * @Route("/{id}/edit", name="productcategory_edit")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @param ProductCategory $productCategory
+     * @return RedirectResponse|Response
      */
     public function editAction(Request $request, ProductCategory $productCategory)
     {
@@ -118,6 +133,10 @@ class ProductCategoryController extends Controller
      *
      * @Route("/{id}", name="productcategory_delete")
      * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param ProductCategory $productCategory
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, ProductCategory $productCategory)
     {

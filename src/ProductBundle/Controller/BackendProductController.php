@@ -7,8 +7,11 @@ use ProductBundle\Entity\ProductImage as Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Product controller.
@@ -22,14 +25,17 @@ class BackendProductController extends Controller
      *
      * @Route("/", name="backend_product_index")
      * @Method("GET")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql   = "SELECT product FROM ProductBundle:Product product";
+        $dql = "SELECT product FROM ProductBundle:Product product";
         $query = $em->createQuery($dql);
 
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -53,6 +59,9 @@ class BackendProductController extends Controller
      *
      * @Route("/new", name="backend_product_new")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function newAction(Request $request)
     {
@@ -80,6 +89,10 @@ class BackendProductController extends Controller
      * @Route("/image/new/{productId}", name="backend_product_image_new")
      * @ParamConverter("product", options={"mapping": {"productId"   : "id"}})
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Product $product
+     * @return RedirectResponse|Response
      */
     public function newProductImageAction(Request $request, Product $product)
     {
@@ -89,11 +102,11 @@ class BackendProductController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $file stores the uploaded Image file
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            /** @var UploadedFile $file */
             $file = $image->getImage();
 
             // Generate a unique name for the file before saving it
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
             $imagesDirectory = $this->getParameter('product_images_directory');
             // Move the file to the directory where product images are stored
@@ -135,6 +148,9 @@ class BackendProductController extends Controller
      *
      * @Route("/{id}", name="backend_product_show")
      * @Method("GET")
+     *
+     * @param Product $product
+     * @return Response
      */
     public function showAction(Product $product)
     {
@@ -145,7 +161,7 @@ class BackendProductController extends Controller
         foreach ($product->getImages() as $image) {
             $imageDeleteForms[$image->getId()] = $imageDeleteForm = $this->createDeleteImageForm($image)->createView();
         }
-        
+
         return $this->render('ProductBundle:Product:Backend/show.html.twig', array(
             'product' => $product,
             'imageDeleteForms' => $imageDeleteForms,
@@ -158,6 +174,10 @@ class BackendProductController extends Controller
      *
      * @Route("/{id}/edit", name="backend_product_edit")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Product $product
+     * @return RedirectResponse|Response
      */
     public function editAction(Request $request, Product $product)
     {
@@ -181,6 +201,10 @@ class BackendProductController extends Controller
      *
      * @Route("/{id}", name="backend_product_delete")
      * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param Product $product
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, Product $product)
     {
@@ -201,6 +225,10 @@ class BackendProductController extends Controller
      *
      * @Route("/image/delete/{id}", name="backend_product_image_delete")
      * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param Image $image
+     * @return RedirectResponse
      */
     public function deleteImageAction(Request $request, Image $image)
     {
@@ -211,7 +239,7 @@ class BackendProductController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             // TODO delete image and thumbnail
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->remove($image);
             $em->flush();
@@ -223,17 +251,15 @@ class BackendProductController extends Controller
     /**
      * Creates a form to delete a product entity.
      *
-     * @param Product $product The product entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param Image $image
+     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
      */
     private function createDeleteImageForm(Image $image)
     {
         return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
             ->setAction($this->generateUrl('backend_product_image_delete', array('id' => $image->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     /**
@@ -248,7 +274,6 @@ class BackendProductController extends Controller
         return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
             ->setAction($this->generateUrl('backend_product_delete', ['id' => $product->getId()]))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

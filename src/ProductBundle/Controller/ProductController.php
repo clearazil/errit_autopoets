@@ -3,11 +3,11 @@
 namespace ProductBundle\Controller;
 
 use ProductBundle\Entity\Product;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Product controller.
@@ -21,10 +21,13 @@ class ProductController extends Controller
      *
      * @Route("/", name="product_index")
      * @Method("GET")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
-        $em    = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $productNoCategoryCount = $em->getRepository('ProductBundle:Product')
             ->productsWithoutCategoryCount();
@@ -46,12 +49,15 @@ class ProductController extends Controller
                 ->productsQuery();
         }
 
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
+
+        /** @var \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $pagination */
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             9/*limit per page*/
         );
+
         $pagination->setTemplate('pagination.html.twig');
 
         return $this->render('ProductBundle:Product:index.html.twig', array(
@@ -65,6 +71,9 @@ class ProductController extends Controller
      *
      * @Route("/{id}", name="product_show")
      * @Method("GET")
+     *
+     * @param Product $product
+     * @return Response
      */
     public function showAction(Product $product)
     {

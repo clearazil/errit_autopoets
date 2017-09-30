@@ -3,11 +3,14 @@
 namespace UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use RandomLib\Factory as RandomLibFactory;
+use ShoppingBundle\Entity\PurchaseOrder;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use RandomLib\Factory as RandomLibFactory;
+
 /**
  * User.
  *
@@ -38,6 +41,8 @@ class User implements AdvancedUserInterface, \Serializable
     private $addresses;
 
     /**
+     * @var Collection
+     *
      * @ORM\OneToMany(targetEntity="ShoppingBundle\Entity\PurchaseOrder", mappedBy="user")
      */
     private $purchaseOrders;
@@ -100,14 +105,14 @@ class User implements AdvancedUserInterface, \Serializable
     private $isActive;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updated_at;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
@@ -122,21 +127,34 @@ class User implements AdvancedUserInterface, \Serializable
         $this->userRoles = new ArrayCollection();
     }
 
+    /**
+     * @return bool
+     */
     public function isAccountNonExpired()
     {
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function isAccountNonLocked()
     {
         return true;
     }
 
+
+    /**
+     * @return bool
+     */
     public function isCredentialsNonExpired()
     {
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
         return $this->getIsActive();
@@ -253,6 +271,9 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->generatedPassword;
     }
 
+    /**
+     * @return array
+     */
     public function getRoles()
     {
         $roles = [];
@@ -272,6 +293,9 @@ class User implements AdvancedUserInterface, \Serializable
     {
     }
 
+    /**
+     * @return string
+     */
     public function serialize()
     {
         return serialize([
@@ -282,6 +306,9 @@ class User implements AdvancedUserInterface, \Serializable
         ]);
     }
 
+    /**
+     * @param string $serialized
+     */
     public function unserialize($serialized)
     {
         list(
@@ -380,11 +407,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Add address.
      *
-     * @param \UserBundle\Entity\Address $address
+     * @param Address $address
      *
      * @return User
      */
-    public function addAddress(\UserBundle\Entity\Address $address)
+    public function addAddress(Address $address)
     {
         $this->addresses[] = $address;
 
@@ -394,9 +421,9 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Remove address.
      *
-     * @param \UserBundle\Entity\Address $address
+     * @param Address $address
      */
-    public function removeAddress(\UserBundle\Entity\Address $address)
+    public function removeAddress(Address $address)
     {
         $this->addresses->removeElement($address);
     }
@@ -509,11 +536,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Add userRole.
      *
-     * @param \UserBundle\Entity\UserRole $userRole
+     * @param UserRole $userRole
      *
      * @return User
      */
-    public function addUserRole(\UserBundle\Entity\UserRole $userRole)
+    public function addUserRole(UserRole $userRole)
     {
         $this->userRoles[] = $userRole;
 
@@ -523,9 +550,9 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Remove userRole.
      *
-     * @param \UserBundle\Entity\UserRole $userRole
+     * @param UserRole $userRole
      */
-    public function removeUserRole(\UserBundle\Entity\UserRole $userRole)
+    public function removeUserRole(UserRole $userRole)
     {
         $this->userRoles->removeElement($userRole);
     }
@@ -572,11 +599,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Add purchaseOrder
      *
-     * @param \ShoppingBundle\Entity\PurchaseOrder $purchaseOrder
+     * @param PurchaseOrder $purchaseOrder
      *
      * @return User
      */
-    public function addPurchaseOrder(\ShoppingBundle\Entity\PurchaseOrder $purchaseOrder)
+    public function addPurchaseOrder(PurchaseOrder $purchaseOrder)
     {
         $this->purchaseOrders[] = $purchaseOrder;
 
@@ -588,7 +615,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @param \ShoppingBundle\Entity\PurchaseOrder $purchaseOrder
      */
-    public function removePurchaseOrder(\ShoppingBundle\Entity\PurchaseOrder $purchaseOrder)
+    public function removePurchaseOrder(PurchaseOrder $purchaseOrder)
     {
         $this->purchaseOrders->removeElement($purchaseOrder);
     }
@@ -596,7 +623,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get purchaseOrders
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getPurchaseOrders()
     {

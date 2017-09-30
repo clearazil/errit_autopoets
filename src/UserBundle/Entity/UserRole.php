@@ -81,6 +81,10 @@ class UserRole
         return $this;
     }
 
+
+    /**
+     * @return string
+     */
     public function getLabel()
     {
         $labels = $this->roleLabels();
@@ -88,6 +92,10 @@ class UserRole
         return $labels[$this->getRoleId()];
     }
 
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         $names = $this->roleNames();
@@ -108,11 +116,11 @@ class UserRole
     /**
      * Set user.
      *
-     * @param \UserBundle\Entity\User $user
+     * @param User $user
      *
      * @return UserRole
      */
-    public function setUser(\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -122,7 +130,7 @@ class UserRole
     /**
      * Get user.
      *
-     * @return \UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {

@@ -13,25 +13,31 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class LoginType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username', TextType::class, [
-            'label' => 'USER_EMAIL',
-            'constraints' => [
-                new NotBlank(),
-            ],
-        ])
-        ->add('password', PasswordType::class, [
-            'label' => 'USER_PASSWORD',
-            'constraints' => [
-                new NotBlank(),
-            ],
-        ])
-        ->add('remember_me', CheckboxType::class, ['label' => 'USER_REMEMBER_ME'])
-        ->add('login', SubmitType::class, ['label' => 'USER_LOGIN'])
-        ;
+        $builder
+            ->add('username', TextType::class, [
+                'label' => 'USER_EMAIL',
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ])
+            ->add('password', PasswordType::class, [
+                'label' => 'USER_PASSWORD',
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ])
+            ->add('remember_me', CheckboxType::class, ['label' => 'USER_REMEMBER_ME'])
+            ->add('login', SubmitType::class, ['label' => 'USER_LOGIN']);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

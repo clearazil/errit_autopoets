@@ -4,20 +4,26 @@ namespace UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use ShoppingBundle\Entity\PurchaseOrder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use UserBundle\Entity\Address;
 use UserBundle\Entity\User;
-use ShoppingBundle\Entity\PurchaseOrder;
 
 class AccountController extends Controller
 {
     /**
      * @Route("/login", name="login")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function loginAction(Request $request)
     {
@@ -34,9 +40,6 @@ class AccountController extends Controller
             $form->addError($authenticationError);
         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-        }
-
         $form->handleRequest($request);
 
         return $this->render('UserBundle::Account/login.html.twig', [
@@ -46,6 +49,9 @@ class AccountController extends Controller
 
     /**
      * @Route("/register", name="register")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function registerAction(Request $request)
     {
@@ -101,8 +107,11 @@ class AccountController extends Controller
 
     /**
      * @Route("/account", name="account")
+     *
+     * @param UserInterface $user
+     * @return Response
      */
-    public function accountAction(Request $request, UserInterface $user)
+    public function accountAction(UserInterface $user)
     {
         return $this->render('UserBundle::Account/account.html.twig', [
             'user' => $user,
@@ -111,6 +120,10 @@ class AccountController extends Controller
 
     /**
      * @Route("/account/edit", name="account_edit")
+     *
+     * @param Request $request
+     * @param User|UserInterface $user
+     * @return RedirectResponse|Response
      */
     public function editAccountAction(Request $request, UserInterface $user)
     {
@@ -152,7 +165,7 @@ class AccountController extends Controller
      * @Route("/account/orders", name="account_orders")
      *
      * @param UserInterface $user
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function accountOrdersAction(UserInterface $user)
     {
@@ -163,8 +176,10 @@ class AccountController extends Controller
 
     /**
      * @Route("/account/orders/view/{id}", name="account_orders_view")
-     *
      * @ParamConverter("purchaseOrder", options={"mapping": {"id" : "id"}})
+     *
+     * @param PurchaseOrder $purchaseOrder
+     * @return Response
      */
     public function viewAccountOrderAction(PurchaseOrder $purchaseOrder)
     {
@@ -176,6 +191,10 @@ class AccountController extends Controller
     /**
      * @Route("/activate/{confirmUserToken}", name="activate")
      * @ParamConverter("user", options={"mapping": {"confirmUserToken" : "confirmUserToken"}})
+     *
+     * @param Request $request
+     * @param User $user
+     * @return RedirectResponse
      */
     public function activateAccountAction(Request $request, User $user)
     {
@@ -191,14 +210,18 @@ class AccountController extends Controller
         $event = new InteractiveLoginEvent($request, $token);
         $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
 
+        /** @var Session $session */
         $session = $request->getSession();
-        $session->getFlashBag()->add('activate_success', $this->get('translator')->trans('COMMON_ACTIVATE_SUCCESS', [], 'common'));
+        $session->getFlashBag()->add('activate_success', $this->get('translator')->trans('USER_ACTIVATE_SUCCESS', [], 'user'));
 
         return $this->redirectToRoute('account');
     }
 
     /**
      * @Route("/recover-password", name="recover_password")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function recoverPasswordAction(Request $request)
     {
@@ -212,8 +235,10 @@ class AccountController extends Controller
 
             $user = $repository->findUserByEmail($form->get('email')->getData());
 
+            /** @var Session $session */
+            $session = $request->getSession();
+
             if ($user !== null) {
-                $session = $request->getSession();
                 $session->getFlashBag()->add('recover_password_status', ['status' => 'alert-success', 'message' => $this->get('translator')->trans('USER_RECOVER_PASSWORD_EMAIL_SENT', [], 'user')]);
 
                 $user->setRecoverPasswordToken();
@@ -236,7 +261,6 @@ class AccountController extends Controller
 
                 $this->get('mailer')->send($message);
             } else {
-                $session = $request->getSession();
                 $session->getFlashBag()->add('recover_password_status', ['status' => 'alert-warning', 'message' => $this->get('translator')->trans('USER_RECOVER_PASSWORD_EMAIL_UNKNOWN', [], 'user')]);
             }
         }
@@ -249,6 +273,10 @@ class AccountController extends Controller
     /**
      * @Route("/new-password/{recoverPasswordToken}", name="new_password")
      * @ParamConverter("user", options={"mapping": {"recoverPasswordToken" : "recoverPasswordToken"}})
+     *
+     * @param Request $request
+     * @param User $user
+     * @return RedirectResponse|Response
      */
     public function setPasswordAction(Request $request, User $user)
     {
@@ -265,6 +293,7 @@ class AccountController extends Controller
             $em->persist($user);
             $em->flush();
 
+            /** @var Session $session */
             $session = $request->getSession();
             $session->getFlashBag()->add('recover_password_status', ['status' => 'alert-success', 'message' => $this->get('translator')->trans('COMMON_RECOVER_PASSWORD_SUCCESS', [], 'common')]);
 

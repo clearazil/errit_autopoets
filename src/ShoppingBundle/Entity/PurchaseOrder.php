@@ -271,6 +271,8 @@ class PurchaseOrder
             case self::PAYMENT_METHOD_BANK_TRANSFER:
                 return 'PURCHASE_ORDER_PAYMENT_BANK_TRANSFER';
         }
+
+        return null;
     }
 
     /**
@@ -351,6 +353,8 @@ class PurchaseOrder
             case self::STATUS_SHIPPED:
                 return 'PURCHASE_ORDER_SHIPPED';
         }
+
+        return null;
     }
 
     /**

@@ -21,7 +21,7 @@ class ProductImage
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $product;
-    
+
     /**
      * @var int
      *
@@ -49,14 +49,14 @@ class ProductImage
     private $image;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
@@ -78,7 +78,7 @@ class ProductImage
      *
      * @param integer $productId
      *
-     * @return ProductImages
+     * @return $this
      */
     public function setProductId($productId)
     {
@@ -102,7 +102,7 @@ class ProductImage
      *
      * @param string $image
      *
-     * @return ProductImages
+     * @return $this
      */
     public function setImage($image)
     {
@@ -124,11 +124,11 @@ class ProductImage
     /**
      * Set product
      *
-     * @param \ProductBundle\Entity\Product $product
+     * @param Product $product
      *
-     * @return ProductImages
+     * @return $this
      */
-    public function setProduct(\ProductBundle\Entity\Product $product = null)
+    public function setProduct(Product $product = null)
     {
         $this->product = $product;
 
@@ -138,14 +138,14 @@ class ProductImage
     /**
      * Get product
      *
-     * @return \ProductBundle\Entity\Product
+     * @return Product
      */
     public function getProduct()
     {
         return $this->product;
     }
 
-     /**
+    /**
      *
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -164,7 +164,7 @@ class ProductImage
      *
      * @param \DateTime $updatedAt
      *
-     * @return ProductImage
+     * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -188,7 +188,7 @@ class ProductImage
      *
      * @param \DateTime $createdAt
      *
-     * @return ProductImage
+     * @return $this
      */
     public function setCreatedAt($createdAt)
     {

@@ -3,6 +3,7 @@
 namespace ShoppingBundle\Form;
 
 use ShoppingBundle\Entity\PurchaseOrder;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -12,7 +13,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
 use UserBundle\Form\AddressType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PurchaseOrderType extends AbstractType
 {
@@ -21,7 +21,8 @@ class PurchaseOrderType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('email', EmailType::class, [
+        $builder
+            ->add('email', EmailType::class, [
                 'label' => 'PURCHASE_ORDER_EMAIL',
             ])
             ->add('status', ChoiceType::class, [
@@ -54,7 +55,7 @@ class PurchaseOrderType extends AbstractType
                 'by_reference' => false,
             ]);
     }
-    
+
     /**
      * {@inheritdoc}
      */

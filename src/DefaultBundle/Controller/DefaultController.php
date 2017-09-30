@@ -4,11 +4,15 @@ namespace DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="home"))
+     *
+     * @return Response
      */
     public function indexAction()
     {
@@ -26,8 +30,8 @@ class DefaultController extends Controller
         $query = $em->createQuery('
                         SELECT DISTINCT product
                         FROM ProductBundle:Product product')
-        ->setMaxResults($amount)
-        ->setFirstResult($offset);
+            ->setMaxResults($amount)
+            ->setFirstResult($offset);
 
         $result = $query->getResult();
 
@@ -36,8 +40,10 @@ class DefaultController extends Controller
         ]);
     }
 
-        /**
+    /**
      * @Route("/backend", name="backend"))
+     *
+     * @return RedirectResponse
      */
     public function backendAction()
     {

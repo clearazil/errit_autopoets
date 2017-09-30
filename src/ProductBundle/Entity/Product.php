@@ -2,9 +2,9 @@
 
 namespace ProductBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ShoppingBundle\Entity\PurchaseOrderLine;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -28,6 +28,8 @@ class Product
     private $category;
 
     /**
+     * @var Collection $purchaseOrderLines
+     *
      * @ORM\OneToMany(targetEntity="ShoppingBundle\Entity\PurchaseOrderLine", mappedBy="product")
      */
     private $purchaseOrderLines;
@@ -77,14 +79,14 @@ class Product
     private $stock;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updated_at;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
@@ -249,7 +251,7 @@ class Product
         return $this->created_at;
     }
 
-     /**
+    /**
      *
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -266,11 +268,11 @@ class Product
     /**
      * Add image
      *
-     * @param \ProductBundle\Entity\ProductImage $image
+     * @param ProductImage $image
      *
      * @return Product
      */
-    public function addImage(\ProductBundle\Entity\ProductImage $image)
+    public function addImage(ProductImage $image)
     {
         $this->images[] = $image;
 
@@ -280,9 +282,9 @@ class Product
     /**
      * Remove image
      *
-     * @param \ProductBundle\Entity\ProductImage $image
+     * @param ProductImage $image
      */
-    public function removeImage(\ProductBundle\Entity\ProductImage $image)
+    public function removeImage(ProductImage $image)
     {
         $this->images->removeElement($image);
     }
@@ -302,7 +304,7 @@ class Product
      */
     public function getFirstImageLink()
     {
-       $image = $this->getImages()->first();
+        $image = $this->getImages()->first();
 
         if (empty($image)) {
             return ProductImage::PLACEHOLDER_IMAGE;
@@ -338,11 +340,11 @@ class Product
     /**
      * Set category
      *
-     * @param \ProductBundle\Entity\ProductCategory $category
+     * @param ProductCategory $category
      *
      * @return Product
      */
-    public function setCategory(\ProductBundle\Entity\ProductCategory $category = null)
+    public function setCategory(ProductCategory $category = null)
     {
         $this->category = $category;
 
@@ -352,7 +354,7 @@ class Product
     /**
      * Get category
      *
-     * @return \ProductBundle\Entity\ProductCategory
+     * @return ProductCategory
      */
     public function getCategory()
     {
@@ -386,7 +388,7 @@ class Product
     /**
      * Get purchaseOrderLines
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getPurchaseOrderLines()
     {

@@ -2,14 +2,15 @@
 
 namespace ShoppingBundle\Form;
 
+use ShoppingBundle\Validator\Constraints\UniqueEmail;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
-use ShoppingBundle\Validator\Constraints\UniqueEmail;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use UserBundle\Entity\User;
 
 class AddressType extends AbstractType
 {
@@ -18,7 +19,8 @@ class AddressType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstName', TextType::class, [
+        $builder
+            ->add('firstName', TextType::class, [
                 'attr' => [
                     'placeholder' => 'ADDRESS_FIRST_NAME',
                 ],
@@ -98,13 +100,17 @@ class AddressType extends AbstractType
             ]);
     }
 
+    /**
+     * @param User $user
+     * @return $this
+     */
     public function fillWithUserData($user)
     {
         $this->get('firstName')->setData($user->getAddress()->getFirstName());
 
         return $this;
     }
-    
+
     /**
      * {@inheritdoc}
      */

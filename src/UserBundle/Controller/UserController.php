@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\Address;
 use UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * User controller.
@@ -21,6 +23,9 @@ class UserController extends Controller
      *
      * @Route("/", name="backend_user_index")
      * @Method("GET")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -38,6 +43,7 @@ class UserController extends Controller
 
         $deleteForms = [];
 
+        /** @var User[] $users */
         foreach ($users as $user) {
             $deleteForms[$user->getId()] = $this->createDeleteForm($user)->createView();
         }
@@ -53,6 +59,9 @@ class UserController extends Controller
      *
      * @Route("/new", name="backend_user_new")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function newAction(Request $request)
     {
@@ -98,6 +107,9 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="backend_user_show")
      * @Method("GET")
+     *
+     * @param User $user
+     * @return Response
      */
     public function showAction(User $user)
     {
@@ -114,6 +126,10 @@ class UserController extends Controller
      *
      * @Route("/{id}/edit", name="backend_user_edit")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @param User $user
+     * @return RedirectResponse|Response
      */
     public function editAction(Request $request, User $user)
     {
@@ -164,6 +180,10 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="backend_user_delete")
      * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param User $user
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, User $user)
     {

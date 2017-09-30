@@ -2,7 +2,6 @@
 
 namespace ShoppingBundle\Entity;
 
-use ShoppingBundle\Entity\ShoppingCartProduct;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class ShoppingCart implements \Serializable

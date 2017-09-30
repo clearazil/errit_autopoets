@@ -13,19 +13,26 @@ use UserBundle\Entity\User;
 
 class NewPasswordType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('password', RepeatedType::class, [
-            'type' => PasswordType::class,
-            'invalid_message' => 'VALIDATORS_PASSWORD_MUST_MATCH',
-            'first_options' => ['label' => 'COMMON_PASSWORD'],
-            'second_options' => ['label' => 'COMMON_PASSWORD_REPEAT'],
-            'constraints' => [
-                new NotBlank(),
-            ],
-        ])->add('submit', SubmitType::class, ['label' => 'COMMON_SUBMIT']);
+        $builder
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'VALIDATORS_PASSWORD_MUST_MATCH',
+                'first_options' => ['label' => 'COMMON_PASSWORD'],
+                'second_options' => ['label' => 'COMMON_PASSWORD_REPEAT'],
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ])->add('submit', SubmitType::class, ['label' => 'COMMON_SUBMIT']);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

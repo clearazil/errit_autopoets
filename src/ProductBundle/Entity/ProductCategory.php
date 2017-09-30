@@ -42,14 +42,14 @@ class ProductCategory
     private $slug;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
@@ -89,7 +89,7 @@ class ProductCategory
         return $this->name;
     }
 
-     /**
+    /**
      *
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -150,6 +150,7 @@ class ProductCategory
     {
         return $this->createdAt;
     }
+
     /**
      * Constructor
      */
