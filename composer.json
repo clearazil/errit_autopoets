@@ -34,7 +34,7 @@
         "gregwar/image-bundle": "^2.1",
         "incenteev/composer-parameter-handler": "^2.0",
         "ircmaxell/random-lib": "^1.2",
-        "knplabs/knp-paginator-bundle": "^2.5",
+        "knplabs/knp-paginator-bundle": "^2.6",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "stof/doctrine-extensions-bundle": "^1.2",
