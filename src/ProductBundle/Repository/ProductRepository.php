@@ -3,6 +3,8 @@
 namespace ProductBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use ProductBundle\Entity\ProductCategory;
 
 /**
@@ -15,6 +17,8 @@ class ProductRepository extends EntityRepository
 {
     /**
      * @return int
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function productsWithoutCategoryCount()
     {
@@ -31,10 +35,32 @@ class ProductRepository extends EntityRepository
      */
     public function productsQuery()
     {
-        $query = $this->createQueryBuilder('product')
+        return $this->createQueryBuilder('product')
             ->getQuery();
+    }
 
-        return $query;
+    /**
+     * @param $amount
+     * @return \Doctrine\ORM\Query
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function randomProductsQuery($amount)
+    {
+        //Get the number of products
+        $rows = (int)$this->createQueryBuilder('product')
+            ->select('count(product.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $offset = 0;
+        if ($rows > $amount) {
+            $offset = max(0, mt_rand(0, $rows - $amount - 1));
+        }
+
+        return $this->productsQuery()
+            ->setMaxResults($amount)
+            ->setFirstResult($offset);
     }
 
     /**

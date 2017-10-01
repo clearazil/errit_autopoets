@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProductCategoryRepository extends EntityRepository
 {
+    /**
+     * @return \Doctrine\ORM\Query
+     */
+    public function categoriesQuery()
+    {
+        return $this->createQueryBuilder('product_category')
+            ->getQuery();
+    }
 }

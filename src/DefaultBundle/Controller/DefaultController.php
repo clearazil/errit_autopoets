@@ -2,10 +2,12 @@
 
 namespace DefaultBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -13,30 +15,20 @@ class DefaultController extends Controller
      * @Route("/", name="home"))
      *
      * @return Response
+     * @throws \LogicException
+     * @throws \InvalidArgumentException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function indexAction()
     {
-        $amount = 4;
-
-        //Retrieve the EntityManager first
         $em = $this->getDoctrine()->getManager();
 
-        //Get the number of rows from your table
-        $rows = $em->createQuery('SELECT COUNT(product.id) FROM ProductBundle:Product product')->getSingleScalarResult();
-
-        $offset = max(0, rand(0, $rows - $amount - 1));
-
-        //Get the first $amount users starting from a random point
-        $query = $em->createQuery('
-                        SELECT DISTINCT product
-                        FROM ProductBundle:Product product')
-            ->setMaxResults($amount)
-            ->setFirstResult($offset);
-
-        $result = $query->getResult();
+        $query = $em->getRepository('ProductBundle:Product')
+            ->randomProductsQuery(4);
 
         return $this->render('DefaultBundle:Default:index.html.twig', [
-            'products' => $result,
+            'products' => $query->getResult(),
         ]);
     }
 

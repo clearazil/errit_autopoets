@@ -2,16 +2,26 @@
 
 namespace ProductBundle\Controller;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMInvalidArgumentException;
 use ProductBundle\Entity\Product;
 use ProductBundle\Entity\ProductImage as Image;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use ProductBundle\Form\ProductImageType;
+use ProductBundle\Form\ProductType;
+use ProductBundle\Service\ProductManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 
 /**
  * Product controller.
@@ -26,30 +36,24 @@ class BackendProductController extends Controller
      * @Route("/", name="backend_product_index")
      * @Method("GET")
      *
+     * @param ProductManager $productManager
      * @param Request $request
      * @return Response
+     * @throws InvalidOptionsException
+     * @throws InvalidParameterException
+     * @throws MissingMandatoryParametersException
+     * @throws RouteNotFoundException
+     * @throws InvalidArgumentException
+     * @throws \LogicException
      */
-    public function indexAction(Request $request)
+    public function indexAction(ProductManager $productManager, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT product FROM ProductBundle:Product product";
-        $query = $em->createQuery($dql);
+        $products = $productManager->getPaginatedProducts($request);
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
-        );
-
-        $deleteForms = [];
-
-        foreach ($pagination as $product) {
-            $deleteForms[$product->getId()] = $this->createDeleteForm($product)->createView();
-        }
+        $deleteForms = $productManager->getDeleteForms($products);
 
         return $this->render('ProductBundle:Product:Backend/index.html.twig', [
-            'pagination' => $pagination,
+            'pagination' => $products,
             'deleteForms' => $deleteForms,
         ]);
     }
@@ -62,11 +66,13 @@ class BackendProductController extends Controller
      *
      * @param Request $request
      * @return RedirectResponse|Response
+     * @throws \LogicException
+     * @throws \InvalidArgumentException
      */
     public function newAction(Request $request)
     {
         $product = new Product();
-        $form = $this->createForm('ProductBundle\Form\ProductType', $product);
+        $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,46 +98,20 @@ class BackendProductController extends Controller
      *
      * @param Request $request
      * @param Product $product
+     * @param ProductManager $productManager
      * @return RedirectResponse|Response
+     * @throws OptimisticLockException
+     * @throws ORMInvalidArgumentException
+     * @throws FileException
      */
-    public function newProductImageAction(Request $request, Product $product)
+    public function newProductImageAction(Request $request, Product $product, ProductManager $productManager)
     {
         $image = new Image;
-        $form = $this->createForm('ProductBundle\Form\ProductImageType', $image);
+        $form = $this->createForm(ProductImageType::class, $image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $file stores the uploaded Image file
-            /** @var UploadedFile $file */
-            $file = $image->getImage();
-
-            // Generate a unique name for the file before saving it
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-
-            $imagesDirectory = $this->getParameter('product_images_directory');
-            // Move the file to the directory where product images are stored
-            $file->move(
-                $imagesDirectory,
-                $fileName
-            );
-
-            $this->get('image.handling')->open($imagesDirectory . '/' . $fileName)
-                ->forceResize(2000, 1300)
-                ->save($imagesDirectory . '/' . $fileName);
-
-            $this->get('image.handling')->open($imagesDirectory . '/' . $fileName)
-                ->resize('50%')
-                ->save($imagesDirectory . '/thumbnail/' . $fileName);
-
-            // Update the 'image' property to store the image file name
-            // instead of its contents
-            $image->setImage($fileName);
-
-            $image->setProduct($product);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($image);
-            $em->flush();
+            $product = $productManager->createProductImage($image, $product, $this->getParameter('product_images_directory'));
 
             return $this->redirectToRoute('backend_product_show', array('id' => $product->getId()));
         }
@@ -150,16 +130,22 @@ class BackendProductController extends Controller
      * @Method("GET")
      *
      * @param Product $product
+     * @param ProductManager $productManager
      * @return Response
+     * @throws InvalidOptionsException
+     * @throws InvalidParameterException
+     * @throws MissingMandatoryParametersException
+     * @throws RouteNotFoundException
+     * @throws InvalidArgumentException
      */
-    public function showAction(Product $product)
+    public function showAction(Product $product, ProductManager $productManager)
     {
-        $deleteForm = $this->createDeleteForm($product);
+        $deleteForm = $productManager->createDeleteForm($product);
 
         $imageDeleteForms = [];
 
         foreach ($product->getImages() as $image) {
-            $imageDeleteForms[$image->getId()] = $imageDeleteForm = $this->createDeleteImageForm($image)->createView();
+            $imageDeleteForms[$image->getId()] = $imageDeleteForm = $productManager->createDeleteImageForm($image)->createView();
         }
 
         return $this->render('ProductBundle:Product:Backend/show.html.twig', array(
@@ -178,10 +164,12 @@ class BackendProductController extends Controller
      * @param Request $request
      * @param Product $product
      * @return RedirectResponse|Response
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public function editAction(Request $request, Product $product)
     {
-        $editForm = $this->createForm('ProductBundle\Form\ProductType', $product);
+        $editForm = $this->createForm(ProductType::class, $product);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -203,12 +191,15 @@ class BackendProductController extends Controller
      * @Method("DELETE")
      *
      * @param Request $request
+     * @param ProductManager $productManager
      * @param Product $product
      * @return RedirectResponse
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
-    public function deleteAction(Request $request, Product $product)
+    public function deleteAction(Request $request, Product $product, ProductManager $productManager)
     {
-        $form = $this->createDeleteForm($product);
+        $form = $productManager->createDeleteForm($product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -228,13 +219,16 @@ class BackendProductController extends Controller
      *
      * @param Request $request
      * @param Image $image
+     * @param ProductManager $productManager
      * @return RedirectResponse
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
-    public function deleteImageAction(Request $request, Image $image)
+    public function deleteImageAction(Request $request, Image $image, ProductManager $productManager)
     {
         $productId = $image->getProduct()->getId();
 
-        $form = $this->createDeleteImageForm($image);
+        $form = $productManager->createDeleteImageForm($image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -246,34 +240,5 @@ class BackendProductController extends Controller
         }
 
         return $this->redirectToRoute('backend_product_show', ['id' => $productId]);
-    }
-
-    /**
-     * Creates a form to delete a product entity.
-     *
-     * @param Image $image
-     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
-     */
-    private function createDeleteImageForm(Image $image)
-    {
-        return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
-            ->setAction($this->generateUrl('backend_product_image_delete', array('id' => $image->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
-    }
-
-    /**
-     * Creates a form to delete a product entity.
-     *
-     * @param Product $product The product entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Product $product)
-    {
-        return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
-            ->setAction($this->generateUrl('backend_product_delete', ['id' => $product->getId()]))
-            ->setMethod('DELETE')
-            ->getForm();
     }
 }

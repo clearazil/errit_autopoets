@@ -2,13 +2,16 @@
 
 namespace ProductBundle\Controller;
 
+use Knp\Component\Pager\Pagination\SlidingPagination;
 use ProductBundle\Entity\ProductCategory;
+use ProductBundle\Service\ProductCategoryManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use ProductBundle\Form\ProductCategoryType;
 
 /**
  * Productcategory controller.
@@ -24,23 +27,17 @@ class ProductCategoryController extends Controller
      * @Method("GET")
      *
      * @param Request $request
+     * @param ProductCategoryManager $categoryManager
      * @return Response
+     * @throws \LogicException
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, ProductCategoryManager $categoryManager)
     {
-        $em = $this->getDoctrine()->getManager();
-        $dql   = "SELECT productCategory FROM ProductBundle:ProductCategory productCategory";
-        $query = $em->createQuery($dql);
-
-        $paginator  = $this->get('knp_paginator');
-        $productCategories = $paginator->paginate(
-            $query, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/
-        );
+        $productCategories = $categoryManager->paginatedCategories($request);
 
         $deleteForms = [];
 
+        /** @var SlidingPagination $productCategories */
         foreach ($productCategories as $productCategory) {
             $deleteForms[$productCategory->getId()] = $this->createDeleteForm($productCategory)->createView();
         }
@@ -59,11 +56,13 @@ class ProductCategoryController extends Controller
      *
      * @param Request $request
      * @return RedirectResponse|Response
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public function newAction(Request $request)
     {
         $productCategory = new Productcategory();
-        $form = $this->createForm('ProductBundle\Form\ProductCategoryType', $productCategory);
+        $form = $this->createForm(ProductCategoryType::class, $productCategory);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -108,11 +107,13 @@ class ProductCategoryController extends Controller
      * @param Request $request
      * @param ProductCategory $productCategory
      * @return RedirectResponse|Response
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public function editAction(Request $request, ProductCategory $productCategory)
     {
         $deleteForm = $this->createDeleteForm($productCategory);
-        $editForm = $this->createForm('ProductBundle\Form\ProductCategoryType', $productCategory);
+        $editForm = $this->createForm(ProductCategoryType::class, $productCategory);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -137,6 +138,8 @@ class ProductCategoryController extends Controller
      * @param Request $request
      * @param ProductCategory $productCategory
      * @return RedirectResponse
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public function deleteAction(Request $request, ProductCategory $productCategory)
     {
@@ -161,10 +164,15 @@ class ProductCategoryController extends Controller
      */
     private function createDeleteForm(ProductCategory $productCategory)
     {
-        return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
+        $options = [
+            'attr' => [
+                'class' => 'delete',
+                'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]
+        ];
+
+        return $this->createFormBuilder(null, $options)
             ->setAction($this->generateUrl('productcategory_delete', ['id' => $productCategory->getId()]))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
