@@ -57,6 +57,8 @@
       <path value="$PROJECT_DIR$/vendor/willdurand/jsonp-callback-validator" />
       <path value="$PROJECT_DIR$/vendor/ircmaxell/random-lib" />
       <path value="$PROJECT_DIR$/vendor/ircmaxell/security-lib" />
+      <path value="/usr/share/php/PHPUnit" />
+      <path value="/usr/bin" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.5.0" />

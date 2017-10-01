@@ -65,12 +65,16 @@
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
-          <root url="phar://$MODULE_DIR$/vendor/twig/twig/test/Twig/Tests/Loader/Fixtures/phar/phar-sample.phar/" />
           <root url="phar://$MODULE_DIR$/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar/" />
+          <root url="phar://$MODULE_DIR$/vendor/twig/twig/test/Twig/Tests/Loader/Fixtures/phar/phar-sample.phar/" />
+          <root url="phar:///usr/bin/phar.phar/" />
+          <root url="phar://$MODULE_DIR$/phpunit.phar/" />
         </CLASSES>
         <SOURCES>
-          <root url="phar://$MODULE_DIR$/vendor/twig/twig/test/Twig/Tests/Loader/Fixtures/phar/phar-sample.phar/" />
           <root url="phar://$MODULE_DIR$/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar/" />
+          <root url="phar://$MODULE_DIR$/vendor/twig/twig/test/Twig/Tests/Loader/Fixtures/phar/phar-sample.phar/" />
+          <root url="phar:///usr/bin/phar.phar/" />
+          <root url="phar://$MODULE_DIR$/phpunit.phar/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -132,6 +136,8 @@
           <root url="file://$MODULE_DIR$/vendor/twig/extensions" />
           <root url="file://$MODULE_DIR$/vendor/twig/twig" />
           <root url="file://$MODULE_DIR$/vendor/willdurand/jsonp-callback-validator" />
+          <root url="file:///usr/bin" />
+          <root url="file:///usr/share/php/PHPUnit" />
         </CLASSES>
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/behat/transliterator" />
@@ -189,6 +195,8 @@
           <root url="file://$MODULE_DIR$/vendor/twig/extensions" />
           <root url="file://$MODULE_DIR$/vendor/twig/twig" />
           <root url="file://$MODULE_DIR$/vendor/willdurand/jsonp-callback-validator" />
+          <root url="file:///usr/bin" />
+          <root url="file:///usr/share/php/PHPUnit" />
         </SOURCES>
       </library>
     </orderEntry>

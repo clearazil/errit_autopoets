@@ -16,6 +16,7 @@
 /web/bundles/
 /web/img/product/
 .web-server-pid
+phpunit.phar
 
 # PHPStorm User-specific stuff:
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
