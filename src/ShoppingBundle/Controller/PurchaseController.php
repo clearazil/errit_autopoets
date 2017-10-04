@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use UserBundle\UserManager;
 
 class PurchaseController extends Controller
@@ -115,6 +116,7 @@ class PurchaseController extends Controller
      * @return RedirectResponse|Response
      * @throws \OutOfBoundsException
      * @throws InvalidOptionsException
+     * @throws InvalidArgumentException
      */
     public function loginOrRegisterAction(UserManager $userManager)
     {
