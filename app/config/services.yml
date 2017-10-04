@@ -29,6 +29,12 @@ services:
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
         exclude: '../../src/ProductBundle/{Entity,Repository,Tests}'
+    # makes classes in src/UserBundle available to be used as services
+    UserBundle\:
+        resource: '../../src/UserBundle/*'
+        # you can exclude directories or files
+        # but if a service is unused, it's removed anyway
+        exclude: '../../src/UserBundle/{Entity,Repository,Tests}'
     knp_paginator:
         class: Knp\Component\Pager\Paginator
         public: false

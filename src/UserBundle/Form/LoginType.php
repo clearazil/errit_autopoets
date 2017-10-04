@@ -8,13 +8,21 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+use Symfony\Component\Validator\Exception\InvalidOptionsException;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 class LoginType extends AbstractType
 {
     /**
      * {@inheritdoc}
+     *
+     * @throws ConstraintDefinitionException
+     * @throws InvalidOptionsException
+     * @throws MissingOptionsException
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -37,6 +45,8 @@ class LoginType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @throws AccessException
      */
     public function configureOptions(OptionsResolver $resolver)
     {

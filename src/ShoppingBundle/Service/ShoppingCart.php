@@ -3,9 +3,9 @@
 namespace ShoppingBundle\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use ProductBundle\Entity\Product;
 use ShoppingBundle\Entity\ShoppingCart as CartEntity;
 use ShoppingBundle\Entity\ShoppingCartProduct;
-use ProductBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ShoppingCart
@@ -156,9 +156,7 @@ class ShoppingCart
      */
     public function getProducts()
     {
-        $productsInCart = $this->shoppingCart->getProducts();
-
-        return $productsInCart;
+        return $this->shoppingCart->getProducts();
     }
 
     /**
