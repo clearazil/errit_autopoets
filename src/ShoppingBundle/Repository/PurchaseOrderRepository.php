@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class PurchaseOrderRepository extends EntityRepository
 {
+    /**
+     * @return \Doctrine\ORM\Query
+     */
+    public function purchaseOrderQuery()
+    {
+        return $this->createQueryBuilder('purchaseOrder')
+            ->getQuery();
+    }
 }

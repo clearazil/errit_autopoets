@@ -2,6 +2,7 @@
 
 namespace ShoppingBundle\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use ShoppingBundle\Entity\PurchaseOrder;
 use ShoppingBundle\Entity\PurchaseOrderLine;
@@ -82,6 +83,85 @@ class PurchaseOrderCreator
         $this->user = $token->getUser();
 
         $this->shoppingCart = $shoppingCart;
+    }
+
+    /**
+     * @return PurchaseOrder
+     */
+    public function getNewPurchaseOrder()
+    {
+        $purchaseOrder = new Purchaseorder();
+
+        $address = new Address();
+        $address->setIsBilling(false);
+
+        $purchaseOrderLine = new PurchaseOrderLine;
+        $purchaseOrder->addPurchaseOrderLine($purchaseOrderLine);
+
+        $purchaseOrder->getAddresses()->add($address);
+
+        return $purchaseOrder;
+    }
+
+    /**
+     * @param PurchaseOrder $purchaseOrder
+     * @return PurchaseOrder
+     */
+    public function createNewPurchaseOrder(PurchaseOrder $purchaseOrder)
+    {
+        $this->entityManager->persist($purchaseOrder);
+
+        foreach ($purchaseOrder->getPurchaseOrderLines() as $purchaseOrderLine) {
+            $purchaseOrderLine->setPurchaseOrder($purchaseOrder);
+            $this->entityManager->persist($purchaseOrderLine);
+        }
+
+        $this->entityManager->persist($purchaseOrder->getAddress());
+        $this->entityManager->flush();
+
+        return $purchaseOrder;
+    }
+
+    /**
+     * @param PurchaseOrder $purchaseOrder
+     * @return ArrayCollection
+     */
+    public function getOriginalOrderLines(PurchaseOrder $purchaseOrder)
+    {
+        $originalOrderLines = new ArrayCollection();
+
+        // Create an ArrayCollection of the current PurchaseOrderLine objects in the database
+        foreach ($purchaseOrder->getPurchaseOrderLines() as $purchaseOrderLine) {
+            $originalOrderLines->add($purchaseOrderLine);
+        }
+
+        return $originalOrderLines;
+    }
+
+    /**
+     * @param PurchaseOrder $purchaseOrder
+     * @param ArrayCollection $originalOrderLines
+     * @return PurchaseOrder
+     */
+    public function updatePurchaseOrder(PurchaseOrder $purchaseOrder, $originalOrderLines)
+    {
+        // remove purchaseOrderLines if they are deleted
+        foreach ($originalOrderLines as $purchaseOrderLine) {
+            if ($purchaseOrder->getPurchaseOrderLines()->contains($purchaseOrderLine) === false) {
+                $purchaseOrder->getPurchaseOrderLines()->removeElement($purchaseOrderLine);
+
+                $this->entityManager->remove($purchaseOrderLine);
+            }
+        }
+
+        foreach ($purchaseOrder->getPurchaseOrderLines() as $purchaseOrderLine) {
+            $purchaseOrderLine->setPurchaseOrder($purchaseOrder);
+            $this->entityManager->persist($purchaseOrderLine);
+        }
+
+        $this->entityManager->flush();
+
+        return $purchaseOrder;
     }
 
     /**

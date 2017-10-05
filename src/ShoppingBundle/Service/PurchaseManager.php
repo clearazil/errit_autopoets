@@ -2,6 +2,9 @@
 
 namespace ShoppingBundle\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\Pagination\SlidingPagination;
+use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -26,20 +29,43 @@ class PurchaseManager
     private $user;
 
     /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * @var Paginator
+     */
+    private $paginator;
+
+    /**
+     * @var null|\Symfony\Component\HttpFoundation\Request
+     */
+    private $request;
+
+    /**
      * PurchaseManager constructor.
      * @param RequestStack $requestStack
      * @param AuthorizationCheckerInterface $authChecker
      * @param TokenStorageInterface $tokenStorage
+     * @param EntityManagerInterface $em
+     * @param Paginator $paginator
      * @throws BadRequestHttpException
      */
     public function __construct(RequestStack $requestStack, AuthorizationCheckerInterface $authChecker,
-                                TokenStorageInterface $tokenStorage)
+                                TokenStorageInterface $tokenStorage, EntityManagerInterface $em, Paginator $paginator)
     {
         $this->authChecker = $authChecker;
 
         $request = $requestStack->getCurrentRequest();
 
         $token = $tokenStorage->getToken();
+
+        $this->entityManager = $em;
+
+        $this->paginator = $paginator;
+
+        $this->request = $request;
 
         if ($request === null || $token === null) {
             throw new BadRequestHttpException();
@@ -52,6 +78,25 @@ class PurchaseManager
         }
 
         $this->user = $token->getUser();
+    }
+
+    /**
+     * @return SlidingPagination
+     * @throws \LogicException
+     */
+    public function getPaginatedPurchaseOrders()
+    {
+        $query = $this->entityManager->getRepository('ShoppingBundle:PurchaseOrder')
+            ->purchaseOrderQuery();
+
+        /** @var SlidingPagination $pagination */
+        $pagination = $this->paginator->paginate(
+            $query, /* query NOT result */
+            $this->request->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
+
+        return $pagination;
     }
 
     /**
