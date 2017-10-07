@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
-use UserBundle\UserManager;
+use UserBundle\Service\UserManager;
 
 class PurchaseController extends Controller
 {

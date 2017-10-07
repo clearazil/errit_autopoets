@@ -1,6 +1,6 @@
 <?php
 
-namespace UserBundle;
+namespace UserBundle\Service;
 
 use ShoppingBundle\Form\RegisterType;
 use Symfony\Component\Form\FormError;

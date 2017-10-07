@@ -135,6 +135,8 @@ class PurchaseOrderController extends Controller
      * @param Request $request
      * @param PurchaseOrder $purchaseOrder
      * @return RedirectResponse
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public function deleteAction(Request $request, PurchaseOrder $purchaseOrder)
     {
