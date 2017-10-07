@@ -47,6 +47,10 @@
                 <source>USER_PASSWORD_REPEAT</source>
                 <target>Wachtwoord herhalen</target>
             </trans-unit>
+            <trans-unit id="user_new_password">
+                <source>USER_NEW_PASSWORD</source>
+                <target>Nieuw wachtwoord</target>
+            </trans-unit>
             <trans-unit id="user_remember_me">
                 <source>USER_REMEMBER_ME</source>
                 <target>Blijf ingelogd</target>
@@ -114,6 +118,10 @@
             <trans-unit id="user_new_password_request_received">
                 <source>USER_NEW_PASSWORD_REQUEST_RECEIVED</source>
                 <target>Hallo %name%, we hebben uw aanvraag voor een nieuw wachtwoord ontvangen.</target>
+            </trans-unit>
+            <trans-unit id="user_recover_password_success">
+                <source>USER_RECOVER_PASSWORD_SUCCESS</source>
+                <target>Het wachtwoord is gewijzigd. Log hier in met uw nieuwe wachtwoord.</target>
             </trans-unit>
             <trans-unit id="user_click_here_for_new_password">
                 <source>USER_CLICK_HERE_FOR_NEW_PASSWORD</source>

@@ -28,8 +28,16 @@
                         <div class="customer-login my-account">
                             <p style="margin-bottom: 10px;" class="lost_password"><a href="{{ path('register') }}">{{ 'USER_NO_ACCOUNT_YET'|trans({}, "user") }}</a></p>
                             <div class="clearfix"></div>
-                            {% for flashMessage in app.session.flashbag.get('recover_password_status') %}
-                                 <div class="alert {{ flashMessage.status }}" role="alert">{{ flashMessage.message }}</div>
+                            {% for flashMessage in app.session.flashbag.get('error') %}
+
+                                <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
+
+                            {% endfor %}
+
+                            {% for flashMessage in app.session.flashbag.get('success') %}
+
+                                <div class="alert alert-success" role="alert">{{ flashMessage }}</div>
+
                             {% endfor %}
                             
                             {% form_theme form _self %}

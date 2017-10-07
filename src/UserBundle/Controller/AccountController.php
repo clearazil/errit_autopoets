@@ -6,41 +6,33 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ShoppingBundle\Entity\PurchaseOrder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use UserBundle\Entity\Address;
 use UserBundle\Entity\User;
+use UserBundle\Form\AccountType;
+use UserBundle\Form\NewPasswordType;
+use UserBundle\Form\RecoverPasswordType;
+use UserBundle\Form\RegisterType;
+use UserBundle\Service\UserManager;
 
 class AccountController extends Controller
 {
     /**
      * @Route("/login", name="login")
      *
-     * @param Request $request
+     * @param UserManager $userManager
      * @return Response
+     * @throws InvalidOptionsException
+     * @throws InvalidArgumentException
      */
-    public function loginAction(Request $request)
+    public function loginAction(UserManager $userManager)
     {
-        $authUtils = $this->get('security.authentication_utils');
-
-        $defaultData = ['username' => $authUtils->getLastUsername()];
-
-        $form = $this->createForm('UserBundle\Form\LoginType', $defaultData);
-
-        $lastAuthError = $authUtils->getLastAuthenticationError();
-        if ($lastAuthError !== null) {
-            $message = $this->get('translator')->trans($lastAuthError->getMessageKey(), [], 'security');
-            $authenticationError = new FormError($message);
-            $form->addError($authenticationError);
-        }
-
-        $form->handleRequest($request);
+        $form = $userManager->handleLoginForm();
 
         return $this->render('UserBundle::Account/login.html.twig', [
             'form' => $form->createView(),
@@ -51,9 +43,14 @@ class AccountController extends Controller
      * @Route("/register", name="register")
      *
      * @param Request $request
+     * @param UserManager $userManager
      * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     * @throws InvalidArgumentException
      */
-    public function registerAction(Request $request)
+    public function registerAction(Request $request, UserManager $userManager)
     {
         $user = new User();
 
@@ -62,38 +59,11 @@ class AccountController extends Controller
 
         $user->getAddresses()->add($address);
 
-        $form = $this->createForm('UserBundle\Form\RegisterType', $user);
+        $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
 
-        $user->setIsActive(false);
-        $user->setConfirmUserToken();
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $encoder = $this->container->get('security.password_encoder');
-            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-
-            $address->setUser($user);
-            $em->persist($address);
-            $em->flush();
-
-            $message = new \Swift_Message($this->get('translator')->trans('USER_THANKS_FOR_REGISTERING', [], 'user'));
-
-            $message->setFrom('erritsjoerd@hotmail.com')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        'UserBundle::Email/registration.html.twig',
-                        [
-                            'user' => $user,
-                        ]
-                    ),
-                    'text/html'
-                );
-
-            $this->get('mailer')->send($message);
+            $userManager->registerUser($user);
 
             return $this->render('UserBundle::Account/register-success.html.twig', [
                 'form' => $form->createView(),
@@ -123,9 +93,10 @@ class AccountController extends Controller
      *
      * @param Request $request
      * @param User|UserInterface $user
+     * @param UserManager $userManager
      * @return RedirectResponse|Response
      */
-    public function editAccountAction(Request $request, UserInterface $user)
+    public function editAccountAction(Request $request, UserInterface $user, UserManager $userManager)
     {
         if ($user->getAddress() === null) {
             $address = new Address;
@@ -134,23 +105,14 @@ class AccountController extends Controller
             $user->getAddresses()->add($address);
         }
 
-        $form = $this->createForm('UserBundle\Form\AccountType', $user);
+        $form = $this->createForm(AccountType::class, $user);
 
-        $originalPassword = $user->getPassword();
+        $user->setOriginalPassword($user->getPassword());
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (empty($user->getPassword())) {
-                $user->setPassword($originalPassword);
-            } else {
-                $encoder = $this->container->get('security.password_encoder');
-                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $userManager->updateUser($user);
 
             return $this->redirectToRoute('account');
         }
@@ -192,27 +154,14 @@ class AccountController extends Controller
      * @Route("/activate/{confirmUserToken}", name="activate")
      * @ParamConverter("user", options={"mapping": {"confirmUserToken" : "confirmUserToken"}})
      *
-     * @param Request $request
      * @param User $user
+     * @param UserManager $userManager
      * @return RedirectResponse
+     * @throws \InvalidArgumentException
      */
-    public function activateAccountAction(Request $request, User $user)
+    public function activateAccountAction(User $user, UserManager $userManager)
     {
-        $user->setIsActive(true);
-        $user->setConfirmUserToken('');
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-
-        $token = new UsernamePasswordToken($user, $user->getPassword(), 'main', $user->getRoles());
-        $this->get('security.token_storage')->setToken($token);
-        $event = new InteractiveLoginEvent($request, $token);
-        $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
-
-        /** @var Session $session */
-        $session = $request->getSession();
-        $session->getFlashBag()->add('activate_success', $this->get('translator')->trans('USER_ACTIVATE_SUCCESS', [], 'user'));
+        $userManager->activateUser($user);
 
         return $this->redirectToRoute('account');
     }
@@ -221,48 +170,22 @@ class AccountController extends Controller
      * @Route("/recover-password", name="recover_password")
      *
      * @param Request $request
+     * @param UserManager $userManager;
      * @return Response
+     * @throws \OutOfBoundsException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     * @throws InvalidArgumentException
      */
-    public function recoverPasswordAction(Request $request)
+    public function recoverPasswordAction(Request $request, UserManager $userManager)
     {
-        $form = $this->createForm('UserBundle\Form\RecoverPasswordType', []);
+        $form = $this->createForm(RecoverPasswordType::class, []);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $repository = $em->getRepository('UserBundle:User');
-
-            $user = $repository->findUserByEmail($form->get('email')->getData());
-
-            /** @var Session $session */
-            $session = $request->getSession();
-
-            if ($user !== null) {
-                $session->getFlashBag()->add('recover_password_status', ['status' => 'alert-success', 'message' => $this->get('translator')->trans('USER_RECOVER_PASSWORD_EMAIL_SENT', [], 'user')]);
-
-                $user->setRecoverPasswordToken();
-                $em->persist($user);
-                $em->flush();
-
-                $message = new \Swift_Message($this->get('translator')->trans('USER_NEW_PASSWORD_REQUESTED', [], 'user'));
-
-                $message->setFrom('erritsjoerd@hotmail.com')
-                    ->setTo($user->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'UserBundle::Email/recover-password.html.twig',
-                            [
-                                'user' => $user,
-                            ]
-                        ),
-                        'text/html'
-                    );
-
-                $this->get('mailer')->send($message);
-            } else {
-                $session->getFlashBag()->add('recover_password_status', ['status' => 'alert-warning', 'message' => $this->get('translator')->trans('USER_RECOVER_PASSWORD_EMAIL_UNKNOWN', [], 'user')]);
-            }
+            $userManager->recoverPassword($form->get('email')->getData());
         }
 
         return $this->render('UserBundle::Account/recover-password.html.twig', [
@@ -276,26 +199,18 @@ class AccountController extends Controller
      *
      * @param Request $request
      * @param User $user
+     * @param UserManager $userManager
      * @return RedirectResponse|Response
+     * @throws InvalidArgumentException
      */
-    public function setPasswordAction(Request $request, User $user)
+    public function setPasswordAction(Request $request, User $user, UserManager $userManager)
     {
-        $form = $this->createForm('UserBundle\Form\NewPasswordType', $user);
+        $form = $this->createForm(NewPasswordType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRecoverPasswordToken('');
-            $encoder = $this->container->get('security.password_encoder');
-            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            /** @var Session $session */
-            $session = $request->getSession();
-            $session->getFlashBag()->add('recover_password_status', ['status' => 'alert-success', 'message' => $this->get('translator')->trans('COMMON_RECOVER_PASSWORD_SUCCESS', [], 'common')]);
+            $userManager->setNewPassword($user);
 
             return $this->redirectToRoute('login');
         }

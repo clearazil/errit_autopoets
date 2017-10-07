@@ -82,6 +82,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @var string
      */
+    private $originalPassword;
+
+    /**
+     * @var string
+     */
     private $generatedPassword;
     /**
      * @ORM\Column(name="confirm_user_token", type="string", nullable=true)
@@ -248,6 +253,25 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
+     * @param $password
+     * @return $this
+     */
+    public function setOriginalPassword($password)
+    {
+        $this->originalPassword = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOriginalPassword()
+    {
+        return $this->originalPassword;
+    }
+
+    /**
      * @return $this
      */
     public function setGeneratedPassword()
@@ -399,7 +423,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->setUpdatedAt(new \DateTime('now'));
 
-        if ($this->getCreatedAt() == null) {
+        if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new \DateTime('now'));
         }
     }

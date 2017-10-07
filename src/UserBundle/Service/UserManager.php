@@ -2,16 +2,27 @@
 
 namespace UserBundle\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
 use ShoppingBundle\Form\RegisterType;
+use Swift_Mailer;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorInterface;
+use Twig_Environment;
+use UserBundle\Entity\User;
 use UserBundle\Form\LoginType;
 
 class UserManager
@@ -27,7 +38,7 @@ class UserManager
     private $formFactory;
 
     /**
-     * @var null|\Symfony\Component\HttpFoundation\Session\SessionInterface
+     * @var null|SessionInterface|Session
      */
     private $session;
 
@@ -42,18 +53,63 @@ class UserManager
     private $translator;
 
     /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * @var Swift_Mailer
+     */
+    private $mailer;
+
+    /**
+     * @var Twig_Environment
+     */
+    private $twig;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $passwordEncoder;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * UserManager constructor.
      * @param AuthenticationUtils $authUtils
      * @param FormFactoryInterface $formFactory
      * @param RequestStack $requestStack
      * @param TranslatorInterface $translator
+     * @param EntityManagerInterface $entityManager
+     * @param Swift_Mailer $mailer
+     * @param Twig_Environment $twig
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param TokenStorageInterface $tokenStorage
+     * @param EventDispatcherInterface $eventDispatcher
      * @throws BadRequestHttpException
      */
-    public function __construct(AuthenticationUtils $authUtils, FormFactoryInterface $formFactory, RequestStack $requestStack, TranslatorInterface $translator)
+    public function __construct(AuthenticationUtils $authUtils, FormFactoryInterface $formFactory, RequestStack $requestStack,
+                                TranslatorInterface $translator, EntityManagerInterface $entityManager, Swift_Mailer $mailer,
+                                Twig_Environment $twig, UserPasswordEncoderInterface $passwordEncoder, TokenStorageInterface $tokenStorage,
+                                EventDispatcherInterface $eventDispatcher)
     {
         $this->authUtils = $authUtils;
         $this->formFactory = $formFactory;
         $this->translator = $translator;
+        $this->entityManager = $entityManager;
+        $this->mailer = $mailer;
+        $this->twig = $twig;
+        $this->passwordEncoder = $passwordEncoder;
+        $this->tokenStorage = $tokenStorage;
+        $this->eventDispatcher = $eventDispatcher;
 
         $this->request = $requestStack->getCurrentRequest();
 
@@ -108,6 +164,135 @@ class UserManager
         }
 
         return $registerForm;
+    }
+
+    /**
+     * @param User $user
+     * @throws InvalidArgumentException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function registerUser($user)
+    {
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+        $user->setIsActive(false);
+        $user->setConfirmUserToken();
+
+        $this->entityManager->persist($user);
+
+        $address = $user->getAddress();
+
+        //$address->setUser($user);
+        $this->entityManager->persist($address);
+        $this->entityManager->flush();
+
+        $message = new \Swift_Message($this->translator->trans('USER_THANKS_FOR_REGISTERING', [], 'user'));
+
+        $message->setFrom('erritsjoerd@hotmail.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->twig->render(
+                    'UserBundle::Email/registration.html.twig', [
+                        'user' => $user,
+                    ]
+                ),
+                'text/html'
+            );
+
+        $this->mailer->send($message);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function updateUser($user)
+    {
+        if (empty($user->getPassword())) {
+            $user->setPassword($user->getOriginalPassword());
+        } else {
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+        }
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @param User $user
+     * @throws \InvalidArgumentException
+     */
+    public function activateUser($user)
+    {
+        $user->setIsActive(true);
+        $user->setConfirmUserToken('');
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        $token = new UsernamePasswordToken($user, $user->getPassword(), 'main', $user->getRoles());
+        $this->tokenStorage->setToken($token);
+        $event = new InteractiveLoginEvent($this->request, $token);
+        $this->eventDispatcher->dispatch('security.interactive_login', $event);
+
+        $this->session->getFlashBag()->add('activate_success', $this->translator->trans('USER_ACTIVATE_SUCCESS', [], 'user'));
+    }
+
+    /**
+     * @param string $email
+     * @throws InvalidArgumentException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function recoverPassword($email)
+    {
+        $repository = $this->entityManager->getRepository('UserBundle:User');
+
+        $user = $repository->findUserByEmail($email);
+
+        if ($user !== null) {
+            $this->session->getFlashBag()->add(
+                'success', $this->translator->trans('USER_RECOVER_PASSWORD_EMAIL_SENT', [], 'user'));
+
+            $user->setRecoverPasswordToken();
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+
+            $message = new \Swift_Message($this->translator->trans('USER_NEW_PASSWORD_REQUESTED', [], 'user'));
+
+            $message->setFrom('erritsjoerd@hotmail.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->twig->render(
+                        'UserBundle::Email/recover-password.html.twig', [
+                            'user' => $user,
+                        ]
+                    ),
+                    'text/html'
+                );
+
+            $this->mailer->send($message);
+        } else {
+            $this->session->getFlashBag()->add(
+                'error', $this->translator->trans('USER_RECOVER_PASSWORD_EMAIL_UNKNOWN', [], 'user'));
+        }
+    }
+
+    /**
+     * @param User $user
+     * @throws InvalidArgumentException
+     */
+    public function setNewPassword($user)
+    {
+        $user->setRecoverPasswordToken('');
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        $this->session->getFlashBag()->add(
+            'success', $this->translator->trans('USER_RECOVER_PASSWORD_SUCCESS', [], 'user'));
     }
 
     /**
