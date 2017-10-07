@@ -3,6 +3,9 @@
 namespace UserBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Knp\Component\Pager\Pagination\SlidingPagination;
+use Knp\Component\Pager\Paginator;
 use ShoppingBundle\Form\RegisterType;
 use Swift_Mailer;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -83,6 +86,11 @@ class UserManager
     private $eventDispatcher;
 
     /**
+     * @var Paginator
+     */
+    private $paginator;
+
+    /**
      * UserManager constructor.
      * @param AuthenticationUtils $authUtils
      * @param FormFactoryInterface $formFactory
@@ -94,12 +102,13 @@ class UserManager
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param TokenStorageInterface $tokenStorage
      * @param EventDispatcherInterface $eventDispatcher
+     * @param Paginator $paginator
      * @throws BadRequestHttpException
      */
     public function __construct(AuthenticationUtils $authUtils, FormFactoryInterface $formFactory, RequestStack $requestStack,
                                 TranslatorInterface $translator, EntityManagerInterface $entityManager, Swift_Mailer $mailer,
                                 Twig_Environment $twig, UserPasswordEncoderInterface $passwordEncoder, TokenStorageInterface $tokenStorage,
-                                EventDispatcherInterface $eventDispatcher)
+                                EventDispatcherInterface $eventDispatcher, Paginator $paginator)
     {
         $this->authUtils = $authUtils;
         $this->formFactory = $formFactory;
@@ -110,6 +119,7 @@ class UserManager
         $this->passwordEncoder = $passwordEncoder;
         $this->tokenStorage = $tokenStorage;
         $this->eventDispatcher = $eventDispatcher;
+        $this->paginator = $paginator;
 
         $this->request = $requestStack->getCurrentRequest();
 
@@ -183,7 +193,6 @@ class UserManager
 
         $address = $user->getAddress();
 
-        //$address->setUser($user);
         $this->entityManager->persist($address);
         $this->entityManager->flush();
 
@@ -206,12 +215,36 @@ class UserManager
     /**
      * @param User $user
      */
+    public function createUser($user)
+    {
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+
+        $this->entityManager->persist($user);
+
+        foreach ($user->getUserRoles() as $role) {
+            $role->setUser($user);
+            $this->entityManager->persist($role);
+        }
+
+        $this->entityManager->persist($user->getAddress());
+
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @param User $user
+     */
     public function updateUser($user)
     {
         if (empty($user->getPassword())) {
             $user->setPassword($user->getOriginalPassword());
         } else {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+        }
+
+        foreach ($user->getUserRoles() as $role) {
+            $role->setUser($user);
+            $this->entityManager->persist($role);
         }
 
         $this->entityManager->persist($user);
@@ -244,6 +277,7 @@ class UserManager
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @throws NonUniqueResultException
      */
     public function recoverPassword($email)
     {
@@ -293,6 +327,26 @@ class UserManager
 
         $this->session->getFlashBag()->add(
             'success', $this->translator->trans('USER_RECOVER_PASSWORD_SUCCESS', [], 'user'));
+    }
+
+    /**
+     * @return SlidingPagination
+     * @throws \LogicException
+     */
+    public function getPaginatedUsers()
+    {
+        $query = $this->entityManager->getRepository('UserBundle:User')
+            ->usersQuery();
+
+        /** @var SlidingPagination $pagination */
+        $pagination = $this->paginator->paginate(
+            $query, /* query NOT result */
+            $this->request->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/,
+            ['defaultSortFieldName' => 'user.created_at', 'defaultSortDirection' => 'desc']
+        );
+
+        return $pagination;
     }
 
     /**

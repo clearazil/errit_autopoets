@@ -3,6 +3,7 @@
 namespace UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
 /**
@@ -16,6 +17,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     /**
      * @param string $username
      * @return mixed
+     * @throws NonUniqueResultException
      */
     public function loadUserByUsername($username)
     {
@@ -30,6 +32,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     /**
      * @param $email
      * @return mixed
+     * @throws NonUniqueResultException
      */
     public function findUserByEmail($email)
     {
@@ -38,5 +41,14 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
             ->setParameter('email', $email)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @return \Doctrine\ORM\Query
+     */
+    public function usersQuery()
+    {
+        return $this->createQueryBuilder('user')
+            ->getQuery();
     }
 }

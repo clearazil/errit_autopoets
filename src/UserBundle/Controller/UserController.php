@@ -5,11 +5,13 @@ namespace UserBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use UserBundle\Entity\Address;
 use UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use UserBundle\Form\UserType;
+use UserBundle\Service\UserManager;
 
 /**
  * User controller.
@@ -24,22 +26,13 @@ class UserController extends Controller
      * @Route("/", name="backend_user_index")
      * @Method("GET")
      *
-     * @param Request $request
+     * @param UserManager $userManager
      * @return Response
+     * @throws \LogicException
      */
-    public function indexAction(Request $request)
+    public function indexAction(UserManager $userManager)
     {
-        $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT user FROM UserBundle:User user';
-        $query = $em->createQuery($dql);
-
-        $paginator = $this->get('knp_paginator');
-        $users = $paginator->paginate(
-            $query, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            10/*limit per page*/,
-            ['defaultSortFieldName' => 'user.created_at', 'defaultSortDirection' => 'desc']
-        );
+        $users = $userManager->getPaginatedUsers();
 
         $deleteForms = [];
 
@@ -61,9 +54,10 @@ class UserController extends Controller
      * @Method({"GET", "POST"})
      *
      * @param Request $request
+     * @param UserManager $userManager
      * @return RedirectResponse|Response
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, UserManager $userManager)
     {
         $user = new User();
 
@@ -73,25 +67,11 @@ class UserController extends Controller
         $user->getAddresses()->add($address);
         $roleChoices = $user->getRoleChoices();
 
-        $form = $this->createForm('UserBundle\Form\UserType', $user, ['role_choices' => $roleChoices]);
+        $form = $this->createForm(UserType::class, $user, ['role_choices' => $roleChoices]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $encoder = $this->container->get('security.password_encoder');
-            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-
-            foreach ($user->getUserRoles() as $role) {
-                $role->setUser($user);
-                $em->persist($role);
-            }
-
-            $address->setUser($user);
-            $em->persist($address);
-
-            $em->flush();
+            $userManager->createUser($user);
 
             return $this->redirectToRoute('backend_user_show', array('id' => $user->getId()));
         }
@@ -129,41 +109,23 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param User $user
+     * @param UserManager $userManager
      * @return RedirectResponse|Response
      */
-    public function editAction(Request $request, User $user)
+    public function editAction(Request $request, User $user, UserManager $userManager)
     {
         $deleteForm = $this->createDeleteForm($user);
 
-        $address = $user->getAddress();
-
         $roleChoices = $user->getRoleChoices();
 
-        $editForm = $this->createForm('UserBundle\Form\UserType', $user, ['password_required' => false, 'role_choices' => $roleChoices]);
+        $editForm = $this->createForm(UserType::class, $user, ['password_required' => false, 'role_choices' => $roleChoices]);
 
-        $originalPassword = $user->getPassword();
+        $user->setOriginalPassword($user->getPassword());
 
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            if (empty($user->getPassword())) {
-                $user->setPassword($originalPassword);
-            } else {
-                $encoder = $this->container->get('security.password_encoder');
-                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-
-            foreach ($user->getUserRoles() as $role) {
-                $role->setUser($user);
-                $em->persist($role);
-            }
-
-            $address->setUser($user);
-            $em->persist($address);
-            $em->flush();
+            $userManager->updateUser($user);
 
             return $this->redirectToRoute('backend_user_show', array('id' => $user->getId()));
         }
@@ -184,6 +146,8 @@ class UserController extends Controller
      * @param Request $request
      * @param User $user
      * @return RedirectResponse
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public function deleteAction(Request $request, User $user)
     {
@@ -208,10 +172,16 @@ class UserController extends Controller
      */
     private function createDeleteForm(User $user)
     {
-        return $this->createFormBuilder(null, ['attr' => ['class' => 'delete', 'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')]])
+        return $this->createFormBuilder(
+            null,
+            [
+                'attr' => [
+                    'class' => 'delete',
+                    'data-confirm' => $this->get('translator')->trans('COMMON_DELETE_CONFIRM', [], 'common')
+                ]
+            ])
             ->setAction($this->generateUrl('backend_user_delete', ['id' => $user->getId()]))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
