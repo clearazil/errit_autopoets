@@ -2,6 +2,7 @@
 
 namespace UserBundle\Controller;
 
+use Doctrine\ORM\NonUniqueResultException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ShoppingBundle\Entity\PurchaseOrder;
@@ -177,6 +178,7 @@ class AccountController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      * @throws InvalidArgumentException
+     * @throws NonUniqueResultException
      */
     public function recoverPasswordAction(Request $request, UserManager $userManager)
     {
