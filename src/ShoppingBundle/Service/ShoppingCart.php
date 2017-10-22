@@ -15,6 +15,9 @@ class ShoppingCart
      */
     private $shoppingCart;
 
+    const MINIMUM_SUBTOTAL_FOR_FREE_SHIPPING = 25;
+    const SHIPPING_PRICE = 6.95;
+
     public function __construct()
     {
         if ($this->shoppingCart === null) {
@@ -45,8 +48,8 @@ class ShoppingCart
 
         $this->shoppingCart->setShippingCost(0);
 
-        if ($subtotal < 25 && $this->getProductAmount() > 0) {
-            $this->shoppingCart->setShippingCost(6.95);
+        if ($subtotal < self::MINIMUM_SUBTOTAL_FOR_FREE_SHIPPING && $this->getProductAmount() > 0) {
+            $this->shoppingCart->setShippingCost(self::SHIPPING_PRICE);
         }
 
         $totalPrice = $subtotal + $this->shoppingCart->getShippingCost();
