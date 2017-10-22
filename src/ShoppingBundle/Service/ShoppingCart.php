@@ -13,7 +13,7 @@ class ShoppingCart
     /**
      * @var null|CartEntity
      */
-    private $shoppingCart = null;
+    private $shoppingCart;
 
     public function __construct()
     {
@@ -43,10 +43,10 @@ class ShoppingCart
             $subtotal += $product->getTotal();
         }
 
-        $this->shoppingCart->setShippingCost(6.95);
+        $this->shoppingCart->setShippingCost(0);
 
-        if ($subtotal >= 25) {
-            $this->shoppingCart->setShippingCost(0);
+        if ($subtotal < 25 && $this->getProductAmount() > 0) {
+            $this->shoppingCart->setShippingCost(6.95);
         }
 
         $totalPrice = $subtotal + $this->shoppingCart->getShippingCost();
@@ -88,6 +88,8 @@ class ShoppingCart
 
             $this->shoppingCart->addProduct($shoppingCartProduct);
         }
+
+        $this->updateCart();
     }
 
     /**
@@ -108,6 +110,8 @@ class ShoppingCart
                 $this->shoppingCart->removeProduct($shoppingCartProduct);
             }
         }
+
+        $this->updateCart();
     }
 
     /**
@@ -122,6 +126,8 @@ class ShoppingCart
         if ($shoppingCartProduct !== null) {
             $this->shoppingCart->removeProduct($shoppingCartProduct);
         }
+
+        $this->updateCart();
     }
 
     /**
