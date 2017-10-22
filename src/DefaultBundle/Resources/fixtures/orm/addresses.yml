@@ -1,0 +1,11 @@
+UserBundle\Entity\Address:
+    address1:
+        is_billing: 0
+        first_name: <firstName()>
+        last_name: <lastName()>
+        company_name: <company()>
+        address: <streetName()>
+        house_number: <numberBetween(1, 100)>
+        city: <city()>
+        zip_code: <postcode()>
+        phone_number: <phoneNumber()>

@@ -1,0 +1,22 @@
+UserBundle\Entity\User:
+    admin_user:
+        username: 'test'
+        email: 'hallo\@hotmail.com'
+        password: '\$2y\$13\$qnM9mCwsZ2JgOAI.apyERu6cSdw9yBFhDTrUhEgjDf.Bm6AdoITZS'
+        is_active: 1
+    user_without_address:
+        username: 'noaddress'
+        email: 'noaddress\@hotmail.com'
+        password: '\$2y\$13\$qnM9mCwsZ2JgOAI.apyERu6cSdw9yBFhDTrUhEgjDf.Bm6AdoITZS'
+        is_active: 1
+    inactive_user:
+        username: 'inactive'
+        email: 'inactive\@hotmail.com'
+        password: '\$2y\$13\$qnM9mCwsZ2JgOAI.apyERu6cSdw9yBFhDTrUhEgjDf.Bm6AdoITZS'
+        is_active: 0
+    user_with_address:
+        username: 'user_with_address'
+        email: 'hasaddress\@hotmail.com'
+        password: '\$2y\$13\$qnM9mCwsZ2JgOAI.apyERu6cSdw9yBFhDTrUhEgjDf.Bm6AdoITZS'
+        is_active: 1
+        addresses: ['@address1']

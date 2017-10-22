@@ -1,0 +1,7 @@
+ProductBundle\Entity\Product:
+    product_{1..20}:
+        category: '@product_category*'
+        name: <word()>
+        description: <sentences(3, false)>
+        price: <randomFloat(4, 1, 100)>
+        stock: 1

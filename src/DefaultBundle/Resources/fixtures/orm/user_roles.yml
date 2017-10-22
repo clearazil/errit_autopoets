@@ -1,0 +1,4 @@
+UserBundle\Entity\UserRole:
+    admin_user_role:
+        role_id: 1
+        user: '@admin_user'

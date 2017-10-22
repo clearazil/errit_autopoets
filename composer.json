@@ -25,6 +25,8 @@
             "url": "https://github.com/dvanderh/SensioGeneratorBundle"
         }
     ],
+	"minimum-stability": "dev",
+	"prefer-stable": true,
     "require": {
         "php": ">=5.5.9",
         "doctrine/doctrine-bundle": "^1.6",
@@ -48,9 +50,13 @@
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
+        "doctrine/data-fixtures": "^1.2",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "hautelook/alice-bundle": "^2.0@beta",
+        "nelmio/alice": "^3.0@beta",
         "sensio/generator-bundle": "dev-extra_variables",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "theofidry/alice-data-fixtures": "^1.0@beta"
     },
     "scripts": {
         "symfony-scripts": [

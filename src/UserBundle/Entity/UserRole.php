@@ -37,7 +37,7 @@ class UserRole
     const ROLE_ADMIN = 1;
     const ROLE_USER = 2;
 
-    public function __construct($roleId)
+    public function __construct($roleId = self::ROLE_USER)
     {
         $this->setRoleId($roleId);
     }
