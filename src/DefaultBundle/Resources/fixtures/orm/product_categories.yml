@@ -1,4 +1,10 @@
 ProductBundle\Entity\ProductCategory:
-    product_category_{1..3}:
-        name: <word()>
-        slug: <slug()>
+    product_category_1:
+        name: 'product category 1'
+        slug: 'product-category-1'
+    product_category_2:
+        name: 'product category 2'
+        slug: 'product-category-2'
+    product_category_3:
+        name: 'product category 3'
+        slug: 'product-category-3'

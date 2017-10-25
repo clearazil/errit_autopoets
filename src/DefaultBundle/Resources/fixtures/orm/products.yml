@@ -1,7 +1,25 @@
 ProductBundle\Entity\Product:
-    product_{1..20}:
-        category: '@product_category*'
-        name: <word()>
+    product_{1..5}:
+        category: '@product_category_1'
+        name: 'product_with_category_1'
+        description: <sentences(3, false)>
+        price: <randomFloat(4, 1, 100)>
+        stock: 1
+    product_{6..10}:
+        category: '@product_category_2'
+        name: 'product_with_category_2'
+        description: <sentences(3, false)>
+        price: <randomFloat(4, 1, 100)>
+        stock: 1
+    product_{11..15}:
+        category: '@product_category_3'
+        name: 'product_with_category_3'
+        description: <sentences(3, false)>
+        price: <randomFloat(4, 1, 100)>
+        stock: 1
+    product_{16..20}:
+        category: null
+        name: 'product_without_category'
         description: <sentences(3, false)>
         price: <randomFloat(4, 1, 100)>
         stock: 1

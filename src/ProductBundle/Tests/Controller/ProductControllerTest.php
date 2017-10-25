@@ -2,54 +2,96 @@
 
 namespace ProductBundle\Tests\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DomCrawler\Field\ChoiceFormField;
 
 class ProductControllerTest extends WebTestCase
 {
-    /*
-    public function testCompleteScenario()
+    /**
+     * @var Client
+     */
+    private $client;
+
+    /**
+     * @inheritdoc
+     */
+    public function setUp()
     {
-        // Create a new client to browse the application
-        $client = static::createClient();
-
-        // Create a new entry in the database
-        $crawler = $client->request('GET', '/product/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /product/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
-
-        // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'productbundle_product[field_name]'  => 'Test',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check data in the show view
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
-
-        // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
-
-        $form = $crawler->selectButton('Update')->form(array(
-            'productbundle_product[field_name]'  => 'Foo',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
-
-        // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
-        $crawler = $client->followRedirect();
-
-        // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->client = static::createClient();
     }
 
-    */
+    /**
+     * @runInSeparateProcess
+     */
+    public function testProductIndex()
+    {
+        $crawler = $this->client->request('GET', '/products/');
+
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('html:contains("product_with_category_1")')->count()
+        );
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testCategory()
+    {
+        $this->tickCategories(['product-category-2']);
+
+        $this->assertContains('product_with_category_2', $this->client->getResponse()->getContent());
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testProductsWithoutCategory()
+    {
+        $crawler = $this->client->request('GET', '/products/');
+
+        $form = $crawler->filter('form[name=select_categories]')->form();
+
+        $checkbox = $form['select_categories[other]'];
+
+        $checkbox->tick();
+
+        $this->client->submit($form);
+
+        $this->assertContains('product_without_category', $this->client->getResponse()->getContent());
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testMultipleCategory()
+    {
+        $this->tickCategories(['product-category-2', 'product-category-3']);
+
+        $this->assertContains('product_with_category_3', $this->client->getResponse()->getContent());
+    }
+
+    /**
+     * @param array $categoryNames
+     */
+    private function tickCategories($categoryNames)
+    {
+        $crawler = $this->client->request('GET', '/products/');
+
+        $form = $crawler->filter('form[name=select_categories]')->form();
+
+        /** @var ChoiceFormField[] $categories */
+        $categories = $form['select_categories[categories]'];
+
+        foreach ($categories as $checkbox) {
+            $available = $checkbox->availableOptionValues();
+
+            if (in_array(reset($available), $categoryNames, true)) {
+                $checkbox->tick();
+            }
+        }
+
+        $this->client->submit($form);
+    }
 }
