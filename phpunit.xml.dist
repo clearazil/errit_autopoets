@@ -16,6 +16,18 @@
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
         </testsuite>
+        <testsuite name="DefaultBundle Test Suite">
+            <directory>src/DefaultBundle/Tests</directory>
+        </testsuite>
+        <testsuite name="ProductBundle Test Suite">
+            <directory>src/ProductBundle/Tests</directory>
+        </testsuite>
+        <testsuite name="UserBundle Test Suite">
+            <directory>src/UserBundle/Tests</directory>
+        </testsuite>
+        <testsuite name="ShoppingBundle Test Suite">
+            <directory>src/ShoppingBundle/Tests</directory>
+        </testsuite>
     </testsuites>
 
     <filter>

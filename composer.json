@@ -56,7 +56,8 @@
         "nelmio/alice": "^3.0@beta",
         "sensio/generator-bundle": "dev-extra_variables",
         "symfony/phpunit-bridge": "^3.0",
-        "theofidry/alice-data-fixtures": "^1.0@beta"
+        "theofidry/alice-data-fixtures": "^1.0@beta",
+		"phpunit/phpunit" : "^7.0"
     },
     "scripts": {
         "symfony-scripts": [
