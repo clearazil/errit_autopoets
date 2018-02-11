@@ -1,0 +1,10 @@
+# Before script
+before_script:
+    - composer install
+    - php bin/console doctrine:schema:create --env=test --if-not-exists
+    - php bin/console doctrine:schema:create --env=test
+    - php bin/console hautelook:fixtures:load --env=test
+
+test:app:
+    script:
+    - vendor/bin/phpunit --debug

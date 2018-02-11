@@ -27,8 +27,6 @@ class AccountControllerTest extends WebTestCase
 
         $this->assertContains('Gegevens', $this->client->getResponse()->getContent());
 
-        //$this->client->followRedirect();
-
         $link = $this->client->getCrawler()->filter(' a:contains("Bestellingen")')
             ->eq(0)
             ->link();
