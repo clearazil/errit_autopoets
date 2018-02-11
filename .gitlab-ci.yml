@@ -11,7 +11,6 @@ test:
         - mysql:latest
     script:
         - php bin/console doctrine:schema:create --env=test
-        - php bin/console doctrine:schema:create --env=test
         - php bin/console hautelook:fixtures:load --env=test
         - vendor/bin/phpunit --debug
     variables:
