@@ -1,10 +1,21 @@
+
+stages:
+    - test
+
+test:
+    stage: test
+    image: php:7.1
+    tags:
+        - test
+    services:
+        - mysql
+    script:
+        - php bin/console doctrine:schema:create --env=test --if-not-exists
+        - php bin/console doctrine:schema:create --env=test
+        - php bin/console hautelook:fixtures:load --env=test
+        - vendor/bin/phpunit --debug
+
 # Before script
 before_script:
-    - composer install
-    - php bin/console doctrine:schema:create --env=test --if-not-exists
-    - php bin/console doctrine:schema:create --env=test
-    - php bin/console hautelook:fixtures:load --env=test
+    - composer install --optimize-autoloader
 
-test:app:
-    script:
-    - vendor/bin/phpunit --debug
