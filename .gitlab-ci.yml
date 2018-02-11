@@ -17,5 +17,6 @@ test:
 
 # Before script
 before_script:
+    - bash ci/docker_install.sh > /dev/null
     - composer install --optimize-autoloader
 
