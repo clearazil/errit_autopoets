@@ -8,16 +8,22 @@ test:
     tags:
         - test
     services:
-        - mysql
+        - mysql:latest
     script:
-        - php bin/console doctrine:schema:create --env=test --if-not-exists
+        - php bin/console doctrine:schema:create --env=test
         - php bin/console doctrine:schema:create --env=test
         - php bin/console hautelook:fixtures:load --env=test
         - vendor/bin/phpunit --debug
+    variables:
+        MYSQL_DATABASE: autopoets_test
+        MYSQL_USER: gitlab-ci
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_PASSWORD: secret
 
 # Before script
 before_script:
     - bash ci/docker_install.sh > /dev/null
+    - mv app/config/parameters.gitlab-ci.yml app/config/parameters.yml
     # Install composer dependencies
     - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
