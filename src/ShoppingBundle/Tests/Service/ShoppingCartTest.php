@@ -6,6 +6,8 @@ use PHPUnit\Framework\TestCase;
 use ProductBundle\Entity\Product;
 use ReflectionClass;
 use ShoppingBundle\Service\ShoppingCart;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ShoppingCartTest extends TestCase
 {
@@ -15,21 +17,34 @@ class ShoppingCartTest extends TestCase
     private $id = 1;
 
     /**
-     * @runInSeparateProcess
+     * @return SessionInterface
+     */
+    private function getCartMock()
+    {
+        $session = $this->getMockBuilder(Session::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        return $session;
+    }
+
+    /**
+     * @throws \Exception
      */
     public function testEmptyCart()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $this->assertEquals(0, $shoppingCart->getTotalPrice());
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testAddProductToCart()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $product1 = $this->getProduct(21.95);
 
@@ -39,11 +54,12 @@ class ShoppingCartTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testAddTwoProductsToCart()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $product1 = $this->getProduct(21.95);
         $product2 = $this->getProduct(6);
@@ -55,11 +71,12 @@ class ShoppingCartTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testNotFreeShipping()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $product1 = $this->getProduct(24.99);
 
@@ -69,11 +86,12 @@ class ShoppingCartTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testFreeShipping()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $product1 = $this->getProduct(25);
 
@@ -83,11 +101,12 @@ class ShoppingCartTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testRemove()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $product1 = $this->getProduct(21.95);
         $product2 = $this->getProduct(6);
@@ -103,11 +122,12 @@ class ShoppingCartTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testDecreaseOne()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $product1 = $this->getProduct(21.95);
         $product2 = $this->getProduct(6);
@@ -123,11 +143,12 @@ class ShoppingCartTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testDecreaseAll()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $product1 = $this->getProduct(21.95);
         $product2 = $this->getProduct(6);
@@ -143,11 +164,12 @@ class ShoppingCartTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testTotalVatPrice()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $product1 = $this->getProduct(21.95);
         $product2 = $this->getProduct(6);
@@ -159,11 +181,12 @@ class ShoppingCartTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
+     * @throws \ReflectionException
      */
     public function testPriceExcludingVat()
     {
-        $shoppingCart = new ShoppingCart();
+        $shoppingCart = new ShoppingCart($this->getCartMock());
 
         $product1 = $this->getProduct(21.95);
         $product2 = $this->getProduct(6);
@@ -186,6 +209,7 @@ class ShoppingCartTest extends TestCase
      * Create a new Product with a price and give it an id
      * @param $price
      * @return Product
+     * @throws \ReflectionException
      */
     private function getProduct($price)
     {

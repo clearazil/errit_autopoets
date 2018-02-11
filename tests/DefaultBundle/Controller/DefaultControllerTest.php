@@ -24,7 +24,7 @@ class DefaultControllerTest extends WebTestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
      */
     public function testIndex()
     {

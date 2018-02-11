@@ -24,7 +24,7 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
      */
     public function testIndex()
     {
@@ -34,7 +34,7 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
      */
     public function testLoginForm()
     {
@@ -54,7 +54,7 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
      */
     public function testLogin()
     {

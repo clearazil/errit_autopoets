@@ -22,7 +22,7 @@ class ProductControllerTest extends WebTestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
      */
     public function testProductIndex()
     {
@@ -35,7 +35,7 @@ class ProductControllerTest extends WebTestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
      */
     public function testCategory()
     {
@@ -45,7 +45,7 @@ class ProductControllerTest extends WebTestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
      */
     public function testProductsWithoutCategory()
     {
@@ -63,7 +63,7 @@ class ProductControllerTest extends WebTestCase
     }
 
     /**
-     * @runInSeparateProcess
+     * @throws \Exception
      */
     public function testMultipleCategory()
     {

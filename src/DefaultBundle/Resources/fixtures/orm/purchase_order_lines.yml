@@ -1,0 +1,9 @@
+ShoppingBundle\Entity\PurchaseOrderLine:
+    purchase_order_line_admin_1:
+        purchaseOrder: '@purchase_order_admin_1'
+        product: '@product_1'
+        name: 'test'
+        subtotal: 13
+        price: 14
+        vat: 21
+        amount: 1

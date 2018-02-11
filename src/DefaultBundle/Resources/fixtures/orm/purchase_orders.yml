@@ -1,0 +1,7 @@
+ShoppingBundle\Entity\PurchaseOrder:
+    purchase_order_admin_1:
+        user: '@admin_user'
+        email: 'test@test.nl'
+        status: 0
+        payment_method: 1
+        shipping_costs: 0

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use ProductBundle\Entity\Product;
 use ShoppingBundle\Entity\ShoppingCart as CartEntity;
 use ShoppingBundle\Entity\ShoppingCartProduct;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ShoppingCart
 {
@@ -18,11 +18,9 @@ class ShoppingCart
     const MINIMUM_SUBTOTAL_FOR_FREE_SHIPPING = 25;
     const SHIPPING_PRICE = 6.95;
 
-    public function __construct()
+    public function __construct(SessionInterface $session)
     {
         if ($this->shoppingCart === null) {
-            $session = new Session();
-
             $this->shoppingCart = $session->get('shoppingCart');
 
             if ($this->shoppingCart === null) {
