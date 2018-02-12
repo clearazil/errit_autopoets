@@ -24,7 +24,7 @@ deploy_staging:
     tags:
         - deploy
     stage: deploy
-    image: alpine:3.5
+    image: php:7.1
     script:
         ##
         ## Install ssh-agent if not already installed, it is required by Docker.
