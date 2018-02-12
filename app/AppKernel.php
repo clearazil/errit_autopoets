@@ -10,7 +10,7 @@ class AppKernel extends Kernel
         $bundles = [
             new DefaultBundle\DefaultBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Gregwar\ImageBundle\GregwarImageBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
