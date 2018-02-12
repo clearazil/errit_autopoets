@@ -21,6 +21,8 @@ test:
         MYSQL_PASSWORD: secret
 
 deploy_staging:
+    tags:
+        - deploy
     stage: deploy
     script:
         ##
