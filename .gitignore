@@ -24,5 +24,8 @@ phpunit.phar
 .idea/**/tasks.xml
 .idea/dictionaries
 
+# deployer
+deployer-config.php
+
 # backups
 *~

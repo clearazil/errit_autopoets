@@ -73,6 +73,14 @@ deploy_staging:
         - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
 
+        ## add the host to known hosts
+        - ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+        ## Install deployer
+        - curl -LO https://deployer.org/deployer.phar
+        ## Deploy to staging
+        - deployer.phar deploy staging
+
         - echo "Deploy to staging server"
     environment:
         name: staging
