@@ -79,7 +79,7 @@ deploy_staging:
         ## Install deployer
         - curl -LO https://deployer.org/deployer.phar
         ## Deploy to staging
-        - deployer.phar deploy staging
+        - php deployer.phar deploy staging
 
         - echo "Deploy to staging server"
     environment:
