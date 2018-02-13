@@ -11,6 +11,14 @@ test:
     services:
         - mysql:latest
     script:
+        - mv app/config/parameters.gitlab-ci.yml app/config/parameters.yml
+        # Install composer dependencies
+        - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
+        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+        - php composer-setup.php
+        - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+        - php composer.phar install --optimize-autoloader
         - php bin/console doctrine:schema:create --env=test
         - php bin/console hautelook:fixtures:load --env=test
         - vendor/bin/phpunit --debug
@@ -75,12 +83,5 @@ deploy_staging:
 # Before script
 before_script:
     - bash ci/docker_install.sh > /dev/null
-    - mv app/config/parameters.gitlab-ci.yml app/config/parameters.yml
-    # Install composer dependencies
-    - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
-    - php composer.phar install --optimize-autoloader
+
 
