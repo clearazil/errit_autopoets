@@ -11,4 +11,4 @@ apt-get install git zlib1g-dev libmcrypt-dev libcurl4-gnutls-dev libicu-dev libp
 
 # Install mysql driver
 # Here you can install any other extension that you need
-docker-php-ext-install mcrypt pdo_mysql intl gd zip bz2 opcache
+docker-php-ext-install mbstring mcrypt pdo pdo_mysql curl json intl gd xml zip bz2 opcache

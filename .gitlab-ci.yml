@@ -11,6 +11,7 @@ test:
     services:
         - mysql:latest
     script:
+        - bash ci/test/docker_install.sh > /dev/null
         - mv app/config/parameters.gitlab-ci.yml app/config/parameters.yml
         # Install composer dependencies
         - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
@@ -34,6 +35,7 @@ deploy_staging:
     stage: deploy
     image: php:7.1
     script:
+        - bash ci/deploy/docker_install.sh > /dev/null
         ##
         ## Install ssh-agent if not already installed, it is required by Docker.
         ## (change apt-get to yum if you use an RPM-based image)
@@ -90,6 +92,5 @@ deploy_staging:
 
 # Before script
 before_script:
-    - bash ci/docker_install.sh > /dev/null
 
 
