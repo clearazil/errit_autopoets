@@ -9,3 +9,13 @@ UserBundle\Entity\Address:
         city: <city()>
         zip_code: <postcode()>
         phone_number: <phoneNumber()>
+    address2:
+        is_billing: 0
+        first_name: 'Dot'
+        last_name: 'Com'
+        company_name: <company()>
+        address: <streetName()>
+        house_number: <numberBetween(1, 100)>
+        city: <city()>
+        zip_code: <postcode()>
+        phone_number: <phoneNumber()>

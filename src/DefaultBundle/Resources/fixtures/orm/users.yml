@@ -19,4 +19,4 @@ UserBundle\Entity\User:
         email: 'hasaddress\@hotmail.com'
         password: '\$2y\$13\$qnM9mCwsZ2JgOAI.apyERu6cSdw9yBFhDTrUhEgjDf.Bm6AdoITZS'
         is_active: 1
-        addresses: ['@address1']
+        addresses: ['@address2']

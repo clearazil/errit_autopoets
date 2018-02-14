@@ -247,6 +247,9 @@ class UserManager
             $this->entityManager->persist($role);
         }
 
+        if ($user->getAddress() !== null) {
+            $this->entityManager->persist($user->getAddress());
+        }
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
