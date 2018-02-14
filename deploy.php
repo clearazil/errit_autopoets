@@ -14,6 +14,7 @@ set('bin/console', '{{release_path}}/bin/console');
 
 // Project repository
 set('repository', getenv('REPOSITORY_URL'));
+set('branch' , 'development');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', false);
