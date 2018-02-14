@@ -66,11 +66,20 @@ task('create_parameters', function () use ($parameters) {
     }
 });
 
+// set permissions on the var folder
+task('set_file_permissions', function () {
+    run('HTTPDUSER=$(ps axo user,comm | grep -E \'[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx\' | grep -v root | head -1 | cut -d\  -f1)');
+    run('setfacl -dR -m u:"$HTTPDUSER":rwX -m u:$(whoami):rwX {{release_path}}/var');
+    run('setfacl -R -m u:"$HTTPDUSER":rwX -m u:$(whoami):rwX {{release_path}}/var');
+});
+
 before('deploy:vendors', 'create_parameters');
 
 task('build', function () {
     run('cd {{release_path}} && build');
 });
+
+after('deploy:symlink', 'set_file_permissions');
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
