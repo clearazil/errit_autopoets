@@ -19,6 +19,9 @@ set('branch' , 'development');
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', false);
 
+// dump assetic assets
+set('dump_assets', true);
+
 // Shared files/dirs between deploys
 add('shared_files', []);
 add('shared_dirs', []);
