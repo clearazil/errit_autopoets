@@ -5,7 +5,7 @@ stages:
 
 test:
     stage: test
-    image: ci-php7.2:latest
+    image: dvanderh/php7.2-ci:latest
     tags:
         - test
     services:
@@ -33,7 +33,7 @@ deploy_staging:
     tags:
         - deploy
     stage: deploy
-    image: ci-php7.2:latest
+    image: dvanderh/php7.2-ci:latest
     script:
         - bash ci/deploy/docker_install.sh > /dev/null
         ##
