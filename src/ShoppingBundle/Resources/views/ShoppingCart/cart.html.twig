@@ -52,9 +52,9 @@
                                                         <div class="product-quantity">
                                                             <div class="cart-quantity">
                                                                 <div class="cart-plus-minus">
-                                                                     <a href="{{ path('cart_decrease', { 'id': product.productId, 'amount': 1 }) }}"><div class="deco qtybutton">-</div></a>
+                                                                     <a href="{{ path('cart_decrease', { 'id': product.productId, 'amount': 1 }) }}" class="cart-decrease"><div class="deco qtybutton">-</div></a>
                                                                     <input type="text" value="{{ product.amount }}" name="qtybutton" class="cart-plus-minus-box">
-                                                                    <a href="{{ path('cart_add', { 'id': product.productId, 'amount': 1 }) }}"><div class="inco qtybutton">+</div></a>
+                                                                    <a href="{{ path('cart_add', { 'id': product.productId, 'amount': 1 }) }}" class="cart-increase"><div class="inco qtybutton">+</div></a>
                                                                 </div>
                                                             </div>
                                                         </div>
