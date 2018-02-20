@@ -5,6 +5,7 @@ namespace ShoppingBundle\Tests\Controller;
 use ShoppingBundle\Entity\PurchaseOrder;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use UserBundle\Entity\User;
 
 class ShoppingCartControllerTest extends WebTestCase
 {
@@ -75,22 +76,133 @@ class ShoppingCartControllerTest extends WebTestCase
             ->eq(0)
             ->link();
 
+        $client->click($link);
+
+        $this->checkoutOrder($client);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testCheckoutExistingCustomer(): void
+    {
+        $client = $this->placeProductsInCart(2);
+        $crawler = $client->getCrawler();
+
+        $link = $crawler
+            ->filter('a:contains("Naar bestellen")')
+            ->eq(0)
+            ->link();
+
         $crawler = $client->click($link);
 
+        $form = $crawler->filter('form[name=login]')->form();
+        $form['login[username]'] = 'user_with_address';
+        $form['login[password]'] = 'test';
+
+        $client->submit($form);
+
+        $this->checkoutOrder($client);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testCheckoutWithNewAccount(): void
+    {
+        $this->checkoutAsNewUser(true, 'newaccount@newuser.nl');
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testCheckoutWithoutNewAccount(): void
+    {
+        $this->checkoutAsNewUser(false, 'noaccount@newuser.nl');
+    }
+
+    /**
+     * @param bool $createAccount
+     * @param string $email
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Exception
+     */
+    private function checkoutAsNewUser(bool $createAccount, string $email): void
+    {
+        $client = $this->placeProductsInCart(2);
+        $crawler = $client->getCrawler();
+
+        $link = $crawler
+            ->filter('a:contains("Naar bestellen")')
+            ->eq(0)
+            ->link();
+
+        $crawler = $client->click($link);
+
+        $form = $crawler->filter('form[name=register]')->form();
+        $form['register[email]'] = $email;
+
+        if ($createAccount) {
+            $form['register[create_account]']->tick();
+        }
+
+        $client->submit($form);
+
+        $this->checkoutOrder($client, [
+            'address[firstName]' => 'Name',
+            'address[lastName]' => 'LastName',
+            'address[address]' => 'Address',
+            'address[houseNumber]' => '30',
+            'address[city]' => 'City',
+            'address[phoneNumber]' => '0599-332211',
+            'address[zipCode]' => '9592RR',
+        ]);
+
+        $em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+        $repository = $em->getRepository(User::class);
+        $user = $repository->findUserByEmail($email);
+
+        if ($createAccount) {
+            $this->assertNotNull($user);
+        } else {
+            $this->assertNull($user);
+        }
+    }
+
+    /**
+     * @param Client $client
+     * @param array $address
+     * @return Client
+     * @throws \Exception
+     */
+    private function checkoutOrder(Client $client, array $address = []): Client
+    {
         $this->assertContains('Jouw bestelling', $client->getResponse()->getContent());
 
-        // address is already filled in because we are logged in (and have an address)
+        $crawler = $client->getCrawler();
+
         $form = $crawler->filter('form[name=address]')->form();
+
+        // set address fields
+        foreach ($address as $key => $addressInput) {
+            $form[$key] = $addressInput;
+        }
+
         $crawler = $client->submit($form);
 
         // select a payment method (bank transfer)
         $form = $crawler->filter('form[name=payment]')->form();
+
         $form['payment[payment]'] = PurchaseOrder::PAYMENT_METHOD_BANK_TRANSFER;
 
         $client->submit($form);
 
         // success!
         $this->assertContains('Overmaken op rekening', $client->getResponse()->getContent());
+
+        return $client;
     }
 
     /**
@@ -115,6 +227,7 @@ class ShoppingCartControllerTest extends WebTestCase
                 'PHP_AUTH_PW' => 'test',
             ));
         }
+
         $client->followRedirects();
 
         $crawler = $client->getCrawler();
@@ -136,13 +249,4 @@ class ShoppingCartControllerTest extends WebTestCase
     }
 
     // TODO test back button
-
-    // TODO test checkout logged in
-
-    // TODO test checkout logged out
-    // - checkout and login
-    // - checkout as new customer without creating account
-    // - checkout as new customer and create account
-
-    // confirm account created / not created
 }
