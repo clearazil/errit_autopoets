@@ -8,6 +8,26 @@
     </li>
 {%- endblock checkbox_widget -%}
 
+{%- block choice_widget_collapsed -%}
+    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
+        {% set required = false %}
+    {%- endif -%}
+    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+        {%- if placeholder is not none -%}
+            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+        {%- endif -%}
+        {%- if preferred_choices|length > 0 -%}
+            {% set options = preferred_choices %}
+            {{- block('choice_widget_options') -}}
+            {%- if choices|length > 0 and separator is not none -%}
+                <option disabled="disabled">{{ separator }}</option>
+            {%- endif -%}
+        {%- endif -%}
+        {%- set options = choices -%}
+        {{- block('choice_widget_options') -}}
+    </select>
+{%- endblock choice_widget_collapsed -%}
+
 
 {% block body %}
     {% trans_default_domain "product" %}
@@ -30,45 +50,24 @@
     <div class="shop-area">
         <div class="container">
             <div class="row">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'categories-form'}}) }}
+                {% form_theme form _self %}
                 <div class="col-md-3 col-sm-4 col-xs-12">
                     <div class="categoryies-option">
-                        {% form_theme form _self %}
+
 
                         <h4>{{ 'PRODUCTCATEGORY_PRODUCTCATEGORIES'|trans({}, "product_category")|upper }}</h4>
                         <ul>
-                            {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'categories-form'}}) }}
-                            {{ form_end(form) }}
+                            {{ form_row(form.categories) }}
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-9 col-sm-8 col-xs-12">
                     <div class="shop-item-filter">
                         <div class="toolber-form left">
-                           <p class="filter-title">sort by: </p>
+                           <p class="filter-title">{{ 'COMMON_SORT_BY'|trans({}, "common") }}</p>
                             <div class="filter-form">
-                                <form action="#">
-                                    <select>
-                                        <option value="Defauld">Default</option>
-                                        <option value="Newest">Newest items</option>
-                                        <option value="Trending">Trending items</option>
-                                        <option value="Best">Best sellers</option>
-                                        <option value="Price">Price: low to high</option>
-                                        <option value="Price">Price: high to high</option>
-                                    </select>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="toolber-form  middle">
-                           <p class="filter-title">Show: </p>
-                            <div class="filter-form show-form">
-                                <form action="#">
-                                    <select>
-                                        <option value="">12</option>
-                                        <option value="">14</option>
-                                        <option value="">16</option>
-                                        <option value="">18</option>
-                                    </select>
-                                </form>
+                                {{ form_widget(form.sort) }}
                             </div>
                         </div>
                         <!--tab-list start-->
@@ -162,6 +161,7 @@
 
                     {{ knp_pagination_render(pagination) }}
                 </div>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>

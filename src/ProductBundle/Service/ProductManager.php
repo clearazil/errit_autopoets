@@ -3,16 +3,16 @@
 namespace ProductBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMInvalidArgumentException;
 use Gregwar\ImageBundle\Services\ImageHandling;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Paginator;
 use ProductBundle\Entity\Product;
 use ProductBundle\Entity\ProductImage;
+use ProductBundle\Form\ProductFilterType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,7 +70,7 @@ class ProductManager
     }
 
     /**
-     * @param Form $form
+     * @param FormInterface $form
      * @param Request $request
      * @return SlidingPagination
      * @throws \LogicException
@@ -86,7 +86,11 @@ class ProductManager
             }
 
             $query = $this->em->getRepository('ProductBundle:Product')
-                ->categoriesWithProducts($form->get('categories')->getData(), $productsWithoutCategory);
+                ->filteredProducts(
+                    $form->get('categories')->getData(),
+                    $form->get('sort')->getData(),
+                    $productsWithoutCategory
+                );
         } else {
             $query = $this->em->getRepository('ProductBundle:Product')
                 ->productsQuery();
@@ -130,9 +134,9 @@ class ProductManager
      * @param Product $product
      * @param $imagesDirectory
      * @return mixed
-     * @throws OptimisticLockException
      * @throws ORMInvalidArgumentException
      * @throws FileException
+     * @throws \Exception
      */
     public function createProductImage($image, $product, $imagesDirectory)
     {
@@ -169,14 +173,27 @@ class ProductManager
         return $product;
     }
 
-    public function getCategoriesTypeFormOptions()
+    /**
+     * @return array
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws InvalidArgumentException
+     */
+    public function getProductFilterOptions(): array
     {
         $productNoCategoryCount = $this->em->getRepository('ProductBundle:Product')
             ->productsWithoutCategoryCount();
 
+        $sortOptions = [
+            'FILTER_DEFAULT' => ProductFilterType::SORT_DEFAULT,
+            'FILTER_PRICE_LOW_TO_HIGH' => ProductFilterType::SORT_PRICE_LOW_TO_HIGH,
+            'FILTER_PRICE_HIGH_TO_LOW' => ProductFilterType::SORT_PRICE_HIGH_TO_LOW,
+        ];
+
         return [
             'products_count_without_categories' => $productNoCategoryCount,
-            'other_label' => $this->translator->trans('PRODUCTCATEGORY_OTHER', [], 'product_category')
+            'other_label' => $this->translator->trans('PRODUCTCATEGORY_OTHER', [], 'product_category'),
+            'sort_options' => $sortOptions,
         ];
     }
 

@@ -3,13 +3,14 @@
 namespace ProductBundle\Controller;
 
 use ProductBundle\Entity\Product;
+use ProductBundle\Form\ProductFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ProductBundle\Service\ProductManager;
-use ProductBundle\Form\SelectCategoriesType;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 
 /**
  * Product controller.
@@ -29,13 +30,16 @@ class ProductController extends Controller
      * @return Response
      * @throws \LogicException
      * @throws \OutOfBoundsException
+     * @throws InvalidArgumentException
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function indexAction(Request $request, ProductManager $productManager)
+    public function indexAction(Request $request, ProductManager $productManager): Response
     {
         $form = $this->createForm(
-            SelectCategoriesType::class,
+            ProductFilterType::class,
             null,
-            $productManager->getCategoriesTypeFormOptions()
+            $productManager->getProductFilterOptions()
         );
 
         $form->handleRequest($request);
@@ -55,7 +59,7 @@ class ProductController extends Controller
      * @param Product $product
      * @return Response
      */
-    public function showAction(Product $product)
+    public function showAction(Product $product): Response
     {
         return $this->render('ProductBundle:Product:show.html.twig', [
             'product' => $product,

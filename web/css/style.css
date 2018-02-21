@@ -1347,7 +1347,6 @@ span.new {
   display: inline-block;
   font-size: 16px;
   margin: 0 14px 0 0;
-  text-transform: capitalize;
 }
 .filter-form {
     display: inline-block;
@@ -1363,7 +1362,7 @@ span.new {
   margin-left: 0;
   padding: 0 20px;
   text-transform: capitalize;
-  width: 176px;
+  width: 200px;
 }
 .filter-form.show-form select {
   width: 100px;

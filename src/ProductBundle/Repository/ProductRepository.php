@@ -4,8 +4,9 @@ namespace ProductBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use ProductBundle\Entity\ProductCategory;
+use ProductBundle\Form\ProductFilterType;
 
 /**
  * ProductRepository
@@ -17,17 +18,16 @@ class ProductRepository extends EntityRepository
 {
     /**
      * @return int
-     * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function productsWithoutCategoryCount()
+    public function productsWithoutCategoryCount(): int
     {
         $query = $this->createQueryBuilder('product')
             ->select('count(product.id)')
             ->where('product.category is NULL')
             ->getQuery();
 
-        return (int)$query->getSingleScalarResult();
+        return $query->getSingleScalarResult();
     }
 
     /**
@@ -42,10 +42,9 @@ class ProductRepository extends EntityRepository
     /**
      * @param $amount
      * @return \Doctrine\ORM\Query
-     * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function randomProductsQuery($amount)
+    public function randomProductsQuery($amount): Query
     {
         //Get the number of products
         $rows = (int)$this->createQueryBuilder('product')
@@ -65,10 +64,11 @@ class ProductRepository extends EntityRepository
 
     /**
      * @param ProductCategory[] $categories
+     * @param int $sort
      * @param bool $other
      * @return \Doctrine\ORM\Query
      */
-    public function categoriesWithProducts($categories, $other = false)
+    public function filteredProducts($categories, int $sort, $other = false): Query
     {
         $query = $this->createQueryBuilder('product')->leftJoin('product.category', 'category');
 
@@ -81,6 +81,15 @@ class ProductRepository extends EntityRepository
 
         if ($other) {
             $query->orWhere('product.category IS NULL');
+        }
+
+
+        if ($sort === ProductFilterType::SORT_PRICE_LOW_TO_HIGH) {
+            $query->orderBy('product.price', 'ASC');
+        }
+
+        if ($sort === ProductFilterType::SORT_PRICE_HIGH_TO_LOW) {
+            $query->orderBy('product.price', 'DESC');
         }
 
         return $query->getQuery();

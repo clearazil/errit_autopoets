@@ -95,6 +95,22 @@
                 <source>COMMON_SINCERELY</source>
                 <target>Met vriendelijke groet</target>
             </trans-unit>
+            <trans-unit id="common_sort_by">
+                <source>COMMON_SORT_BY</source>
+                <target>Sorteer op</target>
+            </trans-unit>
+            <trans-unit id="filter_default">
+            <source>FILTER_DEFAULT</source>
+                <target>Standaard</target>
+                </trans-unit>
+            <trans-unit id="filter_price_low_to_high">
+                <source>FILTER_PRICE_LOW_TO_HIGH</source>
+                <target>Prijs laag tot hoog</target>
+            </trans-unit>
+            <trans-unit id="filter_price_high_to_low">
+                <source>FILTER_PRICE_HIGH_TO_LOW</source>
+                <target>Prijs hoog tot laag</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

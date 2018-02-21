@@ -262,7 +262,7 @@
      */
     var submitForm;
 
-    $(document).on('change', '.categories-select', function() {
+    $(document).on('change', '.product-filter', function() {
         clearTimeout(submitForm);
 
         submitForm = setTimeout(function() {

@@ -51,9 +51,9 @@ class ProductControllerTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/products/');
 
-        $form = $crawler->filter('form[name=select_categories]')->form();
+        $form = $crawler->filter('form[name=product_filter]')->form();
 
-        $checkbox = $form['select_categories[other]'];
+        $checkbox = $form['product_filter[other]'];
 
         $checkbox->tick();
 
@@ -79,10 +79,10 @@ class ProductControllerTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/products/');
 
-        $form = $crawler->filter('form[name=select_categories]')->form();
+        $form = $crawler->filter('form[name=product_filter]')->form();
 
         /** @var ChoiceFormField[] $categories */
-        $categories = $form['select_categories[categories]'];
+        $categories = $form['product_filter[categories]'];
 
         foreach ($categories as $checkbox) {
             $available = $checkbox->availableOptionValues();
