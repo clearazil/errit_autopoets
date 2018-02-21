@@ -36,7 +36,7 @@
         "friendsofsymfony/jsrouting-bundle": "^1.6",
         "gregwar/image-bundle": "^2.1",
         "incenteev/composer-parameter-handler": "^2.0",
-        "ircmaxell/random-lib": "^1.2",
+        "paragonie/random-lib": "^2.0",
         "knplabs/knp-paginator-bundle": "^2.6",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
