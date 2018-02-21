@@ -2735,6 +2735,10 @@ input#rememberme {
 
 .btn-primary {
     background-color: #008dc7;
+	border-radius: 25px;
+	font-weight: 900;
+	padding: 8px 28px;
+	font-size: 16px;
 }
 
 /** Modal */
