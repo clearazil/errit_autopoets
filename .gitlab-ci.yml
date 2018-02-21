@@ -21,7 +21,7 @@ test:
         - php composer.phar install --optimize-autoloader
         - php bin/console doctrine:schema:create --env=test
         - php bin/console hautelook:fixtures:load --env=test
-        - vendor/bin/phpunit --debug
+        - vendor/bin/phpunit --debug --process-isolation
     variables:
         MYSQL_DATABASE: autopoets_test
         MYSQL_USER: gitlab-ci
