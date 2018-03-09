@@ -150,4 +150,4 @@ stof_doctrine_extensions:
         default:
             sluggable: true
 fos_js_routing:
-    routes_to_expose: [cart_index, cart_add, cart_remove]
+    routes_to_expose: [cart_index, cart_add, cart_remove, product_switch_view]

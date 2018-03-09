@@ -4,13 +4,13 @@ namespace ProductBundle\Controller;
 
 use ProductBundle\Entity\Product;
 use ProductBundle\Form\ProductFilterType;
+use ProductBundle\Service\ProductManager;
+use ProductBundle\Service\SelectedProductView;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use ProductBundle\Service\ProductManager;
-use Symfony\Component\Translation\Exception\InvalidArgumentException;
 
 /**
  * Product controller.
@@ -28,11 +28,6 @@ class ProductController extends Controller
      * @param Request $request
      * @param ProductManager $productManager
      * @return Response
-     * @throws \LogicException
-     * @throws \OutOfBoundsException
-     * @throws InvalidArgumentException
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function indexAction(Request $request, ProductManager $productManager): Response
     {
@@ -45,6 +40,7 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         return $this->render('ProductBundle:Product:index.html.twig', array(
+            'selectedProductView' => SelectedProductView::getInstance($request->getSession()),
             'pagination' => $productManager->getPaginatedFrontendProducts($form, $request),
             'form' => $form->createView(),
         ));
@@ -64,5 +60,32 @@ class ProductController extends Controller
         return $this->render('ProductBundle:Product:show.html.twig', [
             'product' => $product,
         ]);
+    }
+
+    /**
+     * Finds and displays a product entity.
+     *
+     * @Route("/ajax/switch-view/{view}", name="product_switch_view")
+     * @Method("GET")
+     *
+     * @param string $view
+     * @param Request $request
+     * @param
+     * @return Response
+     */
+    public function switchViewAction(string $view, Request $request): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $selectedProductView = SelectedProductView::getInstance($request->getSession());
+            if ($view === 'grid') {
+                $selectedProductView->selectGridView();
+            }
+
+            if ($view === 'list') {
+                $selectedProductView->selectListView();
+            }
+        }
+
+        return new Response();
     }
 }

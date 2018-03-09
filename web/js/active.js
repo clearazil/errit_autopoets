@@ -409,3 +409,16 @@
     }
 
 
+    $('body').on('click', 'a[href="#grid-view"]', function () {
+		$.ajax({
+			url: Routing.generate('product_switch_view', {'view': 'grid'})
+		});
+
+	});
+
+	$('body').on('click', 'a[href="#list-view"]', function () {
+		$.ajax({
+			url: Routing.generate('product_switch_view', {'view': 'list'})
+		});
+
+	});
